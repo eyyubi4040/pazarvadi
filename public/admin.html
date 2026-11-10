@@ -1,0 +1,821 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <base href="/">
+  <title>Pazurka - Yönetim Paneli</title>
+  <link rel="icon" type="image/png" href="images/favicon.png">
+  <link rel="apple-touch-icon" href="images/favicon.png">
+  <link rel="shortcut icon" href="favicon.ico">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: { DEFAULT: '#FD4800', hover: '#E03E00', light: '#FFF2EB', dark: '#0F1114' }
+          }
+        }
+      }
+    }
+  </script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body class="bg-slate-100 text-slate-900 flex flex-col min-h-screen">
+
+  <!-- ADMIN NAVBAR -->
+  <header class="bg-brand-dark text-white border-b border-white/10 sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <div class="flex items-center gap-4">
+          <a href="/admin" class="flex items-center gap-2">
+            <img 
+              src="images/pazurkalogo.png" 
+              onerror="this.onerror=null; this.src='pazurkalogo.png';" 
+              alt="Pazurka Logo" 
+              class="h-8 w-auto brightness-0 invert"
+            >
+            <span class="px-2 py-0.5 rounded-md bg-orange-500/20 text-orange-400 text-[10px] font-extrabold uppercase tracking-wider border border-orange-500/30">Admin Panel</span>
+          </a>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <a href="/" class="px-3 py-1.5 bg-white/10 hover:bg-white/20 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition">
+            <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+            <span>Mağazayı Gör</span>
+          </a>
+          <button onclick="Pazurka.logout()" class="p-2 rounded-xl text-slate-400 hover:text-rose-400 transition" title="Çıkış Yap">
+            <i data-lucide="log-out" class="w-4 h-4"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- NAVIGATION TABS -->
+  <div class="bg-white border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center gap-8 overflow-x-auto text-xs font-bold text-slate-600">
+      <button onclick="switchAdminTab('overview')" id="adm-tab-overview" class="py-3.5 border-b-2 border-brand text-brand flex items-center gap-2">
+        <i data-lucide="layout-dashboard" class="w-4 h-4"></i> Genel Bakış
+      </button>
+      <button onclick="switchAdminTab('products')" id="adm-tab-products" class="py-3.5 border-b-2 border-transparent text-slate-600 hover:text-slate-900 flex items-center gap-2">
+        <i data-lucide="package" class="w-4 h-4"></i> Ürün Yönetimi
+      </button>
+      <button onclick="switchAdminTab('orders')" id="adm-tab-orders" class="py-3.5 border-b-2 border-transparent text-slate-600 hover:text-slate-900 flex items-center gap-2">
+        <i data-lucide="shopping-cart" class="w-4 h-4"></i> Siparişler
+      </button>
+      <button onclick="switchAdminTab('coupons')" id="adm-tab-coupons" class="py-3.5 border-b-2 border-transparent text-slate-600 hover:text-slate-900 flex items-center gap-2">
+        <i data-lucide="tag" class="w-4 h-4"></i> İndirim Kuponları
+      </button>
+    </div>
+  </div>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full space-y-8">
+    
+    <!-- TAB 1: OVERVIEW -->
+    <div id="section-overview" class="space-y-8">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="p-6 bg-white rounded-3xl border border-slate-200/80 shadow-sm">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Toplam Satış</span>
+            <div class="w-10 h-10 rounded-xl bg-orange-50 text-brand flex items-center justify-center">
+              <i data-lucide="coins" class="w-5 h-5"></i>
+            </div>
+          </div>
+          <h3 id="stat-revenue" class="text-2xl font-extrabold text-slate-900">42.850,00 TL</h3>
+          <p class="text-xs text-emerald-600 font-semibold mt-1 flex items-center gap-1">
+            <i data-lucide="trending-up" class="w-3.5 h-3.5"></i> Canlı SQLite Veritabanı
+          </p>
+        </div>
+
+        <div class="p-6 bg-white rounded-3xl border border-slate-200/80 shadow-sm">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Toplam Sipariş</span>
+            <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center">
+              <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+            </div>
+          </div>
+          <h3 id="stat-orders" class="text-2xl font-extrabold text-slate-900">14</h3>
+          <p class="text-xs text-slate-400 mt-1">Son siparişler dahil</p>
+        </div>
+
+        <div class="p-6 bg-white rounded-3xl border border-slate-200/80 shadow-sm">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Katalogdaki Ürün</span>
+            <div class="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center">
+              <i data-lucide="package" class="w-5 h-5"></i>
+            </div>
+          </div>
+          <h3 id="stat-products" class="text-2xl font-extrabold text-slate-900">9</h3>
+          <p class="text-xs text-slate-400 mt-1">Aktif satışta</p>
+        </div>
+
+        <div class="p-6 bg-white rounded-3xl border border-slate-200/80 shadow-sm">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Kritik Stok (&lt;=5)</span>
+            <div class="w-10 h-10 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center">
+              <i data-lucide="alert-triangle" class="w-5 h-5"></i>
+            </div>
+          </div>
+          <h3 id="stat-low-stock" class="text-2xl font-extrabold text-rose-600">0</h3>
+          <p class="text-xs text-slate-400 mt-1">Stok durumu iyi</p>
+        </div>
+      </div>
+
+      <!-- Recent Orders Table -->
+      <div class="bg-white rounded-3xl border border-slate-200/80 shadow-sm overflow-hidden">
+        <div class="p-6 border-b border-slate-100 flex items-center justify-between">
+          <h3 class="font-bold text-slate-900 text-base">Son Gelen Siparişler</h3>
+          <button onclick="switchAdminTab('orders')" class="text-xs font-bold text-brand hover:underline">Tümünü Gör</button>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-xs text-left">
+            <thead class="bg-slate-50 text-slate-400 font-bold uppercase tracking-wider">
+              <tr>
+                <th class="p-4">Sipariş No</th>
+                <th class="p-4">Müşteri</th>
+                <th class="p-4">Tutar</th>
+                <th class="p-4">Durum</th>
+                <th class="p-4">Tarih</th>
+              </tr>
+            </thead>
+            <tbody id="overview-orders-tbody" class="divide-y divide-slate-100">
+              <tr class="hover:bg-slate-50">
+                <td class="p-4 font-mono font-bold text-slate-900">PZR-849201</td>
+                <td class="p-4 font-semibold text-slate-800">Ahmet Yılmaz</td>
+                <td class="p-4 font-extrabold text-slate-900">3.499,00 TL</td>
+                <td class="p-4"><span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-orange-100 text-brand">shipped</span></td>
+                <td class="p-4 text-slate-400">Bugün</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 2: PRODUCTS CRUD -->
+    <div id="section-products" class="hidden space-y-6">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h2 class="text-xl font-bold text-slate-900">Ürün Kataloğu Yönetimi</h2>
+          <p class="text-xs text-slate-500 mt-0.5">Ürünleri ekleyin, stok ve fiyatlarını anında güncelleyin.</p>
+        </div>
+        <button onclick="openNewProductModal()" class="px-5 py-2.5 bg-brand hover:bg-brand-hover text-white text-xs font-bold rounded-xl transition shadow-sm btn-glow flex items-center gap-1.5 self-start sm:self-auto">
+          <i data-lucide="plus" class="w-4 h-4"></i>
+          <span>Yeni Ürün Ekle</span>
+        </button>
+      </div>
+
+      <div class="bg-white rounded-3xl border border-slate-200/80 shadow-sm overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-xs text-left">
+            <thead class="bg-slate-50 text-slate-400 font-bold uppercase tracking-wider">
+              <tr>
+                <th class="p-4">Ürün</th>
+                <th class="p-4">Kategori</th>
+                <th class="p-4">Fiyat</th>
+                <th class="p-4">Stok</th>
+                <th class="p-4">Rozet</th>
+                <th class="p-4 text-right">İşlemler</th>
+              </tr>
+            </thead>
+            <tbody id="admin-products-tbody" class="divide-y divide-slate-100"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 3: ORDERS MANAGEMENT -->
+    <div id="section-orders" class="hidden space-y-6">
+      <h2 class="text-xl font-bold text-slate-900">Gelen Siparişler</h2>
+      <div class="bg-white rounded-3xl border border-slate-200/80 shadow-sm overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-xs text-left">
+            <thead class="bg-slate-50 text-slate-400 font-bold uppercase tracking-wider">
+              <tr>
+                <th class="p-4">Sipariş No</th>
+                <th class="p-4">Müşteri</th>
+                <th class="p-4">İl / Şehir</th>
+                <th class="p-4">Tutar</th>
+                <th class="p-4">Kargo Takip</th>
+                <th class="p-4">Durum</th>
+                <th class="p-4 text-right">Güncelle</th>
+              </tr>
+            </thead>
+            <tbody id="admin-orders-tbody" class="divide-y divide-slate-100"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 4: COUPONS -->
+    <div id="section-coupons" class="hidden space-y-6">
+      <div class="flex items-center justify-between">
+        <h2 class="text-xl font-bold text-slate-900">İndirim Kuponları</h2>
+        <button onclick="document.getElementById('coupon-modal').classList.remove('hidden')" class="px-5 py-2.5 bg-brand hover:bg-brand-hover text-white text-xs font-bold rounded-xl transition shadow-sm flex items-center gap-1.5">
+          <i data-lucide="plus" class="w-4 h-4"></i>
+          <span>Yeni Kupon Tanımla</span>
+        </button>
+      </div>
+
+      <div class="bg-white rounded-3xl border border-slate-200/80 shadow-sm overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-xs text-left">
+            <thead class="bg-slate-50 text-slate-400 font-bold uppercase tracking-wider">
+              <tr>
+                <th class="p-4">Kupon Kodu</th>
+                <th class="p-4">Tür</th>
+                <th class="p-4">İndirim Değeri</th>
+                <th class="p-4">Min. Sepet Tutarı</th>
+                <th class="p-4">Kullanım Sayısı</th>
+              </tr>
+            </thead>
+            <tbody id="admin-coupons-tbody" class="divide-y divide-slate-100"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- NEW PRODUCT MODAL -->
+  <div id="product-modal" class="fixed inset-0 bg-slate-950/70 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-2xl w-full p-6 sm:p-8 space-y-6 shadow-2xl max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+        <h3 class="font-bold text-slate-900 text-lg">Yeni Ürün Ekle</h3>
+        <button onclick="document.getElementById('product-modal').classList.add('hidden'); clearProductImage();" class="text-slate-400 hover:text-slate-700">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <form id="new-product-form" onsubmit="saveNewProduct(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Ürün Adı *</label>
+          <input type="text" id="np-name" required placeholder="Örnek: Pazurka Pro Akıllı Bileklik" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-brand">
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Kategori *</label>
+            <select id="np-category" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold focus:outline-none focus:border-brand">
+              <option value="1">Elektronik & Teknoloji</option>
+              <option value="2">Moda & Aksesuar</option>
+              <option value="3">Ev, Yaşam & Mutfak</option>
+              <option value="4">Spor & Outdoor</option>
+              <option value="5">Kozmetik & Bakım</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Rozet (Badge)</label>
+            <select id="np-badge" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:border-brand">
+              <option value="">Rozet Yok</option>
+              <option value="Fırsat">Fırsat</option>
+              <option value="Çok Satan">Çok Satan</option>
+              <option value="Yeni">Yeni</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-3 gap-4">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Satış Fiyatı (TL) *</label>
+            <input type="number" step="0.01" id="np-price" required placeholder="1499.00" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-brand">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Eski / Liste Fiyatı</label>
+            <input type="number" step="0.01" id="np-compare-price" placeholder="1999.00" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-brand">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Stok Miktarı</label>
+            <input type="number" id="np-stock" value="25" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-brand">
+          </div>
+        </div>
+
+        <!-- Ürün Görseli Bölümü -->
+        <div class="space-y-2">
+          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider">
+            Ürün Görseli <span class="text-slate-400 font-normal lowercase">(bilgisayardan yükleyin veya link girin)</span>
+          </label>
+
+          <!-- Upload Dropzone / File Picker -->
+          <div 
+            id="np-dropzone" 
+            onclick="document.getElementById('np-file-input').click()"
+            ondragover="handleDragOver(event)"
+            ondragleave="handleDragLeave(event)"
+            ondrop="handleDrop(event)"
+            class="border-2 border-dashed border-slate-300 hover:border-brand bg-slate-50 hover:bg-orange-50/30 rounded-2xl p-4 text-center cursor-pointer transition flex flex-col items-center justify-center gap-2 group"
+          >
+            <div class="w-10 h-10 rounded-full bg-white shadow-sm border border-slate-200 text-slate-600 group-hover:text-brand group-hover:border-brand/30 flex items-center justify-center transition">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="17 8 12 3 7 8"/>
+                <line x1="12" y1="3" x2="12" y2="15"/>
+              </svg>
+            </div>
+            <div>
+              <p class="text-xs font-extrabold text-slate-800">
+                <span class="text-brand underline">Bilgisayardan Görsel Seçin</span> veya buraya sürükleyin
+              </p>
+              <p class="text-[11px] text-slate-400 mt-0.5">PNG, JPG, WEBP, SVG</p>
+            </div>
+            <input type="file" id="np-file-input" accept="image/*" class="hidden" onchange="handleProductImageFile(this)">
+          </div>
+
+          <!-- Canlı Önizleme ve Yükleme Durumu -->
+          <div id="np-upload-preview-wrap" class="hidden items-center gap-3 p-3 bg-slate-50 rounded-2xl border border-slate-200">
+            <img id="np-preview-img" src="" alt="Önizleme" class="w-14 h-14 object-cover rounded-xl border border-slate-200 bg-white flex-shrink-0">
+            <div class="min-w-0 flex-1">
+              <p id="np-preview-filename" class="text-xs font-bold text-slate-800 truncate"></p>
+              <p id="np-upload-status" class="text-[11px] text-emerald-600 font-semibold flex items-center gap-1 mt-0.5"></p>
+            </div>
+            <button type="button" onclick="clearProductImage()" class="text-xs text-rose-500 hover:text-rose-700 font-bold px-2 py-1 hover:bg-rose-50 rounded-lg transition">Kaldır</button>
+          </div>
+
+          <!-- Görsel URL / Dosya Yolu Alternatifi -->
+          <div class="pt-1">
+            <span class="text-[10px] font-semibold text-slate-500 uppercase tracking-wider block mb-1">Görsel URL / Sunucu Yolu:</span>
+            <input 
+              type="text" 
+              id="np-image-url" 
+              oninput="handleUrlInput(this.value)"
+              placeholder="Örn: /uploads/kulaklik.jpg veya https://..." 
+              class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-mono focus:outline-none focus:border-brand"
+            >
+          </div>
+        </div>
+
+        <button type="submit" class="w-full py-3.5 bg-brand hover:bg-brand-hover text-white font-bold rounded-xl transition shadow-md btn-glow text-sm">
+          Ürünü Kaydet ve Yayına Al
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- NEW COUPON MODAL -->
+  <div id="coupon-modal" class="fixed inset-0 bg-slate-950/70 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 space-y-4 shadow-2xl">
+      <div class="flex items-center justify-between pb-2 border-b border-slate-100">
+        <h3 class="font-bold text-slate-900 text-base">Yeni Kupon Oluştur</h3>
+        <button onclick="document.getElementById('coupon-modal').classList.add('hidden')" class="text-slate-400 hover:text-slate-700">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <form id="new-coupon-form" onsubmit="saveCoupon(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Kupon Kodu *</label>
+          <input type="text" id="cp-code" required placeholder="INDIRIM25" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-mono uppercase focus:outline-none focus:border-brand">
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">İndirim Türü</label>
+            <select id="cp-type" class="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:border-brand">
+              <option value="percent">Yüzde (%)</option>
+              <option value="fixed">Sabit Tutar (TL)</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Değer *</label>
+            <input type="number" id="cp-value" required placeholder="20" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-brand">
+          </div>
+        </div>
+        <button type="submit" class="w-full py-3 bg-brand hover:bg-brand-hover text-white font-bold rounded-xl transition shadow-md text-sm">
+          Kuponu Tanımla
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/store.js"></script>
+  <script>
+    function switchAdminTab(t) {
+      ['overview', 'products', 'orders', 'coupons'].forEach(tab => {
+        const sec = document.getElementById(`section-${tab}`);
+        const btn = document.getElementById(`adm-tab-${tab}`);
+        if (sec) sec.classList.add("hidden");
+        if (btn) {
+          btn.classList.remove("border-brand", "text-brand");
+          btn.classList.add("border-transparent", "text-slate-600");
+        }
+      });
+      const activeSec = document.getElementById(`section-${t}`);
+      const activeBtn = document.getElementById(`adm-tab-${t}`);
+      if (activeSec) activeSec.classList.remove("hidden");
+      if (activeBtn) {
+        activeBtn.classList.remove("border-transparent", "text-slate-600");
+        activeBtn.classList.add("border-brand", "text-brand");
+      }
+    }
+
+    function openNewProductModal() {
+      clearProductImage();
+      const form = document.getElementById("new-product-form");
+      if (form) form.reset();
+      document.getElementById("product-modal").classList.remove("hidden");
+    }
+
+    function handleDragOver(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      const dz = document.getElementById("np-dropzone");
+      if (dz) dz.classList.add("border-brand", "bg-orange-50/50");
+    }
+
+    function handleDragLeave(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      const dz = document.getElementById("np-dropzone");
+      if (dz) dz.classList.remove("border-brand", "bg-orange-50/50");
+    }
+
+    function handleDrop(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      const dz = document.getElementById("np-dropzone");
+      if (dz) dz.classList.remove("border-brand", "bg-orange-50/50");
+      if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+        uploadImageFile(e.dataTransfer.files[0]);
+      }
+    }
+
+    function handleProductImageFile(input) {
+      if (input.files && input.files[0]) {
+        uploadImageFile(input.files[0]);
+      }
+    }
+
+    async function uploadImageFile(file) {
+      if (!file) return;
+
+      const previewWrap = document.getElementById("np-upload-preview-wrap");
+      const previewImg = document.getElementById("np-preview-img");
+      const filenameEl = document.getElementById("np-preview-filename");
+      const statusEl = document.getElementById("np-upload-status");
+      const urlInput = document.getElementById("np-image-url");
+
+      const localUrl = URL.createObjectURL(file);
+      previewImg.src = localUrl;
+      filenameEl.textContent = file.name;
+      statusEl.className = "text-[11px] text-amber-600 font-semibold flex items-center gap-1 mt-0.5";
+      statusEl.innerHTML = `
+        <svg class="w-3.5 h-3.5 animate-spin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+        Sunucuya yükleniyor...
+      `;
+      previewWrap.classList.remove("hidden");
+      previewWrap.classList.add("flex");
+
+      const formData = new FormData();
+      formData.append("file", file);
+
+      try {
+        const res = await fetch("/api/admin/upload?admin=1", {
+          method: "POST",
+          body: formData
+        });
+        const data = await res.json();
+        if (data.success && data.url) {
+          urlInput.value = data.url;
+          statusEl.className = "text-[11px] text-emerald-600 font-semibold flex items-center gap-1 mt-0.5";
+          statusEl.innerHTML = `
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Yüklendi (${data.url})
+          `;
+          Pazurka.toast("Görsel başarıyla yüklendi!", "success");
+        } else {
+          statusEl.className = "text-[11px] text-rose-600 font-semibold flex items-center gap-1 mt-0.5";
+          statusEl.textContent = "Hata: " + (data.message || "Yüklenemedi");
+          Pazurka.toast(data.message || "Görsel yüklenemedi", "error");
+        }
+      } catch (err) {
+        statusEl.className = "text-[11px] text-rose-600 font-semibold flex items-center gap-1 mt-0.5";
+        statusEl.textContent = "Bağlantı hatası.";
+        Pazurka.toast("Görsel sunucuya aktarılamadı.", "error");
+      }
+    }
+
+    function handleUrlInput(val) {
+      const previewWrap = document.getElementById("np-upload-preview-wrap");
+      const previewImg = document.getElementById("np-preview-img");
+      const filenameEl = document.getElementById("np-preview-filename");
+      const statusEl = document.getElementById("np-upload-status");
+
+      val = (val || "").trim();
+      if (val) {
+        previewImg.src = val;
+        filenameEl.textContent = val.split("/").pop() || "Görsel";
+        statusEl.className = "text-[11px] text-slate-500 font-semibold flex items-center gap-1 mt-0.5";
+        statusEl.textContent = "Bağlantıdan önizleme";
+        previewWrap.classList.remove("hidden");
+        previewWrap.classList.add("flex");
+      } else {
+        clearProductImage();
+      }
+    }
+
+    function clearProductImage() {
+      const previewWrap = document.getElementById("np-upload-preview-wrap");
+      const previewImg = document.getElementById("np-preview-img");
+      const fileInput = document.getElementById("np-file-input");
+      const urlInput = document.getElementById("np-image-url");
+
+      if (fileInput) fileInput.value = "";
+      if (urlInput) urlInput.value = "";
+      if (previewImg) previewImg.src = "";
+      if (previewWrap) {
+        previewWrap.classList.add("hidden");
+        previewWrap.classList.remove("flex");
+      }
+    }
+
+    function getStatusBadge(status) {
+      switch (status) {
+        case 'delivered':
+          return '<span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-700">Teslim Edildi</span>';
+        case 'shipped':
+          return '<span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-orange-100 text-brand">Kargoda</span>';
+        case 'cancelled':
+          return '<span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-rose-100 text-rose-700">İptal Edildi</span>';
+        case 'processing':
+        default:
+          return '<span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-blue-100 text-blue-700">Hazırlanıyor</span>';
+      }
+    }
+
+    function formatDate(dateStr) {
+      if (!dateStr) return "-";
+      try {
+        const d = new Date(dateStr);
+        return d.toLocaleDateString("tr-TR", { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
+      } catch {
+        return dateStr;
+      }
+    }
+
+    // 1. OVERVIEW & METRICS
+    async function loadAdminOverview() {
+      try {
+        const res = await fetch("/api/admin/overview?admin=1");
+        const data = await res.json();
+        if (data.success && data.metrics) {
+          document.getElementById("stat-revenue").textContent = Pazurka.formatPrice(data.metrics.totalSales);
+          document.getElementById("stat-orders").textContent = data.metrics.totalOrders;
+          document.getElementById("stat-products").textContent = data.metrics.totalProducts;
+          document.getElementById("stat-low-stock").textContent = data.metrics.lowStockCount;
+
+          const recentBody = document.getElementById("overview-orders-tbody");
+          if (recentBody && data.recentOrders) {
+            if (data.recentOrders.length === 0) {
+              recentBody.innerHTML = `<tr><td colspan="5" class="p-6 text-center text-slate-400">Henüz sipariş bulunmuyor.</td></tr>`;
+            } else {
+              recentBody.innerHTML = data.recentOrders.map(o => `
+                <tr class="hover:bg-slate-50 transition">
+                  <td class="p-4 font-mono font-bold text-slate-900">${o.order_number}</td>
+                  <td class="p-4">
+                    <p class="font-bold text-slate-900">${o.customer_name}</p>
+                    <p class="text-[10px] text-slate-400 font-medium">${o.customer_email || ''}</p>
+                  </td>
+                  <td class="p-4 font-extrabold text-slate-900">${Pazurka.formatPrice(o.total)}</td>
+                  <td class="p-4">${getStatusBadge(o.order_status)}</td>
+                  <td class="p-4 text-slate-500 font-medium">${formatDate(o.created_at)}</td>
+                </tr>
+              `).join("");
+            }
+          }
+        }
+      } catch (e) {
+        console.error("Overview error:", e);
+      }
+    }
+
+    // 2. ORDERS MANAGEMENT
+    async function loadAdminOrders() {
+      const tbody = document.getElementById("admin-orders-tbody");
+      if (!tbody) return;
+
+      try {
+        const res = await fetch("/api/admin/orders?admin=1");
+        const data = await res.json();
+        if (data.success && Array.isArray(data.orders)) {
+          if (data.orders.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="7" class="p-8 text-center text-slate-400">Kayıtlı sipariş bulunmuyor.</td></tr>`;
+            return;
+          }
+
+          tbody.innerHTML = data.orders.map(o => {
+            const payText = o.payment_method === 'door' ? 'Kapıda Ödeme' : (o.payment_method === 'eft' ? 'Havale/EFT' : 'Kredi Kartı');
+            return `
+              <tr class="hover:bg-slate-50 transition">
+                <td class="p-4">
+                  <span class="font-mono font-bold text-slate-900 block">${o.order_number}</span>
+                  <span class="text-[10px] text-slate-400 font-medium">${formatDate(o.created_at)}</span>
+                </td>
+                <td class="p-4">
+                  <p class="font-bold text-slate-900">${o.customer_name}</p>
+                  <p class="text-[11px] text-slate-500">${o.customer_phone || ''}</p>
+                  <p class="text-[10px] text-slate-400">${o.customer_email || ''}</p>
+                </td>
+                <td class="p-4">
+                  <p class="font-bold text-slate-800">${o.district ? `${o.district} / ` : ''}${o.city || '-'}</p>
+                  <p class="text-[10px] text-slate-400 truncate max-w-xs" title="${o.shipping_address || ''}">${o.shipping_address || ''}</p>
+                </td>
+                <td class="p-4">
+                  <span class="font-extrabold text-slate-900 text-sm block">${Pazurka.formatPrice(o.total)}</span>
+                  <span class="text-[10px] font-bold text-slate-500 bg-slate-100 px-2 py-0.5 rounded">${payText}</span>
+                </td>
+                <td class="p-4">
+                  <p class="font-bold text-slate-800">${o.shipping_company || 'Yurtiçi Kargo'}</p>
+                  <p class="font-mono text-[11px] text-brand font-bold">${o.tracking_number || 'Hazırlanıyor'}</p>
+                </td>
+                <td class="p-4">
+                  ${getStatusBadge(o.order_status)}
+                </td>
+                <td class="p-4 text-right">
+                  <select onchange="updateOrderStatus(${o.id}, this.value)" class="px-2.5 py-1.5 bg-white border border-slate-200 rounded-xl text-xs font-bold text-slate-700 focus:outline-none focus:border-brand shadow-sm cursor-pointer">
+                    <option value="processing" ${o.order_status === 'processing' ? 'selected' : ''}>Hazırlanıyor</option>
+                    <option value="shipped" ${o.order_status === 'shipped' ? 'selected' : ''}>Kargoya Verildi</option>
+                    <option value="delivered" ${o.order_status === 'delivered' ? 'selected' : ''}>Teslim Edildi</option>
+                    <option value="cancelled" ${o.order_status === 'cancelled' ? 'selected' : ''}>İptal Edildi</option>
+                  </select>
+                </td>
+              </tr>
+            `;
+          }).join("");
+        }
+      } catch (e) {
+        console.error("Orders load error:", e);
+      }
+    }
+
+    async function updateOrderStatus(orderId, newStatus) {
+      try {
+        const res = await fetch(`/api/admin/orders/${orderId}?admin=1`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ order_status: newStatus })
+        });
+        const data = await res.json();
+        if (data.success) {
+          Pazurka.toast("Sipariş durumu güncellendi!", "success");
+          loadAdminOverview();
+          loadAdminOrders();
+        }
+      } catch {
+        Pazurka.toast("Durum güncellenemedi.", "error");
+      }
+    }
+
+    // 3. PRODUCTS CRUD
+    async function loadAdminProducts() {
+      const tbody = document.getElementById("admin-products-tbody");
+      if (!tbody) return;
+
+      try {
+        const res = await fetch("/api/admin/products?admin=1");
+        const data = await res.json();
+        const products = (data.success && data.products) ? data.products : (Pazurka.offlineData?.products || []);
+
+        tbody.innerHTML = products.map(p => {
+          let img = "images/pazurkalogo.png";
+          if (Array.isArray(p.images) && p.images.length > 0) img = p.images[0];
+          else if (p.image) img = p.image;
+
+          return `
+            <tr class="hover:bg-slate-50 transition">
+              <td class="p-4 flex items-center gap-3">
+                <img src="${img}" class="w-10 h-10 object-cover rounded-xl bg-slate-100 flex-shrink-0 border border-slate-100">
+                <div class="min-w-0">
+                  <p class="font-bold text-slate-900 truncate max-w-xs">${p.name}</p>
+                  <p class="text-[10px] text-slate-400 font-mono">${p.sku || 'SKU Yok'}</p>
+                </div>
+              </td>
+              <td class="p-4 font-medium text-slate-600">${p.category_name || 'Genel'}</td>
+              <td class="p-4 font-extrabold text-slate-900">${Pazurka.formatPrice(p.price)}</td>
+              <td class="p-4">
+                <span class="font-bold ${p.stock <= 5 ? 'text-rose-600 bg-rose-50 px-2 py-0.5 rounded' : 'text-slate-800'}">${p.stock} Adet</span>
+              </td>
+              <td class="p-4">${p.badge ? `<span class="px-2 py-0.5 bg-orange-100 text-brand text-[10px] font-bold rounded-md">${p.badge}</span>` : '-'}</td>
+              <td class="p-4 text-right space-x-2">
+                <button onclick="deleteProductItem(${p.id})" class="text-xs text-rose-500 hover:text-rose-700 font-bold">Sil</button>
+              </td>
+            </tr>
+          `;
+        }).join("");
+      } catch (e) {
+        console.error("Products load error:", e);
+      }
+    }
+
+    async function deleteProductItem(id) {
+      if (!confirm("Bu ürünü silmek istediğinize emin misiniz?")) return;
+      try {
+        await fetch(`/api/admin/products/${id}?admin=1`, { method: "DELETE" });
+        Pazurka.toast("Ürün silindi.", "info");
+        loadAdminProducts();
+        loadAdminOverview();
+      } catch {}
+    }
+
+    // 4. COUPONS
+    async function loadAdminCoupons() {
+      const tbody = document.getElementById("admin-coupons-tbody");
+      if (!tbody) return;
+
+      try {
+        const res = await fetch("/api/admin/coupons?admin=1");
+        const data = await res.json();
+        if (data.success && data.coupons) {
+          tbody.innerHTML = data.coupons.map(c => `
+            <tr class="hover:bg-slate-50 transition">
+              <td class="p-4 font-mono font-bold text-brand text-sm">${c.code}</td>
+              <td class="p-4 font-medium text-slate-700">${c.discount_type === 'percent' ? 'Yüzde (%)' : 'Sabit Tutar'}</td>
+              <td class="p-4 font-extrabold text-slate-900">${c.discount_type === 'percent' ? `%${c.discount_value}` : Pazurka.formatPrice(c.discount_value)}</td>
+              <td class="p-4 text-slate-600">${c.min_spend ? Pazurka.formatPrice(c.min_spend) : 'Limitsiz'}</td>
+              <td class="p-4 font-bold text-slate-800">${c.usage_count || 0} Kez</td>
+            </tr>
+          `).join("");
+        }
+      } catch (e) {}
+    }
+
+    async function saveNewProduct(e) {
+      e.preventDefault();
+      const payload = {
+        name: document.getElementById("np-name").value.trim(),
+        category_id: Number(document.getElementById("np-category").value),
+        badge: document.getElementById("np-badge").value,
+        price: Number(document.getElementById("np-price").value),
+        compare_at_price: Number(document.getElementById("np-compare-price").value) || null,
+        stock: Number(document.getElementById("np-stock").value) || 10,
+        images: [document.getElementById("np-image-url").value.trim() || "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800"]
+      };
+
+      try {
+        const res = await fetch("/api/admin/products?admin=1", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        if (data.success) {
+          Pazurka.toast("Yeni ürün başarıyla eklendi!", "success");
+          document.getElementById("product-modal").classList.add("hidden");
+          clearProductImage();
+          e.target.reset();
+          loadAdminProducts();
+          loadAdminOverview();
+        }
+      } catch {
+        Pazurka.toast("Ürün eklenemedi.", "error");
+      }
+    }
+
+    async function saveCoupon(e) {
+      e.preventDefault();
+      const payload = {
+        code: document.getElementById("cp-code").value.trim().toUpperCase(),
+        discount_type: document.getElementById("cp-type").value,
+        discount_value: Number(document.getElementById("cp-value").value)
+      };
+
+      try {
+        const res = await fetch("/api/admin/coupons?admin=1", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        if (data.success) {
+          Pazurka.toast("Kupon başarıyla tanımlandı!", "success");
+          document.getElementById("coupon-modal").classList.add("hidden");
+          e.target.reset();
+          loadAdminCoupons();
+        }
+      } catch {
+        Pazurka.toast("Kupon tanımlanamadı.", "error");
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      loadAdminOverview();
+      loadAdminOrders();
+      loadAdminProducts();
+      loadAdminCoupons();
+
+      // Check URL tab parameter, e.g. /admin?tab=orders
+      const urlTab = new URLSearchParams(window.location.search).get('tab');
+      if (urlTab && ['overview', 'products', 'orders', 'coupons'].includes(urlTab)) {
+        switchAdminTab(urlTab);
+      }
+      if (window.lucide) lucide.createIcons();
+    });
+  </script>
+</body>
+</html>

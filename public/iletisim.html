@@ -1,0 +1,404 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <base href="/">
+  <title>İletişim & Müşteri Hizmetleri - Pazurka</title>
+  <link rel="icon" type="image/png" href="images/favicon.png">
+  <link rel="apple-touch-icon" href="images/favicon.png">
+  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: { DEFAULT: '#FD4800', hover: '#E03E00', light: '#FFF2EB', dark: '#0F1114' }
+          }
+        }
+      }
+    }
+  </script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body class="bg-slate-50 text-slate-900 flex flex-col min-h-screen">
+
+  <!-- TOP BANNER -->
+  <div class="bg-gradient-to-r from-neutral-950 via-slate-900 to-neutral-950 text-white text-[11px] sm:text-xs py-2 px-4 border-b border-white/5">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <span class="inline-flex items-center justify-center w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span class="font-medium text-slate-300">Pazurka Müşteri Destek Merkezi 7/24 Hizmetinizde</span>
+      </div>
+      <div class="flex items-center gap-5 text-slate-400">
+        <a href="/siparis-takip" class="hover:text-white transition flex items-center gap-1.5 font-medium">
+          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+          <span>Kargo Takibi</span>
+        </a>
+        <a href="tel:08505557298" class="text-orange-400 hover:text-orange-300 font-extrabold flex items-center gap-1">
+          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <span>0850 555 72 98</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN HEADER -->
+  <header class="bg-white border-b border-slate-200/80 sticky top-0 z-40 backdrop-blur-md bg-white/95">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20 gap-4">
+        
+        <!-- Logo -->
+        <a href="/" class="flex-shrink-0 flex items-center group">
+          <img 
+            src="images/pazurkalogo.png" 
+            onerror="this.onerror=null; this.src='pazurkalogo.png'; if(!this.complete) this.src='/images/pazurkalogo.png';" 
+            alt="Pazurka Logo" 
+            class="h-10 sm:h-12 w-auto object-contain transition-transform group-hover:scale-105 duration-200"
+          >
+        </a>
+
+        <!-- Search Bar -->
+        <div class="hidden md:flex flex-1 max-w-lg mx-6">
+          <div class="relative w-full">
+            <input 
+              type="text" 
+              placeholder="Ürün, marka veya kategori ara..." 
+              class="global-search-input w-full pl-11 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-2xl text-xs sm:text-sm focus:outline-none focus:border-brand focus:bg-white transition shadow-inner"
+            >
+            <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Navigation & Actions -->
+        <nav class="flex items-center gap-1 sm:gap-3">
+          <a href="/urunler" class="px-3 py-2 text-xs font-bold text-slate-700 hover:text-brand hover:bg-orange-50/60 rounded-xl transition">
+            Tüm Ürünler
+          </a>
+          <a href="/hakkimizda" class="hidden sm:inline-block px-3 py-2 text-xs font-bold text-slate-700 hover:text-brand hover:bg-orange-50/60 rounded-xl transition">
+            Hakkımızda
+          </a>
+          <a href="/iletisim" class="px-3 py-2 text-xs font-extrabold text-brand bg-orange-50 rounded-xl transition">
+            İletişim
+          </a>
+
+          <!-- Favorites Icon -->
+          <a href="/favoriler" class="relative p-2.5 text-slate-700 hover:text-brand hover:bg-orange-50/60 rounded-2xl transition" title="Favorilerim">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+            <span class="wishlist-badge absolute -top-1 -right-1 w-5 h-5 rounded-full bg-slate-900 text-white text-[10px] font-extrabold flex items-center justify-center border-2 border-white shadow-sm">0</span>
+          </a>
+
+          <!-- User Menu Hub -->
+          <div id="header-user-menu" class="flex items-center">
+            <a href="/giris" class="flex items-center gap-2 px-3.5 py-2 rounded-2xl text-slate-700 hover:text-brand hover:bg-orange-50 text-xs font-bold transition">
+              <svg class="w-4 h-4 text-slate-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              <span class="hidden md:inline">Giriş Yap</span>
+            </a>
+          </div>
+
+          <!-- Cart Trigger -->
+          <button onclick="Pazurka.openCartDrawer()" class="relative p-2.5 bg-brand hover:bg-brand-hover text-white rounded-2xl transition shadow-md btn-glow flex items-center gap-2" title="Sepetim">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+            <span class="cart-badge absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-slate-900 text-white text-[10px] font-extrabold flex items-center justify-center border-2 border-white shadow-sm">0</span>
+          </button>
+        </nav>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- BREADCRUMB & HERO -->
+  <section class="bg-gradient-to-b from-white to-slate-50 border-b border-slate-200/60 py-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-3">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-100/70 text-brand text-xs font-extrabold">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        <span>Müşteri Hizmetleri & Çözüm Merkezi</span>
+      </div>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">Size Nasıl Yardımcı Olabiliriz?</h1>
+      <p class="text-xs sm:text-sm text-slate-500 max-w-xl mx-auto leading-relaxed">
+        Siparişleriniz, iade süreçleriniz, kargo takibi veya ürün önerileri için ekibimiz haftanın 7 günü yanınızda.
+      </p>
+    </div>
+  </section>
+
+  <!-- MAIN CONTACT CONTENT -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex-1 w-full space-y-12">
+    
+    <!-- Contact Info Cards & Message Form -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      
+      <!-- LEFT: Contact Cards (5 cols) -->
+      <div class="lg:col-span-5 space-y-4">
+        
+        <!-- Phone Card -->
+        <a href="tel:08505557298" class="p-5 bg-white rounded-3xl border border-slate-200/80 shadow-sm flex items-start gap-4 hover-elevate transition group block">
+          <div class="w-12 h-12 rounded-2xl bg-orange-50 text-brand flex items-center justify-center flex-shrink-0 group-hover:scale-110 group-hover:bg-brand group-hover:text-white transition duration-200 shadow-sm">
+            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+            </svg>
+          </div>
+          <div class="min-w-0 flex-1">
+            <div class="flex items-center justify-between">
+              <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Telefon Destek Hattı</p>
+              <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-600">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> 09:00 - 19:00
+              </span>
+            </div>
+            <p class="text-base font-extrabold text-slate-900 mt-0.5 group-hover:text-brand transition">0850 555 72 98</p>
+            <p class="text-xs text-slate-500 mt-1">Hemen arayın, müşteri temsilcimize bağlanın.</p>
+          </div>
+        </a>
+
+        <!-- WhatsApp Card -->
+        <a href="https://wa.me/908505557298" target="_blank" class="p-5 bg-white rounded-3xl border border-slate-200/80 shadow-sm flex items-start gap-4 hover-elevate transition group block">
+          <div class="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center flex-shrink-0 group-hover:scale-110 group-hover:bg-emerald-600 group-hover:text-white transition duration-200 shadow-sm">
+            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/>
+            </svg>
+          </div>
+          <div class="min-w-0 flex-1">
+            <div class="flex items-center justify-between">
+              <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">WhatsApp Canlı Destek</p>
+              <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-600">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping"></span> Çevrim İçi
+              </span>
+            </div>
+            <p class="text-base font-extrabold text-slate-900 mt-0.5 group-hover:text-emerald-600 transition">0850 555 72 98</p>
+            <p class="text-xs text-slate-500 mt-1">WhatsApp üzerinden anında mesajlaşın.</p>
+          </div>
+        </a>
+
+        <!-- Email Card -->
+        <a href="mailto:destek@pazurka.com" class="p-5 bg-white rounded-3xl border border-slate-200/80 shadow-sm flex items-start gap-4 hover-elevate transition group block">
+          <div class="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center flex-shrink-0 group-hover:scale-110 group-hover:bg-blue-600 group-hover:text-white transition duration-200 shadow-sm">
+            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect width="20" height="16" x="2" y="4" rx="2"/>
+              <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+            </svg>
+          </div>
+          <div class="min-w-0 flex-1">
+            <div class="flex items-center justify-between">
+              <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">E-Posta Destek</p>
+              <span class="text-[10px] font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full">Ort. 15 dk yanıt</span>
+            </div>
+            <p class="text-base font-extrabold text-slate-900 mt-0.5 group-hover:text-blue-600 transition">destek@pazurka.com</p>
+            <p class="text-xs text-slate-500 mt-1">Kurumsal ve bireysel her türlü soru için.</p>
+          </div>
+        </a>
+
+        <!-- Headquarters Office Card -->
+        <div class="p-5 bg-white rounded-3xl border border-slate-200/80 shadow-sm flex items-start gap-4">
+          <div class="w-12 h-12 rounded-2xl bg-purple-50 text-purple-600 flex items-center justify-center flex-shrink-0 shadow-sm">
+            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
+              <circle cx="12" cy="10" r="3"/>
+            </svg>
+          </div>
+          <div class="min-w-0 flex-1">
+            <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Genel Merkez & Ar-Ge Ofisi</p>
+            <p class="text-sm font-extrabold text-slate-900 mt-0.5">Pazurka Teknoloji A.Ş.</p>
+            <p class="text-xs text-slate-600 mt-1 leading-relaxed">
+              Barbaros Mah. Mor Sümbül Sok. No:1 Varyap Meridian Grand Tower Kat:28, Ataşehir / İstanbul
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT: Interactive Contact Form (7 cols) -->
+      <div class="lg:col-span-7 bg-white rounded-3xl p-6 sm:p-10 border border-slate-200/80 shadow-sm space-y-6">
+        <div class="space-y-1">
+          <div class="inline-flex items-center gap-2 text-brand text-xs font-extrabold uppercase tracking-wider">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" x2="11" y1="2" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            <span>Hızlı İletişim Formu</span>
+          </div>
+          <h2 class="text-2xl font-extrabold text-slate-900">Bize Mesaj Gönderin</h2>
+          <p class="text-xs text-slate-500">
+            Formu doldurarak ilettiğiniz tüm mesajlar doğrudan uzman destek ekibimize iletilir ve anında işleme alınır.
+          </p>
+        </div>
+
+        <form onsubmit="handleContactSubmit(event)" class="space-y-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Adınız Soyadınız *</label>
+              <input type="text" id="contact-name" required placeholder="Örn: Eyüp Kızıl" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-xs sm:text-sm focus:outline-none focus:border-brand focus:bg-white transition">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Telefon Numaranız *</label>
+              <input type="tel" id="contact-phone" required placeholder="05XX XXX XX XX" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-xs sm:text-sm focus:outline-none focus:border-brand focus:bg-white transition">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">E-Posta Adresiniz *</label>
+              <input type="email" id="contact-email" required placeholder="adiniz@example.com" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-xs sm:text-sm focus:outline-none focus:border-brand focus:bg-white transition">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Konu Başlığı</label>
+              <select id="contact-subject" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-xs sm:text-sm focus:outline-none focus:border-brand focus:bg-white transition cursor-pointer">
+                <option value="Sipariş & Teslimat Durumu">Sipariş & Teslimat Durumu</option>
+                <option value="Kolay İade & Değişim">Kolay İade & Değişim</option>
+                <option value="Ürün Bilgisi & Garanti">Ürün Bilgisi & Garanti</option>
+                <option value="Kurumsal & Toptan Satış">Kurumsal & Toptan Satış</option>
+                <option value="Öneri, İstek veya Şikayet">Öneri, İstek veya Şikayet</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Mesajınız *</label>
+            <textarea id="contact-message" rows="4" required placeholder="Lütfen sipariş numaranızı (varsa) ve sorunuzu detaylı olarak belirtiniz..." class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-xs sm:text-sm focus:outline-none focus:border-brand focus:bg-white transition"></textarea>
+          </div>
+
+          <div class="flex items-center justify-between pt-2">
+            <span class="text-[11px] text-slate-400 flex items-center gap-1.5">
+              <svg class="w-3.5 h-3.5 text-emerald-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              <span>Kişisel verileriniz 6698 sayılı KVKK kapsamında korunmaktadır.</span>
+            </span>
+
+            <button type="submit" id="contact-submit-btn" class="px-8 py-3.5 bg-brand hover:bg-brand-hover text-white font-extrabold rounded-2xl transition shadow-md btn-glow text-xs sm:text-sm flex items-center gap-2 flex-shrink-0">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" x2="11" y1="2" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              <span>Mesajı Gönder</span>
+            </button>
+          </div>
+        </form>
+
+      </div>
+
+    </div>
+
+    <!-- FAQ SECTION -->
+    <div class="bg-white rounded-3xl p-6 sm:p-10 border border-slate-200/80 shadow-sm space-y-6">
+      <div class="flex items-center gap-3 pb-4 border-b border-slate-100">
+        <div class="w-10 h-10 rounded-xl bg-orange-100 text-brand flex items-center justify-center flex-shrink-0">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" x2="12.01" y1="17" y2="17"/></svg>
+        </div>
+        <div>
+          <h3 class="text-lg font-extrabold text-slate-900">Sıkça Sorulan Sorular</h3>
+          <p class="text-xs text-slate-500">Müşterilerimizin en çok merak ettiği sorular ve hızlı yanıtları</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        
+        <div class="p-5 bg-slate-50 rounded-2xl border border-slate-100 space-y-2">
+          <div class="flex items-center gap-2 text-slate-900 font-extrabold text-xs">
+            <svg class="w-4 h-4 text-brand flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="16" height="13" x="1" y="6" rx="2"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+            <span>Kargom ne zaman gelir?</span>
+          </div>
+          <p class="text-xs text-slate-500 leading-relaxed">
+            Hafta içi saat 16:00'ya kadar verilen siparişler aynı gün anlaşmalı kargoya verilir ve adresinize 24-48 saat içinde teslim edilir.
+          </p>
+        </div>
+
+        <div class="p-5 bg-slate-50 rounded-2xl border border-slate-100 space-y-2">
+          <div class="flex items-center gap-2 text-slate-900 font-extrabold text-xs">
+            <svg class="w-4 h-4 text-brand flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg>
+            <span>İade süreci nasıl işler?</span>
+          </div>
+          <p class="text-xs text-slate-500 leading-relaxed">
+            Teslim aldığınız ürünü 14 gün içinde hiçbir gerekçe göstermeksizin ücretsiz kargo koduyla kolayca iade edebilirsiniz.
+          </p>
+        </div>
+
+        <div class="p-5 bg-slate-50 rounded-2xl border border-slate-100 space-y-2">
+          <div class="flex items-center gap-2 text-slate-900 font-extrabold text-xs">
+            <svg class="w-4 h-4 text-brand flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+            <span>Ödeme seçenekleri neler?</span>
+          </div>
+          <p class="text-xs text-slate-500 leading-relaxed">
+            Kredi kartına peşin fiyatına 6 taksit, Havale / EFT ve kapıda nakit veya kartla ödeme seçenekleri mevcuttur.
+          </p>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <!-- CART DRAWER & OVERLAY -->
+  <div id="cart-drawer-overlay" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden opacity-0 transition-opacity" onclick="Pazurka.closeCartDrawer()"></div>
+  <aside id="cart-drawer" class="fixed top-0 right-0 h-full w-full max-w-md bg-white shadow-2xl z-50 transform translate-x-full transition-transform duration-300 flex flex-col">
+    <div class="p-6 border-b border-slate-100 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <svg class="w-5 h-5 text-brand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+        <h3 class="font-extrabold text-slate-900 text-lg">Alışveriş Sepetim</h3>
+      </div>
+      <button onclick="Pazurka.closeCartDrawer()" class="p-2 rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition">
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+      </button>
+    </div>
+    <div id="cart-drawer-items" class="flex-1 overflow-y-auto p-6 space-y-4 divide-y divide-slate-100"></div>
+    <div id="cart-drawer-footer" class="p-6 bg-slate-50 border-t border-slate-100 space-y-4"></div>
+  </aside>
+
+  <!-- FOOTER -->
+  <footer class="mt-auto bg-brand-dark text-slate-400 text-xs py-10 border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div class="space-y-3">
+          <img src="images/pazurkalogo.png" onerror="this.onerror=null; this.src='pazurkalogo.png';" alt="Pazurka Logo" class="h-9 w-auto brightness-200">
+          <p class="text-xs text-slate-400 leading-relaxed">Yeni nesil yüksek performanslı e-ticaret platformu. Orijinal ürün ve hızlı teslimat garantisi.</p>
+        </div>
+        <div>
+          <h4 class="font-extrabold text-white mb-3 text-xs uppercase tracking-wider">Hızlı Bağlantılar</h4>
+          <ul class="space-y-2 text-slate-400">
+            <li><a href="/urunler" class="hover:text-white transition">Tüm Ürünler</a></li>
+            <li><a href="/hakkimizda" class="hover:text-white transition">Hakkımızda</a></li>
+            <li><a href="/iletisim" class="text-brand font-bold">İletişim & Destek</a></li>
+            <li><a href="/siparis-takip" class="hover:text-white transition">Kargo Takibi</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-extrabold text-white mb-3 text-xs uppercase tracking-wider">Müşteri Hizmetleri</h4>
+          <ul class="space-y-2 text-slate-400">
+            <li><a href="/hesabim?tab=orders" class="hover:text-white transition">Siparişlerim</a></li>
+            <li><a href="/hesabim?tab=addresses" class="hover:text-white transition">Adres Bilgilerim</a></li>
+            <li><a href="/favoriler" class="hover:text-white transition">Favori Listem</a></li>
+            <li><a href="/sepet" class="hover:text-white transition">Sepeti Görüntüle</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-extrabold text-white mb-3 text-xs uppercase tracking-wider">İletişim Hattı</h4>
+          <p class="text-sm font-extrabold text-white">0850 555 72 98</p>
+          <p class="text-xs text-slate-400 mt-1">Haftanın her günü 09:00 - 19:00</p>
+          <p class="text-xs text-orange-400 mt-2">destek@pazurka.com</p>
+        </div>
+      </div>
+      <div class="pt-6 border-t border-white/5 text-center text-slate-500">
+        <p>© 2026 Pazurka E-Ticaret Platformu. Tüm hakları saklıdır.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/store.js"></script>
+  <script>
+    function handleContactSubmit(e) {
+      e.preventDefault();
+      const btn = document.getElementById("contact-submit-btn");
+      btn.innerHTML = `<span class="animate-spin mr-2">⏳</span> Gönderiliyor...`;
+      btn.disabled = true;
+
+      setTimeout(() => {
+        Pazurka.toast("Mesajınız müşteri temsilcimize ulaştı. En kısa sürede sizinle iletişime geçeceğiz!", "success");
+        e.target.reset();
+        btn.innerHTML = `
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" x2="11" y1="2" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          <span>Mesajı Gönder</span>
+        `;
+        btn.disabled = false;
+      }, 700);
+    }
+  </script>
+</body>
+</html>

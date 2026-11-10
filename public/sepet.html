@@ -1,0 +1,309 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <base href="/">
+  <title>Alışveriş Sepeti - Pazurka</title>
+  <link rel="icon" type="image/png" href="images/favicon.png">
+  <link rel="apple-touch-icon" href="images/favicon.png">
+  <link rel="shortcut icon" href="favicon.ico">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: { DEFAULT: '#FD4800', hover: '#E03E00', light: '#FFF2EB', dark: '#0F1114' }
+          }
+        }
+      }
+    }
+  </script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body class="bg-slate-50 text-slate-900 flex flex-col min-h-screen">
+
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        <a href="/" class="flex-shrink-0 flex items-center">
+          <img 
+            src="images/pazurkalogo.png" 
+            onerror="this.onerror=null; this.src='pazurkalogo.png'; if(!this.complete) this.src='/images/pazurkalogo.png';" 
+            alt="Pazurka Logo" 
+            class="h-10 sm:h-12 w-auto object-contain"
+          >
+        </a>
+        <div class="flex items-center gap-4 text-xs font-semibold text-slate-500">
+          <span class="text-brand font-bold flex items-center gap-1.5"><i data-lucide="shopping-cart" class="w-4 h-4"></i> 1. Sepetim</span>
+          <span>&gt;</span>
+          <span class="flex items-center gap-1.5"><i data-lucide="credit-card" class="w-4 h-4"></i> 2. Ödeme</span>
+          <span>&gt;</span>
+          <span class="flex items-center gap-1.5"><i data-lucide="check-circle" class="w-4 h-4"></i> 3. Onay</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-1 w-full">
+    <h1 class="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-2">
+      <i data-lucide="shopping-bag" class="w-6 h-6 text-brand"></i>
+      Sepetimdeki Ürünler
+    </h1>
+
+    <div id="cart-content" class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      
+      <!-- Cart Items Table (8 cols) -->
+      <div class="lg:col-span-8 space-y-4">
+        <div id="page-shipping-bar" class="p-4 bg-white rounded-2xl border border-slate-100 shadow-sm"></div>
+
+        <div class="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
+          <div class="p-4 border-b border-slate-100 font-bold text-xs uppercase text-slate-400 tracking-wider hidden sm:grid grid-cols-12 gap-4">
+            <div class="col-span-6">Ürün</div>
+            <div class="col-span-2 text-center">Fiyat</div>
+            <div class="col-span-2 text-center">Adet</div>
+            <div class="col-span-2 text-right">Toplam</div>
+          </div>
+          <div id="cart-items-container" class="divide-y divide-slate-100 p-4"></div>
+        </div>
+
+        <div class="flex items-center justify-between pt-2">
+          <a href="/urunler" class="text-xs font-bold text-slate-600 hover:text-brand flex items-center gap-1 transition">
+            <i data-lucide="arrow-left" class="w-4 h-4"></i> Alışverişe Devam Et
+          </a>
+          <button onclick="Pazurka.clearCart(); renderFullCart();" class="text-xs font-semibold text-rose-500 hover:underline">
+            Sepeti Temizle
+          </button>
+        </div>
+      </div>
+
+      <!-- Order Summary Card (4 cols) -->
+      <div class="lg:col-span-4 space-y-6">
+        <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm space-y-5">
+          <h3 class="font-bold text-slate-900 text-base pb-3 border-b border-slate-100">Sipariş Özeti</h3>
+          
+          <div class="space-y-3 text-sm">
+            <div class="flex items-center justify-between text-slate-600">
+              <span>Ara Toplam:</span>
+              <span id="summary-subtotal" class="font-bold text-slate-900">0,00 TL</span>
+            </div>
+            
+            <div class="flex items-center justify-between text-slate-600">
+              <span>Kargo Bedeli:</span>
+              <span id="summary-shipping" class="font-bold text-emerald-600">Bedava</span>
+            </div>
+
+            <div id="summary-discount-row" class="hidden flex items-center justify-between text-rose-600">
+              <span class="flex items-center gap-1"><i data-lucide="tag" class="w-3.5 h-3.5"></i> Kupon İndirimi:</span>
+              <span id="summary-discount" class="font-bold">-0,00 TL</span>
+            </div>
+
+            <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-base">
+              <span class="font-bold text-slate-900">Toplam Tutar:</span>
+              <span id="summary-total" class="font-extrabold text-2xl text-brand">0,00 TL</span>
+            </div>
+          </div>
+
+          <!-- Coupon Input -->
+          <div class="pt-2">
+            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">İndirim Kuponu:</label>
+            <div class="flex items-center gap-2">
+              <input type="text" id="coupon-input" placeholder="PAZURKA100" class="flex-1 px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs uppercase font-mono focus:outline-none focus:border-brand">
+              <button onclick="applyCoupon()" class="px-4 py-2 bg-slate-800 hover:bg-black text-white text-xs font-bold rounded-xl transition">
+                Uygula
+              </button>
+            </div>
+            <p id="coupon-msg" class="text-xs mt-1.5 hidden"></p>
+          </div>
+
+          <a href="/odeme" class="w-full py-4 bg-brand hover:bg-brand-hover text-white font-bold rounded-2xl flex items-center justify-center gap-2 transition shadow-md btn-glow text-sm">
+            <span>Ödemeye Geç</span>
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </a>
+        </div>
+
+        <div class="p-4 bg-white rounded-2xl border border-slate-100 text-xs text-slate-500 space-y-2">
+          <p class="flex items-center gap-2 text-slate-700 font-semibold">
+            <i data-lucide="shield-check" class="w-4 h-4 text-emerald-500"></i>
+            Güvenli Alışveriş Garantisi
+          </p>
+          <p>Tüm siparişleriniz 256-Bit SSL sertifikası ve 3D Secure ile korunmaktadır.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Empty Cart View -->
+    <div id="empty-cart-view" class="hidden bg-white rounded-3xl p-12 text-center border border-slate-100 max-w-xl mx-auto">
+      <div class="w-20 h-20 rounded-full bg-orange-50 text-brand flex items-center justify-center mx-auto mb-4">
+        <i data-lucide="shopping-cart" class="w-10 h-10"></i>
+      </div>
+      <h3 class="text-xl font-bold text-slate-900 mb-2">Sepetinizde Ürün Bulunmuyor</h3>
+      <p class="text-sm text-slate-500 mb-6">Pazurka'nın avantajlı fiyatlarıyla alışverişe hemen başlayabilirsiniz.</p>
+      <a href="/urunler" class="px-8 py-3.5 bg-brand hover:bg-brand-hover text-white font-bold rounded-2xl transition shadow-md btn-glow inline-flex items-center gap-2 text-sm">
+        <span>Ürünleri Keşfet</span>
+        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+      </a>
+    </div>
+  </main>
+
+  <footer class="mt-auto bg-brand-dark text-slate-400 text-xs py-8 border-t border-white/10 text-center">
+    <div class="max-w-7xl mx-auto px-4"><p>© 2026 Pazurka E-Ticaret Platformu.</p></div>
+  </footer>
+
+  <script src="js/store.js"></script>
+  <script>
+    let appliedCoupon = null;
+
+    function renderFullCart() {
+      const cart = Pazurka.getCart();
+      const content = document.getElementById("cart-content");
+      const emptyView = document.getElementById("empty-cart-view");
+      const container = document.getElementById("cart-items-container");
+      const subtotalEl = document.getElementById("summary-subtotal");
+      const totalEl = document.getElementById("summary-total");
+      const shippingEl = document.getElementById("summary-shipping");
+      const shippingBar = document.getElementById("page-shipping-bar");
+
+      if (cart.length === 0) {
+        content.classList.add("hidden");
+        emptyView.classList.remove("hidden");
+        return;
+      }
+
+      content.classList.remove("hidden");
+      emptyView.classList.add("hidden");
+
+      const subtotal = Pazurka.getCartSubtotal();
+      const freeShippingLimit = 750;
+      const baseShipping = 59.90;
+      const shippingCost = subtotal >= freeShippingLimit ? 0 : baseShipping;
+
+      const remaining = Math.max(0, freeShippingLimit - subtotal);
+      const percent = Math.min(100, Math.round((subtotal / freeShippingLimit) * 100));
+      shippingBar.innerHTML = `
+        <div class="flex items-center justify-between text-xs font-semibold mb-2">
+          ${remaining > 0 
+            ? `<span>Kargo Bedava için sepetinize <strong class="text-brand">${Pazurka.formatPrice(remaining)}</strong> daha ekleyin!</span>` 
+            : `<span class="text-emerald-600 font-bold flex items-center gap-1"><i data-lucide="check" class="w-4 h-4"></i> Harika! Bu siparişinizde kargo tamamen ücretsiz!</span>`}
+          <span class="text-slate-400">%${percent}</span>
+        </div>
+        <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
+          <div class="bg-brand h-full rounded-full transition-all duration-500" style="width: ${percent}%"></div>
+        </div>
+      `;
+
+      container.innerHTML = cart.map((item, index) => `
+        <div class="py-4 grid grid-cols-1 sm:grid-cols-12 gap-4 items-center">
+          <div class="sm:col-span-6 flex items-center gap-4">
+            <img src="${item.image}" alt="${item.name}" class="w-20 h-20 object-cover rounded-xl bg-slate-50 flex-shrink-0 border border-slate-100">
+            <div>
+              <a href="/urun-detay?slug=${item.slug}" class="font-bold text-slate-900 text-sm hover:text-brand transition">${item.name}</a>
+              ${item.variant ? `<p class="text-xs text-slate-400 mt-0.5">${item.variant}</p>` : ''}
+              <button onclick="Pazurka.removeFromCart(${index}); renderFullCart();" class="text-xs text-rose-500 hover:underline flex items-center gap-1 mt-2">
+                <i data-lucide="trash-2" class="w-3.5 h-3.5"></i> Kaldır
+              </button>
+            </div>
+          </div>
+          
+          <div class="sm:col-span-2 text-left sm:text-center text-sm font-semibold text-slate-700">
+            ${Pazurka.formatPrice(item.price)}
+          </div>
+
+          <div class="sm:col-span-2 flex items-center justify-start sm:justify-center">
+            <div class="flex items-center border border-slate-200 rounded-xl overflow-hidden bg-slate-50">
+              <button onclick="Pazurka.updateCartQuantity(${index}, ${item.quantity - 1}); renderFullCart();" class="px-2.5 py-1 text-slate-600 hover:bg-slate-200 font-bold">-</button>
+              <span class="px-3 py-1 text-xs font-bold text-slate-900">${item.quantity}</span>
+              <button onclick="Pazurka.updateCartQuantity(${index}, ${item.quantity + 1}); renderFullCart();" class="px-2.5 py-1 text-slate-600 hover:bg-slate-200 font-bold">+</button>
+            </div>
+          </div>
+
+          <div class="sm:col-span-2 text-left sm:text-right font-extrabold text-slate-900 text-base">
+            ${Pazurka.formatPrice(item.price * item.quantity)}
+          </div>
+        </div>
+      `).join("");
+
+      subtotalEl.textContent = Pazurka.formatPrice(subtotal);
+      shippingEl.textContent = shippingCost === 0 ? "Bedava" : Pazurka.formatPrice(shippingCost);
+
+      let discount = 0;
+      if (appliedCoupon) {
+        discount = appliedCoupon.discount_amount;
+        document.getElementById("summary-discount-row").classList.remove("hidden");
+        document.getElementById("summary-discount").textContent = `-${Pazurka.formatPrice(discount)}`;
+      } else {
+        document.getElementById("summary-discount-row").classList.add("hidden");
+      }
+
+      const total = Math.max(0, subtotal + shippingCost - discount);
+      totalEl.textContent = Pazurka.formatPrice(total);
+
+      Pazurka.refreshIcons();
+    }
+
+    async function applyCoupon() {
+      const code = document.getElementById("coupon-input").value.trim().toUpperCase();
+      const msgEl = document.getElementById("coupon-msg");
+      if (!code) return;
+
+      const subtotal = Pazurka.getCartSubtotal();
+
+      // Check if online API works or use offline coupon check
+      try {
+        const res = await fetch("/api/coupons/validate", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ code, subtotal })
+        });
+        const data = await res.json();
+        if (data.success && data.coupon) {
+          appliedCoupon = data.coupon;
+          localStorage.setItem("pazurka_applied_coupon", JSON.stringify(data.coupon));
+          msgEl.className = "text-xs mt-1.5 text-emerald-600 font-semibold";
+          msgEl.textContent = `Tebrikler! ${data.message} (-${Pazurka.formatPrice(data.coupon.discount_amount)})`;
+          msgEl.classList.remove("hidden");
+          renderFullCart();
+          return;
+        }
+      } catch (err) {}
+
+      // Fallback offline coupon logic
+      if (code === "PAZURKA100" && subtotal >= 1000) {
+        appliedCoupon = { code: "PAZURKA100", discount_amount: 100 };
+      } else if (code === "HOSGELDIN20" && subtotal >= 500) {
+        appliedCoupon = { code: "HOSGELDIN20", discount_amount: Math.round(subtotal * 0.20) };
+      } else if (code === "FIRSAT10" && subtotal >= 250) {
+        appliedCoupon = { code: "FIRSAT10", discount_amount: Math.round(subtotal * 0.10) };
+      } else {
+        appliedCoupon = null;
+        msgEl.className = "text-xs mt-1.5 text-rose-500 font-semibold";
+        msgEl.textContent = "Geçersiz kupon kodu veya sepet tutarı yetersiz.";
+        msgEl.classList.remove("hidden");
+        renderFullCart();
+        return;
+      }
+
+      localStorage.setItem("pazurka_applied_coupon", JSON.stringify(appliedCoupon));
+      msgEl.className = "text-xs mt-1.5 text-emerald-600 font-semibold";
+      msgEl.textContent = `Tebrikler! Kupon uygulandı (-${Pazurka.formatPrice(appliedCoupon.discount_amount)})`;
+      msgEl.classList.remove("hidden");
+      renderFullCart();
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      try {
+        appliedCoupon = JSON.parse(localStorage.getItem("pazurka_applied_coupon") || "null");
+      } catch {}
+      renderFullCart();
+    });
+  </script>
+</body>
+</html>

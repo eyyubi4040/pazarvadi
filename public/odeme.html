@@ -1,0 +1,524 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <base href="/">
+  <title>Güvenli Ödeme - Pazurka</title>
+  <link rel="icon" type="image/png" href="images/favicon.png">
+  <link rel="apple-touch-icon" href="images/favicon.png">
+  <link rel="shortcut icon" href="favicon.ico">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: { DEFAULT: '#FD4800', hover: '#E03E00', light: '#FFF2EB', dark: '#0F1114' }
+          }
+        }
+      }
+    }
+  </script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body class="bg-slate-50 text-slate-900 flex flex-col min-h-screen">
+
+  <header class="bg-white border-b border-slate-200/80 sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        <a href="/" class="flex-shrink-0 flex items-center">
+          <img 
+            src="images/pazurkalogo.png" 
+            onerror="this.onerror=null; this.src='pazurkalogo.png'; if(!this.complete) this.src='/images/pazurkalogo.png';" 
+            alt="Pazurka Logo" 
+            class="h-10 sm:h-12 w-auto object-contain"
+          >
+        </a>
+        <div class="flex items-center gap-2 text-xs font-bold text-emerald-600 bg-emerald-50 px-3.5 py-1.5 rounded-full border border-emerald-100">
+          <i data-lucide="shield-check" class="w-4 h-4"></i>
+          <span>256-Bit SSL Güvenli Alışveriş</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-1 w-full">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      
+      <!-- Checkout Form (8 cols) -->
+      <form id="checkout-form" onsubmit="handleCheckout(event)" class="lg:col-span-8 space-y-6">
+        
+        <!-- STEP 1: Delivery & Contact -->
+        <div class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-100 shadow-sm space-y-6">
+          <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+            <div class="flex items-center gap-3">
+              <span class="w-8 h-8 rounded-full bg-brand text-white font-bold flex items-center justify-center text-sm">1</span>
+              <h2 class="text-lg font-bold text-slate-900">Teslimat & İletişim Bilgileri</h2>
+            </div>
+            <a href="/hesabim" class="text-xs font-bold text-brand hover:underline flex items-center gap-1">
+              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+              <span>Adreslerim</span>
+            </a>
+          </div>
+
+          <!-- Quick Selector for Saved User Addresses -->
+          <div id="saved-addresses-box" class="hidden p-4 rounded-2xl bg-orange-50/50 border border-orange-200/60 space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-extrabold text-slate-900 flex items-center gap-1.5">
+                <svg class="w-4 h-4 text-brand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                Kayıtlı Adreslerimden Birini Seçin
+              </span>
+              <a href="/hesabim" class="text-[11px] font-bold text-brand hover:underline">+ Yeni Adres Ekle</a>
+            </div>
+            <div id="saved-addresses-list" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5"></div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Adınız Soyadınız *</label>
+              <input type="text" id="cust-name" required placeholder="Ahmet Yılmaz" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-brand">
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Telefon Numarası *</label>
+              <input type="tel" id="cust-phone" required placeholder="0532 000 00 00" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-brand">
+            </div>
+
+            <div class="sm:col-span-2">
+              <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">E-Posta Adresi *</label>
+              <input type="email" id="cust-email" required placeholder="ahmet@example.com (Sipariş takibi için)" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-brand">
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">İl *</label>
+              <select id="ship-city" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-brand cursor-pointer">
+                <option value="">İl Seçiniz...</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">İlçe *</label>
+              <select id="ship-district" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-brand cursor-pointer disabled:bg-slate-100 disabled:cursor-not-allowed">
+                <option value="">Önce İl Seçiniz...</option>
+              </select>
+            </div>
+
+            <div class="sm:col-span-2">
+              <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Açık Adres (Cadde, Mahalle, Bina No) *</label>
+              <textarea id="ship-address" rows="2" required placeholder="Örnek: Bağdat Cad. Güneş Apt. No:12 D:5" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-brand"></textarea>
+            </div>
+
+            <div class="sm:col-span-2">
+              <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Sipariş Notu (Opsiyonel)</label>
+              <input type="text" id="order-notes" placeholder="Zil çalmasın lütfen bebek uyuyor vb." class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-brand">
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 2: Cargo Selection -->
+        <div class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-100 shadow-sm space-y-4">
+          <div class="flex items-center gap-3 pb-4 border-b border-slate-100">
+            <span class="w-8 h-8 rounded-full bg-brand text-white font-bold flex items-center justify-center text-sm">2</span>
+            <h2 class="text-lg font-bold text-slate-900">Kargo Seçimi</h2>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <label class="flex items-center gap-3 p-4 rounded-2xl border-2 border-brand bg-orange-50/40 cursor-pointer">
+              <input type="radio" name="cargo_company" value="Yurtiçi Kargo" checked class="text-brand">
+              <div>
+                <p class="font-bold text-sm text-slate-900">Yurtiçi Kargo</p>
+                <p class="text-xs text-emerald-600 font-semibold">Standart Hızlı Teslimat</p>
+              </div>
+            </label>
+
+            <label class="flex items-center gap-3 p-4 rounded-2xl border border-slate-200 hover:border-slate-300 cursor-pointer">
+              <input type="radio" name="cargo_company" value="Aras Kargo" class="text-brand">
+              <div>
+                <p class="font-bold text-sm text-slate-900">Aras Kargo</p>
+                <p class="text-xs text-slate-500">1-2 İş Günü</p>
+              </div>
+            </label>
+
+            <label class="flex items-center gap-3 p-4 rounded-2xl border border-slate-200 hover:border-slate-300 cursor-pointer">
+              <input type="radio" name="cargo_company" value="MNG Kargo" class="text-brand">
+              <div>
+                <p class="font-bold text-sm text-slate-900">MNG Kargo</p>
+                <p class="text-xs text-slate-500">1-2 İş Günü</p>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- STEP 3: Payment Method -->
+        <div class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-100 shadow-sm space-y-6">
+          <div class="flex items-center gap-3 pb-4 border-b border-slate-100">
+            <span class="w-8 h-8 rounded-full bg-brand text-white font-bold flex items-center justify-center text-sm">3</span>
+            <h2 class="text-lg font-bold text-slate-900">Ödeme Yöntemi</h2>
+          </div>
+
+          <div class="grid grid-cols-3 gap-3">
+            <button type="button" onclick="selectPaymentMethod('card')" id="pm-tab-card" class="py-3 px-2 rounded-2xl border-2 border-brand bg-orange-50/50 text-brand font-bold text-xs flex flex-col items-center gap-1.5 transition">
+              <i data-lucide="credit-card" class="w-5 h-5"></i>
+              <span>Kredi / Banka Kartı</span>
+            </button>
+
+            <button type="button" onclick="selectPaymentMethod('eft')" id="pm-tab-eft" class="py-3 px-2 rounded-2xl border border-slate-200 text-slate-600 hover:bg-slate-50 font-bold text-xs flex flex-col items-center gap-1.5 transition">
+              <i data-lucide="building-2" class="w-5 h-5"></i>
+              <span>Havale / EFT</span>
+            </button>
+
+            <button type="button" onclick="selectPaymentMethod('door')" id="pm-tab-door" class="py-3 px-2 rounded-2xl border border-slate-200 text-slate-600 hover:bg-slate-50 font-bold text-xs flex flex-col items-center gap-1.5 transition">
+              <i data-lucide="banknote" class="w-5 h-5"></i>
+              <span>Kapıda Ödeme</span>
+            </button>
+          </div>
+
+          <!-- Card Form -->
+          <div id="payment-card-box" class="space-y-4 pt-2">
+            <div>
+              <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Kart Üzerindeki İsim</label>
+              <input type="text" id="card-holder" placeholder="AHMET YILMAZ" value="AHMET YILMAZ" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm uppercase focus:outline-none focus:border-brand">
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Kart Numarası</label>
+              <input type="text" id="card-number" placeholder="5526 •••• •••• 4242" value="5526 8920 1234 4242" maxlength="19" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-mono focus:outline-none focus:border-brand">
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Son Kullanma (AA/YY)</label>
+                <input type="text" id="card-exp" placeholder="12/28" value="12/28" maxlength="5" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-mono focus:outline-none focus:border-brand">
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">CVV / Güvenlik Kodu</label>
+                <input type="text" id="card-cvv" placeholder="321" value="321" maxlength="4" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-mono focus:outline-none focus:border-brand">
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Taksit Seçeneği</label>
+              <select id="installment-select" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:border-brand">
+                <option value="1">Tek Çekim (Peşin Fiyatına)</option>
+                <option value="3">3 Taksit (%0 Vade Farkı)</option>
+                <option value="6">6 Taksit (%0 Vade Farkı)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- EFT Box -->
+          <div id="payment-eft-box" class="hidden p-5 bg-slate-50 rounded-2xl border border-slate-200 space-y-3 text-xs text-slate-700">
+            <p class="font-bold text-slate-900">Pazurka E-Ticaret Banka Hesap Bilgileri:</p>
+            <p><strong>Banka:</strong> Garanti BBVA</p>
+            <p><strong>Alıcı:</strong> Pazurka E-Ticaret Anonim Şirketi</p>
+            <p class="font-mono bg-white p-2.5 rounded-xl border border-slate-200">IBAN: TR42 0006 2000 0001 2345 6789 01</p>
+          </div>
+
+          <!-- Door Box -->
+          <div id="payment-door-box" class="hidden p-5 bg-slate-50 rounded-2xl border border-slate-200 text-xs text-slate-700 space-y-2">
+            <p class="font-bold text-slate-900">Kapıda Nakit veya Kredi Kartı ile Ödeme</p>
+            <p>Kargonuz teslim edildiğinde kuryeye nakit veya temassız kart ile ödeme yapabilirsiniz.</p>
+          </div>
+        </div>
+
+        <button type="submit" id="submit-order-btn" class="w-full py-4 bg-brand hover:bg-brand-hover text-white font-extrabold rounded-2xl transition shadow-lg btn-glow flex items-center justify-center gap-2 text-base">
+          <i data-lucide="lock" class="w-5 h-5"></i>
+          <span id="submit-btn-text">Siparişi Onayla ve Güvenle Öde</span>
+        </button>
+      </form>
+
+      <!-- Sidebar Order Items & Summary (4 cols) -->
+      <aside class="lg:col-span-4 space-y-6">
+        <div class="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm space-y-4">
+          <h3 class="font-bold text-slate-900 text-base pb-3 border-b border-slate-100">Sipariş Detayı</h3>
+          <div id="order-preview-items" class="divide-y divide-slate-100 max-h-72 overflow-y-auto space-y-2"></div>
+
+          <div class="pt-4 border-t border-slate-100 space-y-2 text-xs">
+            <div class="flex items-center justify-between text-slate-600">
+              <span>Ara Toplam:</span>
+              <span id="checkout-subtotal" class="font-bold text-slate-900">0,00 TL</span>
+            </div>
+            <div class="flex items-center justify-between text-slate-600">
+              <span>Kargo:</span>
+              <span id="checkout-shipping" class="font-bold text-emerald-600">Bedava</span>
+            </div>
+            <div id="checkout-discount-row" class="hidden flex items-center justify-between text-rose-600">
+              <span>Kupon İndirimi:</span>
+              <span id="checkout-discount" class="font-bold">-0,00 TL</span>
+            </div>
+            <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-base">
+              <span class="font-bold text-slate-900">Ödenecek Tutar:</span>
+              <span id="checkout-total" class="font-extrabold text-2xl text-brand">0,00 TL</span>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+    </div>
+  </main>
+
+  <!-- 3D SECURE MODAL SIMULATION -->
+  <div id="secure-modal" class="fixed inset-0 bg-slate-950/70 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-8 space-y-6 shadow-2xl text-center">
+      <div class="w-16 h-16 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center mx-auto">
+        <i data-lucide="shield-check" class="w-8 h-8"></i>
+      </div>
+      <div>
+        <h3 class="font-bold text-slate-900 text-lg mb-1">3D Secure Doğrulaması</h3>
+        <p class="text-xs text-slate-500">Bankanız tarafından kayıtlı telefonunuza SMS doğrulama kodu gönderildi.</p>
+      </div>
+
+      <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 text-xs text-slate-600 space-y-1">
+        <p><strong>İşyeri:</strong> PAZURKA E-TICARET</p>
+        <p><strong>Tutar:</strong> <span id="modal-amount" class="font-bold text-slate-900">0,00 TL</span></p>
+      </div>
+
+      <div>
+        <input type="text" id="sms-code" placeholder="123456" value="849201" maxlength="6" class="w-40 text-center tracking-widest text-xl font-bold font-mono px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-brand mx-auto block">
+        <p class="text-[11px] text-slate-400 mt-2">Simülasyon kodu otomatik doldurulmuştur.</p>
+      </div>
+
+      <button onclick="confirm3DSecure()" id="confirm-3d-btn" class="w-full py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-2xl transition shadow-md flex items-center justify-center gap-2 text-sm">
+        <span>Ödemeyi Onayla</span>
+        <i data-lucide="check" class="w-4 h-4"></i>
+      </button>
+    </div>
+  </div>
+
+  <footer class="mt-auto bg-brand-dark text-slate-400 text-xs py-8 border-t border-white/10 text-center">
+    <div class="max-w-7xl mx-auto px-4"><p>© 2026 Pazurka E-Ticaret Platformu.</p></div>
+  </footer>
+
+  <script src="js/store.js"></script>
+  <script>
+    let selectedPayment = "card";
+    let pendingOrderPayload = null;
+
+    function selectPaymentMethod(m) {
+      selectedPayment = m;
+      ['card', 'eft', 'door'].forEach(t => {
+        const btn = document.getElementById(`pm-tab-${t}`);
+        const box = document.getElementById(`payment-${t}-box`);
+        if (t === m) {
+          btn.className = "py-3 px-2 rounded-2xl border-2 border-brand bg-orange-50/50 text-brand font-bold text-xs flex flex-col items-center gap-1.5 transition";
+          if (box) box.classList.remove("hidden");
+        } else {
+          btn.className = "py-3 px-2 rounded-2xl border border-slate-200 text-slate-600 hover:bg-slate-50 font-bold text-xs flex flex-col items-center gap-1.5 transition";
+          if (box) box.classList.add("hidden");
+        }
+      });
+    }
+
+    function renderCheckoutPreview() {
+      const cart = Pazurka.getCart();
+      if (cart.length === 0) {
+        window.location.href = "/sepet";
+        return;
+      }
+
+      const user = Pazurka.getUser();
+      if (user) {
+        if (user.full_name) document.getElementById("cust-name").value = user.full_name;
+        if (user.email) document.getElementById("cust-email").value = user.email;
+        if (user.phone) document.getElementById("cust-phone").value = user.phone;
+        if (user.address) document.getElementById("ship-address").value = user.address;
+        Pazurka.populateCityDistrict("ship-city", "ship-district", user.city || "", user.district || "");
+      }
+
+      const itemsContainer = document.getElementById("order-preview-items");
+      itemsContainer.innerHTML = cart.map(item => `
+        <div class="flex items-center gap-3 py-2">
+          <img src="${item.image}" class="w-12 h-12 object-cover rounded-xl bg-slate-50 flex-shrink-0 border border-slate-100">
+          <div class="flex-1 min-w-0">
+            <h4 class="text-xs font-bold text-slate-900 truncate">${item.name}</h4>
+            <p class="text-[11px] text-slate-400">${item.quantity} Adet x ${Pazurka.formatPrice(item.price)}</p>
+          </div>
+          <span class="text-xs font-bold text-slate-900">${Pazurka.formatPrice(item.price * item.quantity)}</span>
+        </div>
+      `).join("");
+
+      const subtotal = Pazurka.getCartSubtotal();
+      const freeShip = 750;
+      const shippingCost = subtotal >= freeShip ? 0 : 59.90;
+      
+      let discount = 0;
+      let coupon = null;
+      try {
+        coupon = JSON.parse(localStorage.getItem("pazurka_applied_coupon") || "null");
+        if (coupon) discount = coupon.discount_amount;
+      } catch {}
+
+      const total = Math.max(0, subtotal + shippingCost - discount);
+
+      document.getElementById("checkout-subtotal").textContent = Pazurka.formatPrice(subtotal);
+      document.getElementById("checkout-shipping").textContent = shippingCost === 0 ? "Bedava" : Pazurka.formatPrice(shippingCost);
+
+      if (discount > 0) {
+        document.getElementById("checkout-discount-row").classList.remove("hidden");
+        document.getElementById("checkout-discount").textContent = `-${Pazurka.formatPrice(discount)}`;
+      }
+
+      document.getElementById("checkout-total").textContent = Pazurka.formatPrice(total);
+      document.getElementById("modal-amount").textContent = Pazurka.formatPrice(total);
+
+      Pazurka.refreshIcons();
+    }
+
+    async function handleCheckout(e) {
+      e.preventDefault();
+      const cart = Pazurka.getCart();
+      if (cart.length === 0) return;
+
+      const cargo = document.querySelector('input[name="cargo_company"]:checked')?.value || "Yurtiçi Kargo";
+      let couponCode = "";
+      try {
+        const c = JSON.parse(localStorage.getItem("pazurka_applied_coupon") || "null");
+        if (c) couponCode = c.code;
+      } catch {}
+
+      const loggedUser = Pazurka.getUser();
+      pendingOrderPayload = {
+        items: cart,
+        user_id: loggedUser ? loggedUser.id : undefined,
+        customer: {
+          name: document.getElementById("cust-name").value.trim(),
+          phone: document.getElementById("cust-phone").value.trim(),
+          email: document.getElementById("cust-email").value.trim(),
+          notes: document.getElementById("order-notes").value.trim()
+        },
+        shipping: {
+          city: document.getElementById("ship-city").value.trim(),
+          district: document.getElementById("ship-district").value.trim(),
+          address: document.getElementById("ship-address").value.trim(),
+          cargoCompany: cargo
+        },
+        payment: {
+          method: selectedPayment,
+          installment: document.getElementById("installment-select").value
+        },
+        coupon_code: couponCode
+      };
+
+      if (selectedPayment === "card") {
+        document.getElementById("secure-modal").classList.remove("hidden");
+      } else {
+        await executeOrderCreation();
+      }
+    }
+
+    async function confirm3DSecure() {
+      const btn = document.getElementById("confirm-3d-btn");
+      btn.innerHTML = `<span class="animate-spin mr-2">⏳</span> Ödeme İşleniyor...`;
+      btn.disabled = true;
+
+      setTimeout(async () => {
+        await executeOrderCreation();
+      }, 1000);
+    }
+
+    async function executeOrderCreation() {
+      let orderNum = "PZR-" + Math.floor(100000 + Math.random() * 900000);
+      let trackNum = "YK" + Math.floor(100000000 + Math.random() * 900000000);
+      let orderObj = null;
+
+      try {
+        const res = await fetch("/api/orders", {
+          method: "POST",
+          headers: Pazurka.getAuthHeaders(),
+          body: JSON.stringify(pendingOrderPayload)
+        });
+        const data = await res.json();
+        if (data.success && data.order) {
+          orderObj = data.order;
+        }
+      } catch (err) {}
+
+      // Fallback offline order creation
+      if (!orderObj) {
+        orderObj = {
+          order_number: orderNum,
+          tracking_number: trackNum,
+          customer_name: pendingOrderPayload.customer.name,
+          customer_email: pendingOrderPayload.customer.email,
+          total: Pazurka.getCartSubtotal(),
+          order_status: "processing",
+          shipping_company: pendingOrderPayload.shipping.cargoCompany,
+          created_at: new Date().toISOString()
+        };
+      }
+
+      Pazurka.saveOrderLocal(orderObj);
+      Pazurka.clearCart();
+      localStorage.removeItem("pazurka_applied_coupon");
+      window.location.href = `/siparis-basarili?order=${orderObj.order_number}`;
+    }
+
+    async function initSavedAddresses() {
+      Pazurka.populateCityDistrict("ship-city", "ship-district");
+
+      const addresses = await Pazurka.getAddresses();
+      const container = document.getElementById("saved-addresses-box");
+      const listEl = document.getElementById("saved-addresses-list");
+      const user = Pazurka.getUser();
+
+      if (user && user.email) {
+        document.getElementById("cust-email").value = user.email;
+      }
+
+      if (addresses && addresses.length > 0) {
+        container.classList.remove("hidden");
+        listEl.innerHTML = addresses.map((addr, idx) => `
+          <div onclick="selectSavedAddress(${idx})" id="saved-addr-card-${idx}" class="p-3 bg-white rounded-xl border border-slate-200 hover:border-brand cursor-pointer transition flex items-start gap-2.5 ${addr.is_default ? 'border-brand bg-orange-50/40 ring-1 ring-brand' : ''}">
+            <div class="mt-0.5 text-brand flex-shrink-0">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div class="min-w-0 flex-1">
+              <div class="flex items-center justify-between">
+                <span class="font-extrabold text-xs text-slate-900">${addr.title}</span>
+                ${addr.is_default ? `<span class="text-[9px] font-bold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded">Varsayılan</span>` : ''}
+              </div>
+              <p class="text-[11px] text-slate-600 font-bold mt-0.5">${addr.recipient_name} • ${addr.phone}</p>
+              <p class="text-[11px] text-slate-500 truncate mt-0.5">${addr.address_line}, ${addr.district}/${addr.city}</p>
+            </div>
+          </div>
+        `).join("");
+
+        // Auto select default address
+        const defIdx = addresses.findIndex(a => a.is_default);
+        selectSavedAddress(defIdx > -1 ? defIdx : 0);
+      }
+    }
+
+    async function selectSavedAddress(index) {
+      const addresses = await Pazurka.getAddresses();
+      const addr = addresses[index];
+      if (!addr) return;
+
+      document.querySelectorAll("[id^='saved-addr-card-']").forEach((el, i) => {
+        if (i === index) {
+          el.className = "p-3 bg-white rounded-xl border-2 border-brand bg-orange-50/40 ring-1 ring-brand cursor-pointer transition flex items-start gap-2.5";
+        } else {
+          el.className = "p-3 bg-white rounded-xl border border-slate-200 hover:border-slate-300 cursor-pointer transition flex items-start gap-2.5";
+        }
+      });
+
+      document.getElementById("cust-name").value = addr.recipient_name || "";
+      document.getElementById("cust-phone").value = addr.phone || "";
+      document.getElementById("ship-address").value = addr.address_line || "";
+      Pazurka.populateCityDistrict("ship-city", "ship-district", addr.city || "", addr.district || "");
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      renderCheckoutPreview();
+      initSavedAddresses();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,158 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <base href="/">
+  <title>Favorilerim - Pazurka</title>
+  <link rel="icon" type="image/png" href="images/favicon.png">
+  <link rel="apple-touch-icon" href="images/favicon.png">
+  <link rel="shortcut icon" href="favicon.ico">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: { DEFAULT: '#FD4800', hover: '#E03E00', light: '#FFF2EB', dark: '#0F1114' }
+          }
+        }
+      }
+    }
+  </script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body class="bg-slate-50 text-slate-900 flex flex-col min-h-screen">
+
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        <a href="/" class="flex-shrink-0 flex items-center">
+          <img 
+            src="images/pazurkalogo.png" 
+            onerror="this.onerror=null; this.src='pazurkalogo.png'; if(!this.complete) this.src='/images/pazurkalogo.png';" 
+            alt="Pazurka Logo" 
+            class="h-10 sm:h-12 w-auto object-contain"
+          >
+        </a>
+        <div class="flex items-center gap-4">
+          <a href="/urunler" class="text-xs font-bold text-slate-600 hover:text-brand transition">Tüm Ürünler</a>
+          <button onclick="Pazurka.openCartDrawer()" class="relative flex items-center gap-2 bg-brand hover:bg-brand-hover text-white px-4 py-2.5 rounded-full font-semibold text-sm transition shadow-sm btn-glow">
+            <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+            <span class="hidden md:inline">Sepetim</span>
+            <span class="cart-badge hidden bg-white text-brand text-xs font-bold px-1.5 py-0.5 rounded-full">0</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-1 w-full space-y-6">
+    <div class="flex items-center justify-between">
+      <div>
+        <h1 class="text-2xl font-bold text-slate-900 flex items-center gap-2">
+          <i data-lucide="heart" class="w-6 h-6 text-rose-500 fill-rose-500"></i>
+          Favorilerim
+        </h1>
+        <p class="text-sm text-slate-500 mt-1">Beğendiğiniz ve daha sonra satın almak istediğiniz ürünler</p>
+      </div>
+    </div>
+
+    <div id="wishlist-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
+
+    <div id="empty-wishlist" class="hidden bg-white rounded-3xl p-12 text-center border border-slate-100 max-w-md mx-auto">
+      <div class="w-16 h-16 rounded-full bg-rose-50 text-rose-500 flex items-center justify-center mx-auto mb-4">
+        <i data-lucide="heart" class="w-8 h-8"></i>
+      </div>
+      <h3 class="text-lg font-bold text-slate-900 mb-1">Favori Listeniz Boş</h3>
+      <p class="text-xs text-slate-500 mb-6">Beğendiğiniz ürünleri favorilerinize ekleyebilirsiniz.</p>
+      <a href="/urunler" class="px-6 py-2.5 bg-brand hover:bg-brand-hover text-white font-semibold rounded-xl text-xs transition inline-block">
+        Alışverişe Başla
+      </a>
+    </div>
+  </main>
+
+  <!-- Cart drawer included -->
+  <div id="cart-drawer-overlay" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden opacity-0 transition-opacity" onclick="Pazurka.closeCartDrawer()"></div>
+  <div id="cart-drawer" class="fixed top-0 right-0 h-full w-full max-w-md bg-white z-50 shadow-2xl flex flex-col translate-x-full transition-transform">
+    <div class="p-4 border-b border-slate-100 flex items-center justify-between">
+      <h3 class="font-bold text-slate-900 text-base">Alışveriş Sepetim</h3>
+      <button onclick="Pazurka.closeCartDrawer()" class="p-2 text-slate-400 hover:text-slate-700"><i data-lucide="x" class="w-5 h-5"></i></button>
+    </div>
+    <div id="cart-shipping-progress" class="px-4 py-3 bg-slate-50 border-b border-slate-100"></div>
+    <div id="cart-drawer-items" class="flex-1 overflow-y-auto p-4 space-y-2"></div>
+    <div id="cart-drawer-empty" class="hidden flex-1 flex flex-col items-center justify-center p-8 text-center">
+      <h4 class="font-bold text-slate-900 text-base mb-1">Sepetiniz Boş</h4>
+    </div>
+    <div id="cart-drawer-footer" class="p-4 border-t border-slate-100 bg-slate-50">
+      <div class="flex items-center justify-between mb-4">
+        <span class="text-sm text-slate-600">Ara Toplam:</span>
+        <span id="cart-drawer-subtotal" class="text-xl font-extrabold text-slate-900">0,00 TL</span>
+      </div>
+      <a href="/odeme" class="w-full py-3.5 bg-brand text-white font-bold rounded-2xl flex items-center justify-center gap-2 text-sm">Siparişi Tamamla</a>
+    </div>
+  </div>
+
+  <footer class="mt-auto bg-brand-dark text-slate-400 text-xs py-8 border-t border-white/10 text-center">
+    <div class="max-w-7xl mx-auto px-4"><p>© 2026 Pazurka E-Ticaret Platformu.</p></div>
+  </footer>
+
+  <script src="js/store.js"></script>
+  <script>
+    function renderWishlist() {
+      const list = Pazurka.getWishlist();
+      const grid = document.getElementById("wishlist-grid");
+      const empty = document.getElementById("empty-wishlist");
+
+      if (list.length === 0) {
+        grid.innerHTML = "";
+        empty.classList.remove("hidden");
+        return;
+      }
+
+      empty.classList.add("hidden");
+      grid.innerHTML = list.map(p => `
+        <div class="bg-white rounded-3xl border border-slate-100 p-4 shadow-sm hover-elevate flex flex-col justify-between group">
+          <div class="relative aspect-square bg-slate-50 rounded-2xl overflow-hidden mb-3">
+            <a href="/urun-detay?slug=${p.slug}">
+              <img src="${p.image}" class="w-full h-full object-cover">
+            </a>
+            <button onclick="removeWishlistItem(${p.id})" class="absolute top-2.5 right-2.5 p-2 bg-white/90 backdrop-blur-md rounded-full shadow-md text-slate-400 hover:text-rose-500 hover:scale-110 transition">
+              <i data-lucide="trash-2" class="w-4 h-4"></i>
+            </button>
+          </div>
+          <div>
+            <a href="/urun-detay?slug=${p.slug}" class="font-bold text-slate-900 text-sm hover:text-brand line-clamp-2 mb-2">${p.name}</a>
+            <div class="flex items-center justify-between mt-3 pt-3 border-t border-slate-100">
+              <span class="font-extrabold text-slate-900 text-base">${Pazurka.formatPrice(p.price)}</span>
+              <button onclick="Pazurka.addToCart(${JSON.stringify(p).replace(/"/g, '&quot;')}, 1)" class="px-3.5 py-2 bg-brand hover:bg-brand-hover text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-sm btn-glow">
+                <i data-lucide="shopping-bag" class="w-3.5 h-3.5"></i> <span>Sepete Ekle</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      `).join("");
+
+      Pazurka.refreshIcons();
+    }
+
+    function removeWishlistItem(id) {
+      let list = Pazurka.getWishlist();
+      list = list.filter(item => item.id !== id);
+      Pazurka.saveWishlist(list);
+      renderWishlist();
+      Pazurka.toast("Ürün favorilerden kaldırıldı.", "info");
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      renderWishlist();
+    });
+  </script>
+</body>
+</html>

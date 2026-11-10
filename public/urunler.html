@@ -1,0 +1,423 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <base href="/">
+  <title>Tüm Ürünler - Pazurka E-Ticaret</title>
+  <link rel="icon" type="image/png" href="images/favicon.png">
+  <link rel="apple-touch-icon" href="images/favicon.png">
+  <link rel="shortcut icon" href="favicon.ico">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              DEFAULT: '#FD4800',
+              hover: '#E03E00',
+              light: '#FFF2EB',
+              dark: '#0F1114'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body class="bg-slate-50 text-slate-900 flex flex-col min-h-screen">
+
+  <!-- HEADER -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20 gap-4">
+        <a href="/" class="flex-shrink-0 flex items-center">
+          <img 
+            src="images/pazurkalogo.png" 
+            onerror="this.onerror=null; this.src='pazurkalogo.png'; if(!this.complete) this.src='/images/pazurkalogo.png';" 
+            alt="Pazurka Logo" 
+            class="h-10 sm:h-12 w-auto object-contain"
+          >
+        </a>
+
+        <div class="flex-1 max-w-xl mx-4 hidden sm:block">
+          <div class="relative">
+            <input 
+              id="search-input"
+              type="text" 
+              placeholder="Ürün adı, marka veya özellik ara..." 
+              class="global-search-input w-full pl-11 pr-24 py-2.5 bg-slate-100/80 hover:bg-slate-100 focus:bg-white border border-slate-200 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-brand transition"
+            >
+            <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-4 top-1/2 -translate-y-1/2"></i>
+            <button 
+              onclick="applyFilters()" 
+              class="absolute right-1.5 top-1/2 -translate-y-1/2 px-4 py-1.5 bg-brand hover:bg-brand-hover text-white text-xs font-semibold rounded-full transition"
+            >
+              Filtrele
+            </button>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2 sm:gap-4">
+          <a href="/favoriler" class="relative p-2.5 rounded-full hover:bg-slate-100 text-slate-700 transition" title="Favoriler">
+            <i data-lucide="heart" class="w-5 h-5"></i>
+            <span class="wishlist-badge hidden absolute -top-0.5 -right-0.5 bg-rose-500 text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center border-2 border-white">0</span>
+          </a>
+          <div id="header-user-menu"></div>
+          <button onclick="Pazurka.openCartDrawer()" class="relative flex items-center gap-2 bg-brand hover:bg-brand-hover text-white px-4 py-2.5 rounded-full font-semibold text-sm transition shadow-sm btn-glow">
+            <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+            <span class="hidden md:inline">Sepetim</span>
+            <span class="cart-badge hidden bg-white text-brand text-xs font-bold px-1.5 py-0.5 rounded-full">0</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- BREADCRUMB -->
+  <div class="bg-white border-b border-slate-200/60 py-3">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center gap-2 text-xs text-slate-500 font-medium">
+      <a href="/" class="hover:text-brand">Ana Sayfa</a>
+      <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i>
+      <span class="text-slate-900 font-bold" id="page-breadcrumb">Tüm Ürünler</span>
+    </div>
+  </div>
+
+  <!-- MAIN CATALOG CONTENT -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full">
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+      
+      <!-- SIDEBAR FILTERS -->
+      <aside class="space-y-6">
+        <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm space-y-6">
+          <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+            <h3 class="font-bold text-slate-900 text-base flex items-center gap-2">
+              <i data-lucide="sliders-horizontal" class="w-4 h-4 text-brand"></i>
+              Filtreler
+            </h3>
+            <button onclick="resetFilters()" class="text-xs font-semibold text-orange-600 hover:underline">Temizle</button>
+          </div>
+
+          <!-- Category filter -->
+          <div>
+            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2.5">Kategoriler</label>
+            <div id="filter-categories" class="space-y-1.5 text-sm text-slate-600">
+              <label class="flex items-center gap-2 cursor-pointer hover:text-brand">
+                <input type="radio" name="cat" value="" checked onchange="applyFilters()" class="text-brand focus:ring-brand">
+                <span>Tümü</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Price filter -->
+          <div>
+            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2.5">Fiyat Aralığı (TL)</label>
+            <div class="grid grid-cols-2 gap-2 mb-2">
+              <input type="number" id="min-price" placeholder="En Az" class="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-brand">
+              <input type="number" id="max-price" placeholder="En Çok" class="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-brand">
+            </div>
+            <button onclick="applyFilters()" class="w-full py-2 bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold rounded-xl transition">
+              Uygula
+            </button>
+          </div>
+
+          <!-- Quick Filters -->
+          <div class="space-y-2 pt-2 border-t border-slate-100">
+            <label class="flex items-center gap-2 text-sm text-slate-600 cursor-pointer">
+              <input type="checkbox" id="filter-in-stock" onchange="applyFilters()" class="rounded text-brand focus:ring-brand">
+              <span>Sadece Stoktaki Ürünler</span>
+            </label>
+            <label class="flex items-center gap-2 text-sm text-slate-600 cursor-pointer">
+              <input type="checkbox" id="filter-featured" onchange="applyFilters()" class="rounded text-brand focus:ring-brand">
+              <span>Öne Çıkanlar</span>
+            </label>
+          </div>
+        </div>
+      </aside>
+
+      <!-- PRODUCTS AREA -->
+      <section class="lg:col-span-3 space-y-6">
+        <!-- Top Toolbar -->
+        <div class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p class="text-sm text-slate-500 font-medium">
+            Toplam <strong id="total-count" class="text-slate-900 font-bold">0</strong> ürün listeleniyor
+          </p>
+          <div class="flex items-center gap-3">
+            <label class="text-xs font-bold text-slate-500">Sırala:</label>
+            <select id="sort-select" onchange="applyFilters()" class="text-xs font-medium bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 focus:outline-none focus:border-brand">
+              <option value="featured">Öne Çıkanlar</option>
+              <option value="popular">En Çok Satanlar</option>
+              <option value="price_asc">Fiyat: Düşükten Yükseğe</option>
+              <option value="price_desc">Fiyat: Yüksekten Düşüğe</option>
+              <option value="rating">En Yüksek Puanlılar</option>
+              <option value="newest">En Yeniler</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Products Grid -->
+        <div id="catalog-products-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          <div class="shimmer h-80 rounded-2xl"></div>
+          <div class="shimmer h-80 rounded-2xl"></div>
+          <div class="shimmer h-80 rounded-2xl"></div>
+        </div>
+
+        <!-- Empty State -->
+        <div id="catalog-empty" class="hidden bg-white rounded-3xl p-12 text-center border border-slate-100">
+          <i data-lucide="package-open" class="w-16 h-16 text-slate-300 mx-auto mb-4"></i>
+          <h3 class="text-lg font-bold text-slate-900 mb-1">Aradığınız Kriterlere Uygun Ürün Bulunamadı</h3>
+          <p class="text-sm text-slate-500 mb-6">Farklı anahtar kelimelerle arama yapabilir veya filtreleri temizleyebilirsiniz.</p>
+          <button onclick="resetFilters()" class="px-6 py-2.5 bg-brand hover:bg-brand-hover text-white font-semibold rounded-xl text-sm transition">
+            Filtreleri Sıfırla
+          </button>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- CART DRAWER -->
+  <div id="cart-drawer-overlay" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden opacity-0 transition-opacity" onclick="Pazurka.closeCartDrawer()"></div>
+  <div id="cart-drawer" class="fixed top-0 right-0 h-full w-full max-w-md bg-white z-50 shadow-2xl flex flex-col translate-x-full transition-transform">
+    <div class="p-4 border-b border-slate-100 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <i data-lucide="shopping-bag" class="w-5 h-5 text-brand"></i>
+        <h3 class="font-bold text-slate-900 text-base">Alışveriş Sepetim</h3>
+      </div>
+      <button onclick="Pazurka.closeCartDrawer()" class="p-2 rounded-full hover:bg-slate-100 text-slate-400 hover:text-slate-700">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+    </div>
+    <div id="cart-shipping-progress" class="px-4 py-3 bg-slate-50 border-b border-slate-100"></div>
+    <div id="cart-drawer-items" class="flex-1 overflow-y-auto p-4 space-y-2"></div>
+    <div id="cart-drawer-empty" class="hidden flex-1 flex flex-col items-center justify-center p-8 text-center">
+      <div class="w-16 h-16 rounded-full bg-orange-50 text-brand flex items-center justify-center mb-3">
+        <i data-lucide="shopping-cart" class="w-8 h-8"></i>
+      </div>
+      <h4 class="font-bold text-slate-900 text-base mb-1">Sepetiniz Boş</h4>
+      <p class="text-xs text-slate-500">Ürün ekleyerek hemen sipariş verin.</p>
+    </div>
+    <div id="cart-drawer-footer" class="p-4 border-t border-slate-100 bg-slate-50">
+      <div class="flex items-center justify-between mb-4">
+        <span class="text-sm text-slate-600 font-medium">Ara Toplam:</span>
+        <span id="cart-drawer-subtotal" class="text-xl font-extrabold text-slate-900">0,00 TL</span>
+      </div>
+      <div class="space-y-2">
+        <a href="/odeme" class="w-full py-3.5 bg-brand hover:bg-brand-hover text-white font-bold rounded-2xl flex items-center justify-center gap-2 transition shadow-md btn-glow text-sm">
+          <span>Siparişi Tamamla</span>
+          <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </a>
+        <a href="/sepet" class="w-full py-2 bg-white hover:bg-slate-100 text-slate-700 font-semibold rounded-2xl flex items-center justify-center text-xs border border-slate-200 transition">
+          Sepete Git
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <footer class="mt-auto bg-brand-dark text-slate-400 text-xs py-8 border-t border-white/10 text-center">
+    <div class="max-w-7xl mx-auto px-4">
+      <p>© 2026 Pazurka E-Ticaret Platformu. Tüm hakları saklıdır.</p>
+    </div>
+  </footer>
+
+  <script src="js/store.js"></script>
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    let currentCategory = urlParams.get("category") || "";
+    let searchQuery = urlParams.get("q") || "";
+    let badgeFilter = urlParams.get("badge") || "";
+
+    async function initCatalog() {
+      if (searchQuery) {
+        document.getElementById("search-input").value = searchQuery;
+        document.getElementById("page-breadcrumb").textContent = `"${searchQuery}" için arama sonuçları`;
+      }
+
+      await loadSidebarCategories();
+      await fetchCatalogProducts();
+    }
+
+    async function loadSidebarCategories() {
+      let categories = [];
+      try {
+        const res = await fetch("/api/categories");
+        const data = await res.json();
+        if (data.success && data.categories) {
+          categories = data.categories;
+        }
+      } catch (err) {}
+
+      if (categories.length === 0 && Pazurka.offlineData) {
+        categories = Pazurka.offlineData.categories;
+      }
+
+      const container = document.getElementById("filter-categories");
+      if (container && categories.length > 0) {
+        container.innerHTML = `
+          <label class="flex items-center gap-2 cursor-pointer hover:text-brand">
+            <input type="radio" name="cat" value="" ${!currentCategory ? 'checked' : ''} onchange="onCategorySelect('')" class="text-brand focus:ring-brand">
+            <span>Tüm Kategoriler</span>
+          </label>
+        ` + categories.map(c => `
+          <label class="flex items-center justify-between cursor-pointer hover:text-brand py-1">
+            <div class="flex items-center gap-2">
+              <input type="radio" name="cat" value="${c.slug}" ${currentCategory === c.slug ? 'checked' : ''} onchange="onCategorySelect('${c.slug}')" class="text-brand focus:ring-brand">
+              <span>${c.name}</span>
+            </div>
+            <span class="text-xs text-slate-400">${c.product_count}</span>
+          </label>
+        `).join("");
+
+        if (currentCategory) {
+          const found = categories.find(c => c.slug === currentCategory);
+          if (found) document.getElementById("page-breadcrumb").textContent = found.name;
+        }
+      }
+    }
+
+    function onCategorySelect(slug) {
+      currentCategory = slug;
+      applyFilters();
+    }
+
+    async function fetchCatalogProducts() {
+      const minPrice = document.getElementById("min-price").value;
+      const maxPrice = document.getElementById("max-price").value;
+      const inStock = document.getElementById("filter-in-stock").checked;
+      const featured = document.getElementById("filter-featured").checked;
+      const sort = document.getElementById("sort-select").value;
+      const q = document.getElementById("search-input").value;
+
+      let products = [];
+      let total = 0;
+
+      try {
+        let url = `/api/products?limit=50&sort=${sort}`;
+        if (currentCategory) url += `&category=${encodeURIComponent(currentCategory)}`;
+        if (q) url += `&q=${encodeURIComponent(q)}`;
+        if (minPrice) url += `&min_price=${minPrice}`;
+        if (maxPrice) url += `&max_price=${maxPrice}`;
+        if (inStock) url += `&in_stock=1`;
+        if (featured) url += `&featured=1`;
+        if (badgeFilter) url += `&badge=${encodeURIComponent(badgeFilter)}`;
+
+        const res = await fetch(url);
+        const data = await res.json();
+        if (data.success && data.products) {
+          products = data.products;
+          total = data.total;
+        }
+      } catch (err) {}
+
+      // Fallback
+      if (products.length === 0 && Pazurka.offlineData) {
+        let list = [...Pazurka.offlineData.products];
+        if (currentCategory) list = list.filter(p => p.category_slug === currentCategory);
+        if (q) list = list.filter(p => p.name.toLowerCase().includes(q.toLowerCase()));
+        if (minPrice) list = list.filter(p => p.price >= Number(minPrice));
+        if (maxPrice) list = list.filter(p => p.price <= Number(maxPrice));
+        if (inStock) list = list.filter(p => p.stock > 0);
+        if (featured) list = list.filter(p => p.is_featured);
+        if (badgeFilter) list = list.filter(p => p.badge === badgeFilter);
+        products = list;
+        total = list.length;
+      }
+
+      const grid = document.getElementById("catalog-products-grid");
+      const empty = document.getElementById("catalog-empty");
+      const totalCount = document.getElementById("total-count");
+
+      totalCount.textContent = total;
+
+      if (products.length === 0) {
+        grid.innerHTML = "";
+        empty.classList.remove("hidden");
+      } else {
+        empty.classList.add("hidden");
+        grid.innerHTML = products.map(p => renderCatalogProduct(p)).join("");
+        Pazurka.refreshIcons(grid);
+      }
+    }
+
+    function renderCatalogProduct(p) {
+      const firstImage = (p.images && p.images.length > 0) ? p.images[0] : 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600';
+      const isFav = Pazurka.isWishlisted(p.id);
+
+      return `
+        <div class="bg-white rounded-3xl border border-slate-100 shadow-sm hover-elevate overflow-hidden flex flex-col group p-3">
+          <div class="relative aspect-square bg-slate-50 rounded-2xl overflow-hidden">
+            <a href="/urun-detay?slug=${p.slug}">
+              <img src="${firstImage}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+            </a>
+            ${p.badge ? `
+              <span class="absolute top-3 left-3 px-2.5 py-1 text-[10px] font-extrabold rounded-lg badge-firsat shadow-sm uppercase tracking-wider">
+                ${p.badge}
+              </span>
+            ` : ''}
+            <button onclick="Pazurka.toggleWishlist(${JSON.stringify(p).replace(/"/g, '&quot;')}); this.querySelector('svg').classList.toggle('fill-rose-500'); this.querySelector('svg').classList.toggle('text-rose-500');" class="absolute top-3 right-3 p-2 bg-white/90 backdrop-blur-md rounded-full shadow-md text-slate-500 hover:text-rose-500 transition hover:scale-110">
+              <svg class="w-4 h-4 ${isFav ? 'fill-rose-500 text-rose-500' : ''}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+            </button>
+          </div>
+          <div class="pt-3 pb-1 px-1 flex-1 flex flex-col justify-between">
+            <div>
+              <p class="text-[10px] font-bold text-orange-600 uppercase tracking-wider mb-1">${p.category_name || 'Kategori'}</p>
+              <a href="/urun-detay?slug=${p.slug}" class="font-extrabold text-slate-900 text-xs sm:text-sm hover:text-brand transition line-clamp-2 mb-2 leading-snug">
+                ${p.name}
+              </a>
+              <div class="flex items-center gap-1.5 text-xs text-slate-500 mb-3">
+                <div class="flex items-center text-amber-400">
+                  <svg class="w-3.5 h-3.5 fill-amber-400" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                </div>
+                <span class="font-extrabold text-slate-800 text-xs">${p.rating || 5.0}</span>
+                <span class="text-slate-400 text-[11px]">(${p.review_count || 0})</span>
+                ${p.stock <= 5 ? `<span class="ml-auto text-[10px] text-rose-600 font-bold bg-rose-50 px-2 py-0.5 rounded-full">Son ${p.stock}</span>` : `<span class="ml-auto text-[10px] text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded-full">Stokta</span>`}
+              </div>
+            </div>
+            <div class="pt-3 border-t border-slate-100 flex items-center justify-between mt-auto">
+              <div>
+                ${p.compare_at_price ? `<p class="text-[11px] text-slate-400 line-through font-semibold">${Pazurka.formatPrice(p.compare_at_price)}</p>` : ''}
+                <p class="text-base sm:text-lg font-extrabold text-slate-900">${Pazurka.formatPrice(p.price)}</p>
+              </div>
+              <button onclick="Pazurka.addToCart(${JSON.stringify(p).replace(/"/g, '&quot;')}, 1)" class="px-3.5 py-2.5 bg-brand hover:bg-brand-hover text-white rounded-xl transition shadow-md font-bold text-xs flex items-center gap-1.5 btn-glow" title="Sepete Ekle">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                <span class="hidden sm:inline">Ekle</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function applyFilters() {
+      fetchCatalogProducts();
+    }
+
+    function resetFilters() {
+      currentCategory = "";
+      badgeFilter = "";
+      document.getElementById("search-input").value = "";
+      document.getElementById("min-price").value = "";
+      document.getElementById("max-price").value = "";
+      document.getElementById("filter-in-stock").checked = false;
+      document.getElementById("filter-featured").checked = false;
+      document.getElementById("sort-select").value = "featured";
+      const catInputs = document.querySelectorAll('input[name="cat"]');
+      if (catInputs.length) catInputs[0].checked = true;
+      fetchCatalogProducts();
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      initCatalog();
+      Pazurka.refreshIcons();
+    });
+  </script>
+</body>
+</html>

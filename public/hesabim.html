@@ -1,0 +1,676 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <base href="/">
+  <title>Hesabım & Adreslerim - Pazurka</title>
+  <meta name="description" content="Pazurka Müşteri Paneli: Teslimat adreslerinizi yönetin, profilinizi güncelleyin ve siparişlerinizi takip edin.">
+  <link rel="icon" type="image/png" href="images/favicon.png">
+  <link rel="apple-touch-icon" href="images/favicon.png">
+  <link rel="shortcut icon" href="favicon.ico">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: { DEFAULT: '#FD4800', hover: '#E03E00', light: '#FFF2EB', dark: '#0F1114' }
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body class="bg-slate-50 text-slate-900 flex flex-col min-h-screen">
+
+  <!-- TOP HEADER -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        <a href="/" class="flex-shrink-0 flex items-center gap-3">
+          <img 
+            src="images/pazurkalogo.png" 
+            onerror="this.onerror=null; this.src='pazurkalogo.png'; if(!this.complete) this.src='/images/pazurkalogo.png';" 
+            alt="Pazurka Logo" 
+            class="h-10 sm:h-12 w-auto object-contain"
+          >
+        </a>
+        <div class="flex items-center gap-3 sm:gap-4">
+          <a href="/urunler" class="text-xs font-bold text-slate-700 hover:text-brand transition flex items-center gap-1.5 px-3.5 py-2 rounded-xl hover:bg-slate-100">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+            <span class="hidden sm:inline">Alışverişe Devam Et</span>
+          </a>
+          <button onclick="Pazurka.logout()" class="px-4 py-2 bg-slate-100 hover:bg-rose-50 text-slate-700 hover:text-rose-600 text-xs font-bold rounded-xl transition flex items-center gap-1.5">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
+            <span>Çıkış Yap</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN ACCOUNT HUB -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 flex-1 w-full">
+    
+    <div class="mb-8">
+      <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">Hesap Yönetimi & Adreslerim</h1>
+      <p class="text-xs sm:text-sm text-slate-500 mt-1">Teslimat adreslerinizi düzenleyin, profil bilgilerinizi güncelleyin ve siparişlerinizi görüntüleyin.</p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      
+      <!-- LEFT SIDEBAR: User Card & Navigation Tabs (4 cols) -->
+      <aside class="lg:col-span-4 space-y-6">
+        
+        <!-- Profile Mini Card -->
+        <div class="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm flex items-center gap-4">
+          <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-orange-500 to-amber-500 text-white font-extrabold text-2xl flex items-center justify-center shadow-lg shadow-orange-500/20 flex-shrink-0">
+            <span id="sidebar-avatar">U</span>
+          </div>
+          <div class="min-w-0 flex-1">
+            <h2 id="sidebar-name" class="font-extrabold text-slate-900 text-base truncate">Yükleniyor...</h2>
+            <p id="sidebar-email" class="text-xs text-slate-400 truncate">müşteri@pazurka.com</p>
+            <span class="inline-flex items-center gap-1 mt-1.5 px-2.5 py-0.5 bg-emerald-50 text-emerald-600 text-[10px] font-bold rounded-full">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+              Aktif Üye
+            </span>
+          </div>
+        </div>
+
+        <!-- Navigation Menu Tabs -->
+        <div class="bg-white p-3 rounded-3xl border border-slate-100 shadow-sm space-y-1">
+          
+          <button onclick="switchTab('addresses')" id="tab-btn-addresses" class="w-full text-left px-4 py-3.5 rounded-2xl font-bold text-xs sm:text-sm flex items-center justify-between transition bg-brand text-white shadow-md btn-glow">
+            <div class="flex items-center gap-3">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+              <span>Adreslerim</span>
+            </div>
+            <span id="tab-address-count" class="bg-white/20 text-white text-[11px] px-2 py-0.5 rounded-full font-extrabold">0</span>
+          </button>
+
+          <button onclick="switchTab('profile')" id="tab-btn-profile" class="w-full text-left px-4 py-3.5 rounded-2xl font-bold text-xs sm:text-sm flex items-center justify-between transition text-slate-600 hover:bg-slate-50">
+            <div class="flex items-center gap-3">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              <span>Profil & İletişim Bilgileri</span>
+            </div>
+          </button>
+
+          <button onclick="switchTab('orders')" id="tab-btn-orders" class="w-full text-left px-4 py-3.5 rounded-2xl font-bold text-xs sm:text-sm flex items-center justify-between transition text-slate-600 hover:bg-slate-50">
+            <div class="flex items-center gap-3">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
+              <span>Siparişlerim</span>
+            </div>
+            <span id="tab-order-count" class="bg-slate-100 text-slate-600 text-[11px] px-2 py-0.5 rounded-full font-bold">0</span>
+          </button>
+
+          <a href="/favoriler" class="w-full text-left px-4 py-3.5 rounded-2xl font-bold text-xs sm:text-sm flex items-center justify-between transition text-slate-600 hover:bg-slate-50">
+            <div class="flex items-center gap-3">
+              <svg class="w-4 h-4 text-rose-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+              <span>Favorilerim</span>
+            </div>
+            <span class="wishlist-badge text-[11px] px-2 py-0.5 rounded-full font-bold bg-slate-100 text-slate-600">0</span>
+          </a>
+
+          <div id="admin-panel-link-box" class="hidden pt-2 border-t border-slate-100">
+            <a href="/admin" class="w-full text-left px-4 py-3 rounded-2xl font-bold text-xs flex items-center gap-2.5 text-brand bg-orange-50 hover:bg-orange-100 transition">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>
+              <span>Yönetici Paneline Git</span>
+            </a>
+          </div>
+
+        </div>
+
+        <!-- Help box -->
+        <div class="p-6 bg-gradient-to-br from-slate-900 to-neutral-900 text-white rounded-3xl space-y-3 shadow-lg">
+          <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center text-orange-400">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" x2="12.01" y1="17" y2="17"/></svg>
+          </div>
+          <h4 class="font-extrabold text-sm">Adres Yardımı mı Lazım?</h4>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Kaydettiğiniz teslimat adresleri ödeme ekranında tek tıkla otomatik doldurulur. Dilediğiniz zaman düzenleyebilir veya yeni adres ekleyebilirsiniz.
+          </p>
+          <a href="https://wa.me/908505557298" target="_blank" class="inline-flex items-center gap-1.5 text-xs font-bold text-orange-400 hover:text-orange-300 pt-1">
+            <span>WhatsApp Destek Hattı →</span>
+          </a>
+        </div>
+
+      </aside>
+
+      <!-- RIGHT MAIN CONTENT (8 cols) -->
+      <section class="lg:col-span-8 space-y-6">
+        
+        <!-- ============================================== -->
+        <!-- TAB 1: ADRESLERİM (DEFAULT TAB) -->
+        <!-- ============================================== -->
+        <div id="section-addresses" class="space-y-6">
+          
+          <div class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-100 shadow-sm space-y-6">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-100">
+              <div>
+                <h3 class="font-extrabold text-slate-900 text-lg sm:text-xl flex items-center gap-2">
+                  <svg class="w-5 h-5 text-brand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                  <span>Kayıtlı Teslimat Adreslerim</span>
+                </h3>
+                <p class="text-xs text-slate-500 mt-1">Siparişlerinizin hızla adresinize ulaşması için teslimat ve fatura adreslerinizi yönetin.</p>
+              </div>
+
+              <!-- Button to open address modal -->
+              <button onclick="openAddressModal()" class="px-5 py-3 bg-brand hover:bg-brand-hover text-white font-extrabold rounded-2xl text-xs sm:text-sm transition shadow-md btn-glow flex items-center gap-2 flex-shrink-0">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+                <span>Yeni Adres Ekle</span>
+              </button>
+            </div>
+
+            <!-- Address Cards Grid -->
+            <div id="addresses-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="shimmer h-44 rounded-2xl"></div>
+              <div class="shimmer h-44 rounded-2xl"></div>
+            </div>
+
+            <!-- Empty State for Addresses -->
+            <div id="addresses-empty" class="hidden text-center py-12 px-4 space-y-4">
+              <div class="w-16 h-16 rounded-3xl bg-orange-50 text-brand border border-orange-100 flex items-center justify-center mx-auto shadow-inner">
+                <svg class="w-8 h-8 text-brand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <div class="space-y-1">
+                <h4 class="font-extrabold text-slate-900 text-base">Henüz Kayıtlı Bir Adresiniz Yok</h4>
+                <p class="text-xs text-slate-500 max-w-sm mx-auto">Hızlı ve kolay alışveriş yapmak için teslimat adresinizi şimdi ekleyin.</p>
+              </div>
+              <button onclick="openAddressModal()" class="px-6 py-2.5 bg-brand hover:bg-brand-hover text-white text-xs font-bold rounded-xl transition shadow-md btn-glow inline-flex items-center gap-1.5">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+                <span>İlk Adresinizi Ekleyin</span>
+              </button>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- ============================================== -->
+        <!-- TAB 2: PROFİL BİLGİLERİ -->
+        <!-- ============================================== -->
+        <div id="section-profile" class="hidden space-y-6">
+          <div class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-100 shadow-sm space-y-6">
+            <div class="pb-6 border-b border-slate-100">
+              <h3 class="font-extrabold text-slate-900 text-lg sm:text-xl flex items-center gap-2">
+                <svg class="w-5 h-5 text-brand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                <span>Profil & İletişim Bilgilerim</span>
+              </h3>
+              <p class="text-xs text-slate-500 mt-1">Kişisel bilgilerinizi güncelleyerek sipariş bildirimlerini eksiksiz alın.</p>
+            </div>
+
+            <form onsubmit="handleProfileUpdate(event)" class="space-y-4 max-w-xl">
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1">Ad Soyad</label>
+                <input id="form-full-name" type="text" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-xs sm:text-sm focus:outline-none focus:border-brand focus:bg-white transition">
+              </div>
+
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1">E-Posta Adresi</label>
+                <input id="form-email" type="email" readonly class="w-full px-4 py-3 bg-slate-100 border border-slate-200 rounded-2xl text-xs sm:text-sm text-slate-500 cursor-not-allowed">
+                <p class="text-[10px] text-slate-400 mt-1">E-posta adresi hesap güvenliği nedeniyle değiştirilemez.</p>
+              </div>
+
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1">Telefon Numarası</label>
+                <input id="form-phone" type="tel" placeholder="05XX XXX XX XX" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-xs sm:text-sm focus:outline-none focus:border-brand focus:bg-white transition">
+              </div>
+
+              <div class="grid grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs font-bold text-slate-700 mb-1">İl (Şehir)</label>
+                  <select id="form-city" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-xs sm:text-sm focus:outline-none focus:border-brand focus:bg-white transition cursor-pointer">
+                    <option value="">İl Seçiniz...</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-xs font-bold text-slate-700 mb-1">İlçe</label>
+                  <select id="form-district" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-xs sm:text-sm focus:outline-none focus:border-brand focus:bg-white transition cursor-pointer disabled:bg-slate-100 disabled:cursor-not-allowed">
+                    <option value="">Önce İl Seçiniz...</option>
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1">Varsayılan Açık Adres</label>
+                <textarea id="form-address" rows="3" placeholder="Mahalle, Cadde, Sokak, Bina No..." class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-xs sm:text-sm focus:outline-none focus:border-brand focus:bg-white transition"></textarea>
+              </div>
+
+              <div class="pt-2">
+                <button type="submit" class="px-6 py-3.5 bg-brand hover:bg-brand-hover text-white font-extrabold text-xs sm:text-sm rounded-2xl transition shadow-md btn-glow flex items-center gap-2">
+                  <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                  <span>Bilgilerimi Güncelle</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- TAB 3: GEÇMİŞ SİPARİŞLERİM -->
+        <!-- ============================================== -->
+        <div id="section-orders" class="hidden space-y-6">
+          <div class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-100 shadow-sm space-y-6">
+            <div class="pb-6 border-b border-slate-100">
+              <h3 class="font-extrabold text-slate-900 text-lg sm:text-xl flex items-center gap-2">
+                <svg class="w-5 h-5 text-brand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
+                <span>Geçmiş Siparişlerim</span>
+              </h3>
+              <p class="text-xs text-slate-500 mt-1">Verdiğiniz tüm siparişlerin durumunu ve kargo takip kodlarını buradan inceleyin.</p>
+            </div>
+
+            <div id="orders-list" class="space-y-4">
+              <!-- Orders injected by JS -->
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ============================================== -->
+  <!-- MODAL: YENİ ADRES EKLE / ADRES DÜZENLE -->
+  <!-- ============================================== -->
+  <div id="address-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm hidden opacity-0 transition-opacity duration-200">
+    <div class="bg-white w-full max-w-lg rounded-3xl shadow-2xl border border-slate-100 overflow-hidden transform scale-95 transition-transform duration-200">
+      
+      <!-- Modal Header -->
+      <div class="px-6 py-5 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-xl bg-orange-100 text-brand flex items-center justify-center">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div>
+            <h3 id="modal-title" class="font-extrabold text-slate-900 text-base">Yeni Adres Ekle</h3>
+            <p class="text-[11px] text-slate-400">Teslimat ve fatura adresi</p>
+          </div>
+        </div>
+        <button onclick="closeAddressModal()" class="p-2 rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
+      </div>
+
+      <!-- Modal Body Form -->
+      <form onsubmit="handleAddressSubmit(event)" class="p-6 space-y-4">
+        <input type="hidden" id="addr-id">
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Adres Başlığı *</label>
+          <input id="addr-title" type="text" required placeholder="Örn: Evim, İş Yeri, Yazlık..." class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm focus:outline-none focus:border-brand focus:bg-white transition">
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Teslim Alacak Kişi (Ad Soyad) *</label>
+            <input id="addr-name" type="text" required placeholder="Ad Soyad" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm focus:outline-none focus:border-brand focus:bg-white transition">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Telefon Numarası *</label>
+            <input id="addr-phone" type="tel" required placeholder="05XX XXX XX XX" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm focus:outline-none focus:border-brand focus:bg-white transition">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">İl (Şehir) *</label>
+            <select id="addr-city" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm focus:outline-none focus:border-brand focus:bg-white transition cursor-pointer">
+              <option value="">İl Seçiniz...</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">İlçe *</label>
+            <select id="addr-district" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm focus:outline-none focus:border-brand focus:bg-white transition cursor-pointer disabled:bg-slate-100 disabled:cursor-not-allowed">
+              <option value="">Önce İl Seçiniz...</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Açık Adres (Cadde, Sokak, Bina No, Daire) *</label>
+          <textarea id="addr-line" rows="3" required placeholder="Kuryenin kolayca bulabilmesi için detaylı adres bilgisi yazınız..." class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm focus:outline-none focus:border-brand focus:bg-white transition"></textarea>
+        </div>
+
+        <div class="flex items-center gap-3 pt-1">
+          <input id="addr-default" type="checkbox" class="w-4 h-4 rounded text-brand focus:ring-brand border-slate-300">
+          <label for="addr-default" class="text-xs font-bold text-slate-700 cursor-pointer">Bu adresi varsayılan teslimat adresi olarak kaydet</label>
+        </div>
+
+        <!-- Form Buttons -->
+        <div class="pt-4 border-t border-slate-100 flex items-center justify-end gap-3">
+          <button type="button" onclick="closeAddressModal()" class="px-5 py-2.5 rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-50 font-bold text-xs transition">
+            Vazgeç
+          </button>
+          <button type="submit" class="px-6 py-2.5 bg-brand hover:bg-brand-hover text-white font-extrabold text-xs rounded-xl shadow-md btn-glow transition flex items-center gap-2">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Adresi Kaydet</span>
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+  <footer class="mt-auto bg-brand-dark text-slate-400 text-xs py-8 border-t border-white/10 text-center">
+    <div class="max-w-7xl mx-auto px-4"><p>© 2026 Pazurka E-Ticaret Platformu. Tüm hakları saklıdır.</p></div>
+  </footer>
+
+  <script src="js/store.js"></script>
+  <script>
+    let currentAddresses = [];
+
+    // Switch between tabs
+    function switchTab(tab) {
+      ['addresses', 'profile', 'orders'].forEach(t => {
+        const sec = document.getElementById(`section-${t}`);
+        const btn = document.getElementById(`tab-btn-${t}`);
+        if (sec) sec.classList.toggle('hidden', t !== tab);
+        if (btn) {
+          if (t === tab) {
+            btn.className = "w-full text-left px-4 py-3.5 rounded-2xl font-bold text-xs sm:text-sm flex items-center justify-between transition bg-brand text-white shadow-md btn-glow";
+          } else {
+            btn.className = "w-full text-left px-4 py-3.5 rounded-2xl font-bold text-xs sm:text-sm flex items-center justify-between transition text-slate-600 hover:bg-slate-50";
+          }
+        }
+      });
+    }
+
+    // Modal controls
+    function openAddressModal(addressToEdit = null) {
+      const modal = document.getElementById("address-modal");
+      const title = document.getElementById("modal-title");
+      
+      if (addressToEdit) {
+        title.textContent = "Adresi Düzenle";
+        document.getElementById("addr-id").value = addressToEdit.id;
+        document.getElementById("addr-title").value = addressToEdit.title || "";
+        document.getElementById("addr-name").value = addressToEdit.recipient_name || "";
+        document.getElementById("addr-phone").value = addressToEdit.phone || "";
+        document.getElementById("addr-line").value = addressToEdit.address_line || "";
+        document.getElementById("addr-default").checked = Boolean(addressToEdit.is_default);
+        Pazurka.populateCityDistrict("addr-city", "addr-district", addressToEdit.city || "", addressToEdit.district || "");
+      } else {
+        title.textContent = "Yeni Adres Ekle";
+        document.getElementById("addr-id").value = "";
+        document.getElementById("addr-title").value = "";
+        const u = Pazurka.getUser();
+        document.getElementById("addr-name").value = u?.full_name || "";
+        document.getElementById("addr-phone").value = u?.phone || "";
+        document.getElementById("addr-line").value = "";
+        document.getElementById("addr-default").checked = currentAddresses.length === 0;
+        Pazurka.populateCityDistrict("addr-city", "addr-district", u?.city || "", u?.district || "");
+      }
+
+      modal.classList.remove("hidden");
+      setTimeout(() => {
+        modal.classList.remove("opacity-0");
+        modal.querySelector("div").classList.remove("scale-95");
+      }, 10);
+    }
+
+    function closeAddressModal() {
+      const modal = document.getElementById("address-modal");
+      modal.classList.add("opacity-0");
+      modal.querySelector("div").classList.add("scale-95");
+      setTimeout(() => modal.classList.add("hidden"), 200);
+    }
+
+    async function handleAddressSubmit(e) {
+      e.preventDefault();
+      const idVal = document.getElementById("addr-id").value;
+      const payload = {
+        id: idVal ? Number(idVal) : undefined,
+        title: document.getElementById("addr-title").value.trim(),
+        recipient_name: document.getElementById("addr-name").value.trim(),
+        phone: document.getElementById("addr-phone").value.trim(),
+        city: document.getElementById("addr-city").value.trim(),
+        district: document.getElementById("addr-district").value.trim(),
+        address_line: document.getElementById("addr-line").value.trim(),
+        is_default: document.getElementById("addr-default").checked ? 1 : 0
+      };
+
+      currentAddresses = await Pazurka.saveAddress(payload);
+      closeAddressModal();
+      renderAddressCards(currentAddresses);
+    }
+
+    async function deleteAddressItem(id) {
+      if (!confirm("Bu adresi silmek istediğinize emin misiniz?")) return;
+      currentAddresses = await Pazurka.deleteAddress(id);
+      renderAddressCards(currentAddresses);
+    }
+
+    async function makeDefaultAddressItem(id) {
+      currentAddresses = await Pazurka.setDefaultAddress(id);
+      renderAddressCards(currentAddresses);
+    }
+
+    function renderAddressCards(addresses) {
+      const grid = document.getElementById("addresses-grid");
+      const empty = document.getElementById("addresses-empty");
+      const badge = document.getElementById("tab-address-count");
+
+      if (badge) badge.textContent = addresses.length;
+
+      if (!addresses || addresses.length === 0) {
+        grid.innerHTML = "";
+        empty.classList.remove("hidden");
+        return;
+      }
+
+      empty.classList.add("hidden");
+      grid.innerHTML = addresses.map(addr => `
+        <div class="relative bg-white p-5 rounded-2xl border ${addr.is_default ? 'border-brand/40 ring-2 ring-brand/10 shadow-md' : 'border-slate-200 shadow-sm'} flex flex-col justify-between hover-elevate transition group">
+          
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-3">
+              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-extrabold ${addr.is_default ? 'bg-orange-50 text-brand border border-orange-200' : 'bg-slate-100 text-slate-700'}">
+                <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                ${addr.title}
+              </span>
+
+              ${addr.is_default ? `
+                <span class="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-600 bg-emerald-50 px-2.5 py-0.5 rounded-full">
+                  <svg class="w-3 h-3 text-emerald-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                  Varsayılan
+                </span>
+              ` : `
+                <button onclick="makeDefaultAddressItem(${addr.id})" class="text-[11px] font-semibold text-slate-400 hover:text-brand transition">
+                  Varsayılan Yap
+                </button>
+              `}
+            </div>
+
+            <h4 class="font-extrabold text-slate-900 text-sm mb-1">${addr.recipient_name}</h4>
+            <p class="text-xs text-slate-500 flex items-center gap-1.5 mb-3 font-medium">
+              <svg class="w-3.5 h-3.5 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              ${addr.phone}
+            </p>
+
+            <p class="text-xs text-slate-700 leading-relaxed font-normal bg-slate-50 p-3 rounded-xl border border-slate-100 mb-4">
+              ${addr.address_line} <br>
+              <strong class="font-bold text-slate-900">${addr.district} / ${addr.city}</strong>
+              ${addr.zip_code ? `<span class="text-slate-400 font-mono text-[11px]"> (${addr.zip_code})</span>` : ''}
+            </p>
+          </div>
+
+          <!-- Bottom Action Buttons -->
+          <div class="pt-3 border-t border-slate-100 flex items-center justify-end gap-2 mt-auto">
+            <button onclick="openAddressModal(${JSON.stringify(addr).replace(/"/g, '&quot;')})" class="px-3 py-1.5 text-xs font-bold text-slate-600 hover:text-brand hover:bg-orange-50 rounded-lg transition flex items-center gap-1">
+              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+              <span>Düzenle</span>
+            </button>
+            <button onclick="deleteAddressItem(${addr.id})" class="px-3 py-1.5 text-xs font-bold text-rose-500 hover:bg-rose-50 rounded-lg transition flex items-center gap-1">
+              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+              <span>Sil</span>
+            </button>
+          </div>
+
+        </div>
+      `).join("");
+    }
+
+    async function handleProfileUpdate(e) {
+      e.preventDefault();
+      const payload = {
+        full_name: document.getElementById("form-full-name").value.trim(),
+        phone: document.getElementById("form-phone").value.trim(),
+        city: document.getElementById("form-city").value.trim(),
+        district: document.getElementById("form-district").value.trim(),
+        address: document.getElementById("form-address").value.trim()
+      };
+
+      const updated = await Pazurka.updateProfile(payload);
+      document.getElementById("sidebar-name").textContent = updated.full_name;
+    }
+
+    async function initAccountPage() {
+      let user = Pazurka.getUser();
+
+      // If user not in localstorage, fallback to default demo user or fetch from /api/auth/me
+      if (!user) {
+        user = {
+          id: 2,
+          full_name: "Ahmet Yılmaz",
+          email: "demo@pazurka.com",
+          phone: "0532 100 20 30",
+          city: "Ankara",
+          district: "Çankaya",
+          role: "customer"
+        };
+        Pazurka.setUser(user);
+      }
+
+      // Populate sidebar
+      document.getElementById("sidebar-name").textContent = user.full_name || "Müşteri";
+      document.getElementById("sidebar-email").textContent = user.email || "";
+      document.getElementById("sidebar-avatar").textContent = (user.full_name || "U").charAt(0).toUpperCase();
+
+      if (user.role === 'admin') {
+        document.getElementById("admin-panel-link-box").classList.remove("hidden");
+      }
+
+      // Populate Profile Form
+      document.getElementById("form-full-name").value = user.full_name || "";
+      document.getElementById("form-email").value = user.email || "";
+      document.getElementById("form-phone").value = user.phone || "";
+      document.getElementById("form-address").value = user.address || "";
+      Pazurka.populateCityDistrict("form-city", "form-district", user.city || "", user.district || "");
+
+      // Load Addresses
+      currentAddresses = await Pazurka.getAddresses();
+      renderAddressCards(currentAddresses);
+
+      // Load Orders
+      loadOrders();
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const queryTab = urlParams.get('tab') || window.location.hash.replace('#', '');
+      const initialTab = (['addresses', 'profile', 'orders'].includes(queryTab) ? queryTab : '') || localStorage.getItem('pazurka_active_tab') || 'addresses';
+      switchTab(initialTab);
+      localStorage.removeItem('pazurka_active_tab');
+    }
+
+    async function loadOrders() {
+      const orders = await Pazurka.getOrders();
+
+      const orderCountEl = document.getElementById("tab-order-count");
+      if (orderCountEl) orderCountEl.textContent = orders.length;
+
+      const listEl = document.getElementById("orders-list");
+      if (!listEl) return;
+
+      if (!orders || orders.length === 0) {
+        listEl.innerHTML = `
+          <div class="text-center py-12 px-4 bg-slate-50 rounded-2xl border border-dashed border-slate-200">
+            <div class="w-14 h-14 bg-orange-100 text-brand rounded-2xl flex items-center justify-center mx-auto mb-3">
+              <svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
+            </div>
+            <h4 class="font-extrabold text-slate-900 text-base">Henüz Siparişiniz Bulunmuyor</h4>
+            <p class="text-xs text-slate-500 max-w-sm mx-auto mt-1 mb-5">Verdiğiniz tüm siparişler ve anlık kargo durumları bu ekranda listelenir.</p>
+            <a href="/urunler" class="inline-flex items-center gap-2 px-5 py-2.5 bg-brand hover:bg-brand-hover text-white font-extrabold text-xs rounded-xl shadow-md transition btn-glow">
+              <span>Alışverişe Başla</span>
+              <span>→</span>
+            </a>
+          </div>
+        `;
+        return;
+      }
+
+      listEl.innerHTML = orders.map(o => {
+        let statusBadge = `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-blue-100 text-blue-700">Hazırlanıyor</span>`;
+        if (o.order_status === 'shipped') statusBadge = `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-orange-100 text-brand">Kargoda</span>`;
+        if (o.order_status === 'delivered') statusBadge = `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-700">Teslim Edildi</span>`;
+
+        let formattedDate = "";
+        try {
+          if (o.created_at) {
+            const d = new Date(o.created_at);
+            formattedDate = d.toLocaleDateString("tr-TR", { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+          }
+        } catch {}
+
+        let itemsHtml = "";
+        if (o.items && Array.isArray(o.items) && o.items.length > 0) {
+          itemsHtml = `
+            <div class="pt-3 border-t border-slate-100 space-y-2">
+              ${o.items.map(item => `
+                <div class="flex items-center justify-between text-xs text-slate-700">
+                  <div class="flex items-center gap-2.5 min-w-0">
+                    ${item.image ? `<img src="${item.image}" alt="" class="w-9 h-9 object-cover rounded-lg border border-slate-200 flex-shrink-0">` : ''}
+                    <div class="truncate">
+                      <p class="font-bold text-slate-900 truncate">${item.product_name}</p>
+                      <p class="text-[11px] text-slate-400">Adet: ${item.quantity} ${item.variant_info ? `• ${item.variant_info}` : ''}</p>
+                    </div>
+                  </div>
+                  <span class="font-bold text-slate-900 flex-shrink-0 ml-3">${Pazurka.formatPrice(item.total || (item.price * item.quantity))}</span>
+                </div>
+              `).join('')}
+            </div>
+          `;
+        }
+
+        return `
+          <div class="p-5 bg-slate-50 rounded-2xl border border-slate-200/80 space-y-3 hover:bg-white hover:border-slate-300 transition shadow-sm">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div>
+                <div class="flex items-center gap-2.5 mb-1">
+                  <span class="font-mono font-extrabold text-slate-900 text-sm">${o.order_number}</span>
+                  ${statusBadge}
+                </div>
+                <p class="text-xs text-slate-500">
+                  ${formattedDate ? `Tarih: <span class="font-semibold text-slate-700">${formattedDate}</span> • ` : ''}
+                  ${o.shipping_company || 'Yurtiçi Kargo'} • 
+                  Takip No: <span class="font-mono text-brand font-bold">${o.tracking_number || 'Hazırlanıyor'}</span>
+                </p>
+              </div>
+
+              <div class="flex sm:flex-col items-center sm:items-end justify-between gap-2 border-t sm:border-t-0 pt-2 sm:pt-0 border-slate-200">
+                <span class="font-extrabold text-slate-900 text-base">${Pazurka.formatPrice(o.total)}</span>
+                <a href="/siparis-takip?order=${o.order_number}" class="text-xs font-bold text-brand hover:text-brand-hover bg-orange-50 hover:bg-orange-100 px-3 py-1.5 rounded-xl transition inline-flex items-center gap-1.5">
+                  <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-5.28a2 2 0 0 0-.8-1.6l-3.2-2.4a2 2 0 0 0-1.2-.42H14"/><circle cx="17" cy="18.5" r="2.5"/><circle cx="7" cy="18.5" r="2.5"/></svg>
+                  <span>Kargo Takibi</span>
+                </a>
+              </div>
+            </div>
+
+            ${itemsHtml}
+          </div>
+        `;
+      }).join("");
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      initAccountPage();
+    });
+  </script>
+</body>
+</html>

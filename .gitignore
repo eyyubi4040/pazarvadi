@@ -1,0 +1,20 @@
+# Bağımlılıklar
+node_modules/
+
+# Veritabanı (Geliştirme anlık verileri)
+# pazurka.sqlite otomatik olarak ilk çalıştırmada seed ile oluşur
+*.sqlite-journal
+*.sqlite-wal
+*.sqlite-shm
+
+# Ortam değişkenleri
+.env
+.env.local
+
+# Sistem dosyaları
+.DS_Store
+Thumbs.db
+
+# Loglar
+*.log
+npm-debug.log*

@@ -1,0 +1,25 @@
+{
+  "name": "pazurka-ecommerce",
+  "version": "1.0.0",
+  "description": "Pazurka - Bun & SQLite Tabanlı Son Sistem Yeni Nesil E-Ticaret Platformu",
+  "main": "server/index.ts",
+  "type": "module",
+  "scripts": {
+    "start": "bun run server/index.ts",
+    "dev": "bun --watch server/index.ts",
+    "seed": "bun run server/seed.ts",
+    "setup-domain": "cmd /c pazurka-alan-adi-ayarla.bat"
+  },
+  "keywords": [
+    "bun",
+    "sqlite",
+    "ecommerce",
+    "e-ticaret",
+    "pazurka",
+    "typescript",
+    "high-performance"
+  ],
+  "author": "Pazurka",
+  "license": "MIT"
+}
+

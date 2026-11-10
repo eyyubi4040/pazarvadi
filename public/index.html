@@ -1,0 +1,889 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <base href="/">
+  <title>Pazurka - Yeni Nesil E-Ticaret Deneyimi</title>
+  <meta name="description" content="Pazurka: En son teknoloji ürünleri, moda, ev yaşam ve kozmetik ürünlerinde en iyi fiyatlar ve hızlı kargo avantajı.">
+  <link rel="icon" type="image/png" href="images/favicon.png">
+  <link rel="apple-touch-icon" href="images/favicon.png">
+  <link rel="shortcut icon" href="favicon.ico">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              DEFAULT: '#FD4800',
+              hover: '#E03E00',
+              light: '#FFF2EB',
+              dark: '#0F1114'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body class="bg-slate-50 text-slate-900 flex flex-col min-h-screen">
+
+  <!-- 1. TOP ANNOUNCEMENT BAR -->
+  <div class="bg-brand-dark text-white text-xs py-2.5 px-4 border-b border-white/10 relative z-50">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <span class="flex items-center gap-2 text-orange-400 font-bold tracking-wide">
+          <span class="w-2 h-2 rounded-full bg-orange-500 animate-ping"></span>
+          <svg class="w-3.5 h-3.5 fill-orange-400" viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+          750 TL ve Üzeri Siparişlerde Kargo Tamamen ÜCRETSİZ!
+        </span>
+        <span class="hidden md:inline-block text-slate-600">|</span>
+        <span class="hidden md:flex items-center gap-1.5 text-slate-300">
+          <svg class="w-3.5 h-3.5 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          Saat 15:00'e Kadar Verilen Siparişler Aynı Gün Kargoda
+        </span>
+      </div>
+      <div class="flex items-center gap-5 text-slate-300 text-xs font-semibold">
+        <a href="/siparis-takip" class="hover:text-orange-400 flex items-center gap-1.5 transition">
+          <svg class="w-3.5 h-3.5 text-orange-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-5.28a2 2 0 0 0-.8-1.6l-3.2-2.4a2 2 0 0 0-1.2-.42H14"/><circle cx="17" cy="18.5" r="2.5"/><circle cx="7" cy="18.5" r="2.5"/></svg>
+          <span>Sipariş Takibi</span>
+        </a>
+        <a href="/iletisim" class="hover:text-white transition flex items-center gap-1.5">
+          <svg class="w-3.5 h-3.5 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <span>Müşteri Hizmetleri</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. MAIN HEADER -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20 gap-4">
+        
+        <!-- Logo -->
+        <a href="/" class="flex-shrink-0 flex items-center gap-3 group">
+          <img 
+            src="images/pazurkalogo.png" 
+            onerror="this.onerror=null; this.src='pazurkalogo.png'; if(!this.complete) this.src='/images/pazurkalogo.png';" 
+            alt="Pazurka Logo" 
+            class="h-10 sm:h-12 w-auto object-contain transition group-hover:scale-105"
+          >
+        </a>
+
+        <!-- Live Search Bar -->
+        <div class="flex-1 max-w-xl mx-4 hidden sm:block">
+          <div class="relative">
+            <input 
+              type="text" 
+              placeholder="Yüz binlerce ürün, marka ve kategoride ara..." 
+              class="global-search-input w-full pl-11 pr-24 py-3 bg-slate-100/90 hover:bg-slate-100 focus:bg-white border border-slate-200 rounded-2xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-brand transition shadow-inner"
+            >
+            <svg class="w-4 h-4 text-slate-400 absolute left-4 top-1/2 -translate-y-1/2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            <button 
+              onclick="const q = document.querySelector('.global-search-input').value; if(q) window.location.href='/urunler?q='+encodeURIComponent(q);" 
+              class="absolute right-1.5 top-1/2 -translate-y-1/2 px-4 py-2 bg-brand hover:bg-brand-hover text-white text-xs font-bold rounded-xl transition shadow-md btn-glow"
+            >
+              Ara
+            </button>
+          </div>
+        </div>
+
+        <!-- Right Actions: Wishlist, User Menu, Cart Drawer -->
+        <div class="flex items-center gap-2 sm:gap-4">
+          <!-- Wishlist -->
+          <a href="/favoriler" class="relative p-2.5 rounded-2xl hover:bg-slate-100 text-slate-700 transition" title="Favoriler">
+            <svg class="w-5 h-5 text-slate-700 hover:text-rose-500 transition" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+            <span class="wishlist-badge hidden absolute -top-1 -right-1 bg-rose-500 text-white text-[10px] font-extrabold w-5 h-5 rounded-full flex items-center justify-center border-2 border-white shadow-sm">0</span>
+          </a>
+
+          <!-- User Account Menu -->
+          <div id="header-user-menu"></div>
+
+          <!-- Cart Drawer Button -->
+          <button onclick="Pazurka.openCartDrawer()" class="relative flex items-center gap-2.5 bg-brand hover:bg-brand-hover text-white px-5 py-2.5 rounded-2xl font-bold text-xs sm:text-sm transition shadow-lg btn-glow">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+            <span class="hidden md:inline">Sepetim</span>
+            <span class="cart-badge hidden bg-white text-brand text-xs font-extrabold px-2 py-0.5 rounded-full shadow-sm">0</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Categories Bar (Sleek vector icons instead of emojis) -->
+      <nav class="hidden lg:flex items-center gap-6 py-3 border-t border-slate-100 text-xs font-bold text-slate-700">
+        <a href="/urunler" class="flex items-center gap-2 text-brand hover:text-brand-hover font-extrabold py-1 px-3 bg-orange-50 rounded-xl transition">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>
+          <span>Tüm Kategoriler</span>
+        </a>
+
+        <a href="/urunler?category=elektronik-teknoloji" class="hover:text-brand transition flex items-center gap-2 py-1 px-2.5 rounded-xl hover:bg-slate-50">
+          <svg class="w-4 h-4 text-slate-400 group-hover:text-brand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="12" x="3" y="4" rx="2"/><path d="M2 20h20"/></svg>
+          <span>Elektronik & Teknoloji</span>
+        </a>
+
+        <a href="/urunler?category=moda-aksesuar" class="hover:text-brand transition flex items-center gap-2 py-1 px-2.5 rounded-xl hover:bg-slate-50">
+          <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"/></svg>
+          <span>Moda & Aksesuar</span>
+        </a>
+
+        <a href="/urunler?category=ev-yasam-mutfak" class="hover:text-brand transition flex items-center gap-2 py-1 px-2.5 rounded-xl hover:bg-slate-50">
+          <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><line x1="6" x2="6" y1="2" y2="4"/><line x1="10" x2="10" y1="2" y2="4"/><line x1="14" x2="14" y1="2" y2="4"/></svg>
+          <span>Ev, Yaşam & Mutfak</span>
+        </a>
+
+        <a href="/urunler?category=spor-outdoor" class="hover:text-brand transition flex items-center gap-2 py-1 px-2.5 rounded-xl hover:bg-slate-50">
+          <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          <span>Spor & Outdoor</span>
+        </a>
+
+        <a href="/urunler?category=kozmetik-bakim" class="hover:text-brand transition flex items-center gap-2 py-1 px-2.5 rounded-xl hover:bg-slate-50">
+          <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3L12 3z"/></svg>
+          <span>Kozmetik & Bakım</span>
+        </a>
+
+        <div class="ml-auto flex items-center gap-4 text-xs font-bold">
+          <a href="/urunler?badge=Fırsat" class="text-rose-600 hover:text-rose-700 flex items-center gap-1.5 bg-rose-50 px-3 py-1.5 rounded-xl transition">
+            <svg class="w-3.5 h-3.5 fill-rose-500" viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+            <span>Fırsat Köşesi</span>
+          </a>
+          <a href="/urunler?sort=popular" class="text-amber-700 hover:text-amber-800 flex items-center gap-1.5 bg-amber-50 px-3 py-1.5 rounded-xl transition">
+            <svg class="w-3.5 h-3.5 fill-amber-500" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <span>Çok Satanlar</span>
+          </a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- 3. INSTAGRAM-STYLE STORY BUBBLES -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-2">
+    <div class="flex items-center gap-4 sm:gap-6 overflow-x-auto pb-3 pt-1 scrollbar-none">
+      <a href="/urunler?badge=Fırsat" class="flex flex-col items-center gap-1.5 flex-shrink-0 group">
+        <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full story-ring p-1 group-hover:scale-105 transition">
+          <div class="w-full h-full rounded-full bg-white p-0.5 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=200" class="w-full h-full object-cover rounded-full">
+          </div>
+        </div>
+        <span class="text-[11px] font-extrabold text-orange-600 group-hover:text-brand flex items-center gap-1">
+          <svg class="w-3 h-3 fill-orange-500" viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+          Fırsatlar
+        </span>
+      </a>
+
+      <a href="/urunler?category=elektronik-teknoloji" class="flex flex-col items-center gap-1.5 flex-shrink-0 group">
+        <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full p-1 border-2 border-orange-400 group-hover:scale-105 transition">
+          <div class="w-full h-full rounded-full bg-white p-0.5 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=200" class="w-full h-full object-cover rounded-full">
+          </div>
+        </div>
+        <span class="text-[11px] font-bold text-slate-800 group-hover:text-brand">Kulaklıklar</span>
+      </a>
+
+      <a href="/urunler?category=elektronik-teknoloji" class="flex flex-col items-center gap-1.5 flex-shrink-0 group">
+        <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full p-1 border-2 border-orange-400 group-hover:scale-105 transition">
+          <div class="w-full h-full rounded-full bg-white p-0.5 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=200" class="w-full h-full object-cover rounded-full">
+          </div>
+        </div>
+        <span class="text-[11px] font-bold text-slate-800 group-hover:text-brand">Akıllı Saatler</span>
+      </a>
+
+      <a href="/urunler?category=moda-aksesuar" class="flex flex-col items-center gap-1.5 flex-shrink-0 group">
+        <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full p-1 border-2 border-orange-400 group-hover:scale-105 transition">
+          <div class="w-full h-full rounded-full bg-white p-0.5 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=200" class="w-full h-full object-cover rounded-full">
+          </div>
+        </div>
+        <span class="text-[11px] font-bold text-slate-800 group-hover:text-brand">Deri Çantalar</span>
+      </a>
+
+      <a href="/urunler?category=ev-yasam-mutfak" class="flex flex-col items-center gap-1.5 flex-shrink-0 group">
+        <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full p-1 border-2 border-orange-400 group-hover:scale-105 transition">
+          <div class="w-full h-full rounded-full bg-white p-0.5 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1517668808822-9ebb02f2a0e6?w=200" class="w-full h-full object-cover rounded-full">
+          </div>
+        </div>
+        <span class="text-[11px] font-bold text-slate-800 group-hover:text-brand">Kahve Keyfi</span>
+      </a>
+
+      <a href="/urunler?category=ev-yasam-mutfak" class="flex flex-col items-center gap-1.5 flex-shrink-0 group">
+        <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full p-1 border-2 border-orange-400 group-hover:scale-105 transition">
+          <div class="w-full h-full rounded-full bg-white p-0.5 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=200" class="w-full h-full object-cover rounded-full">
+          </div>
+        </div>
+        <span class="text-[11px] font-bold text-slate-800 group-hover:text-brand">Robot Süpürge</span>
+      </a>
+
+      <a href="/urunler?category=spor-outdoor" class="flex flex-col items-center gap-1.5 flex-shrink-0 group">
+        <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full p-1 border-2 border-orange-400 group-hover:scale-105 transition">
+          <div class="w-full h-full rounded-full bg-white p-0.5 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=200" class="w-full h-full object-cover rounded-full">
+          </div>
+        </div>
+        <span class="text-[11px] font-bold text-slate-800 group-hover:text-brand">Termos & Spor</span>
+      </a>
+
+      <a href="/urunler?category=kozmetik-bakim" class="flex flex-col items-center gap-1.5 flex-shrink-0 group">
+        <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full p-1 border-2 border-orange-400 group-hover:scale-105 transition">
+          <div class="w-full h-full rounded-full bg-white p-0.5 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=200" class="w-full h-full object-cover rounded-full">
+          </div>
+        </div>
+        <span class="text-[11px] font-bold text-slate-800 group-hover:text-brand">Cilt Bakımı</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- 4. HERO SHOWCASE WITH LIVE COUNTDOWN -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+    <div class="relative rounded-3xl overflow-hidden shadow-2xl bg-gradient-to-br from-slate-950 via-slate-900 to-neutral-950 text-white min-h-[480px] flex items-center border border-white/10">
+      
+      <!-- Ambient background blur circles -->
+      <div class="absolute -top-24 -left-24 w-96 h-96 bg-orange-600/30 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-amber-500/20 rounded-full blur-3xl pointer-events-none"></div>
+      
+      <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center p-8 sm:p-14 w-full">
+        <div class="lg:col-span-7 space-y-6">
+          
+          <div class="flex flex-wrap items-center gap-3">
+            <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-orange-500/20 border border-orange-500/30 text-orange-400 text-xs font-extrabold uppercase tracking-wide pulse-badge">
+              <svg class="w-3.5 h-3.5 fill-orange-400" viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+              BÜYÜK KASIM FIRSATLARI
+            </span>
+            <!-- Live Countdown Timer -->
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-white text-xs font-mono font-bold border border-white/10">
+              <svg class="w-3.5 h-3.5 text-orange-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <span>Kalan Süre:</span>
+              <span id="hero-countdown" class="text-orange-400 font-extrabold">08:42:19</span>
+            </div>
+          </div>
+
+          <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight">
+            Yeni Nesil Alışverişin <br>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 via-amber-300 to-yellow-200">Zirvesi: Pazurka</span>
+          </h1>
+
+          <p class="text-slate-300 text-sm sm:text-base max-w-xl font-normal leading-relaxed">
+            Ultra hızlı <strong>Bun</strong> motoruyla çalışan Türkiye'nin en dinamik e-ticaret platformunda %40'a varan indirimleri ve aynı gün kargo avantajını hemen keşfedin.
+          </p>
+
+          <div class="flex flex-wrap items-center gap-4 pt-2">
+            <a href="/urunler" class="px-8 py-4 bg-brand hover:bg-brand-hover text-white font-extrabold rounded-2xl transition shadow-xl btn-glow flex items-center gap-2 text-sm">
+              <span>Alışverişe Başla</span>
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+            <a href="/urunler?badge=Fırsat" class="px-7 py-4 bg-white/10 hover:bg-white/20 backdrop-blur-md text-white font-bold rounded-2xl border border-white/10 transition flex items-center gap-2 text-sm">
+              <svg class="w-4 h-4 text-orange-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              <span>Günün Fırsatları</span>
+            </a>
+          </div>
+
+          <!-- Mini perks -->
+          <div class="flex items-center gap-6 pt-3 text-xs text-slate-400 font-semibold">
+            <span class="flex items-center gap-1.5 text-slate-300">
+              <svg class="w-4 h-4 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Aynı Gün Kargo
+            </span>
+            <span class="flex items-center gap-1.5 text-slate-300">
+              <svg class="w-4 h-4 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              14 Gün Kolay İade
+            </span>
+            <span class="flex items-center gap-1.5 text-slate-300">
+              <svg class="w-4 h-4 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              %100 Orijinal
+            </span>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 relative flex justify-center">
+          <div class="relative w-72 sm:w-88 aspect-square">
+            <img 
+              src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&auto=format&fit=crop&q=80" 
+              alt="Pazurka Pro Kulaklık" 
+              class="relative z-10 w-full h-full object-cover rounded-3xl shadow-2xl border-2 border-white/15 rotate-2 hover:rotate-0 transition duration-500"
+            >
+            <!-- Floating badge 1 -->
+            <div class="absolute -bottom-4 -left-4 z-20 bg-white/95 backdrop-blur-md text-slate-900 p-4 rounded-2xl shadow-2xl border border-slate-100 flex items-center gap-3">
+              <div class="w-12 h-12 rounded-xl bg-orange-100 text-brand flex items-center justify-center font-extrabold text-sm">
+                %25
+              </div>
+              <div>
+                <p class="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Haftanın Yıldızı</p>
+                <p class="text-xs font-extrabold text-slate-900">Pazurka Pro ANC Kulaklık</p>
+                <p class="text-xs font-extrabold text-orange-600">3.499,00 TL</p>
+              </div>
+            </div>
+
+            <!-- Floating badge 2 -->
+            <div class="absolute -top-3 -right-3 z-20 bg-brand text-white px-3.5 py-1.5 rounded-full font-bold text-xs shadow-lg flex items-center gap-1.5">
+              <svg class="w-3.5 h-3.5 fill-amber-300 text-amber-300" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <span>4.9 (128 Yorum)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. TRUST BADGES ROW (Elevated with modern vector badges) -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      
+      <div class="p-5 bg-white rounded-2xl border border-slate-100 shadow-sm flex items-center gap-4 hover-elevate">
+        <div class="w-12 h-12 icon-box icon-box-orange flex-shrink-0">
+          <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-5.28a2 2 0 0 0-.8-1.6l-3.2-2.4a2 2 0 0 0-1.2-.42H14"/><circle cx="17" cy="18.5" r="2.5"/><circle cx="7" cy="18.5" r="2.5"/></svg>
+        </div>
+        <div>
+          <h4 class="text-sm font-bold text-slate-900">Aynı Gün Hızlı Kargo</h4>
+          <p class="text-xs text-slate-500 mt-0.5">750 TL üzeri kargo bedava</p>
+        </div>
+      </div>
+      
+      <div class="p-5 bg-white rounded-2xl border border-slate-100 shadow-sm flex items-center gap-4 hover-elevate">
+        <div class="w-12 h-12 icon-box icon-box-emerald flex-shrink-0">
+          <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
+        </div>
+        <div>
+          <h4 class="text-sm font-bold text-slate-900">%100 Orijinal Ürün</h4>
+          <p class="text-xs text-slate-500 mt-0.5">2 Yıl distribütör garantisi</p>
+        </div>
+      </div>
+
+      <div class="p-5 bg-white rounded-2xl border border-slate-100 shadow-sm flex items-center gap-4 hover-elevate">
+        <div class="w-12 h-12 icon-box icon-box-blue flex-shrink-0">
+          <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 16h5v5"/></svg>
+        </div>
+        <div>
+          <h4 class="text-sm font-bold text-slate-900">14 Gün Kolay İade</h4>
+          <p class="text-xs text-slate-500 mt-0.5">Koşulsuz iade ve değişim</p>
+        </div>
+      </div>
+
+      <div class="p-5 bg-white rounded-2xl border border-slate-100 shadow-sm flex items-center gap-4 hover-elevate">
+        <div class="w-12 h-12 icon-box icon-box-purple flex-shrink-0">
+          <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </div>
+        <div>
+          <h4 class="text-sm font-bold text-slate-900">256-Bit Güvenli Ödeme</h4>
+          <p class="text-xs text-slate-500 mt-0.5">3D Secure ile korunur</p>
+        </div>
+      </div>
+    </div>
+  </section>
+    </div>
+  </section>
+
+  <!-- 6. THREE PROMOTIONAL BANNERS -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      
+      <!-- Banner 1 -->
+      <a href="/urunler?category=elektronik-teknoloji" class="relative rounded-3xl overflow-hidden aspect-[16/9] md:aspect-[4/3] group shadow-lg">
+        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent p-6 flex flex-col justify-end text-white">
+          <span class="text-[10px] font-extrabold uppercase bg-brand text-white px-2.5 py-1 rounded-md self-start mb-2">Trend</span>
+          <h3 class="text-xl font-extrabold">Akıllı Titanyum Saatler</h3>
+          <p class="text-xs text-slate-300 mt-1">Havacılık sınıfı dayanıklılık</p>
+        </div>
+      </a>
+
+      <!-- Banner 2 -->
+      <a href="/urunler?category=ev-yasam-mutfak" class="relative rounded-3xl overflow-hidden aspect-[16/9] md:aspect-[4/3] group shadow-lg">
+        <img src="https://images.unsplash.com/photo-1517668808822-9ebb02f2a0e6?w=600" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent p-6 flex flex-col justify-end text-white">
+          <span class="text-[10px] font-extrabold uppercase bg-amber-500 text-white px-2.5 py-1 rounded-md self-start mb-2">Kahve Barı</span>
+          <h3 class="text-xl font-extrabold">İtalyan Espresso Keyfi</h3>
+          <p class="text-xs text-slate-300 mt-1">Evinizde üçüncü nesil kahve</p>
+        </div>
+      </a>
+
+      <!-- Banner 3 -->
+      <a href="/urunler?category=moda-aksesuar" class="relative rounded-3xl overflow-hidden aspect-[16/9] md:aspect-[4/3] group shadow-lg">
+        <img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent p-6 flex flex-col justify-end text-white">
+          <span class="text-[10px] font-extrabold uppercase bg-purple-600 text-white px-2.5 py-1 rounded-md self-start mb-2">Özel Zanaat</span>
+          <h3 class="text-xl font-extrabold">Hakiki Deri Sırt Çantaları</h3>
+          <p class="text-xs text-slate-300 mt-1">El işçiliği ve ömür boyu garanti</p>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- 7. CATEGORIES SHOWCASE -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="flex items-center justify-between mb-6">
+      <div>
+        <h2 class="text-2xl font-extrabold text-slate-900">Popüler Kategoriler</h2>
+        <p class="text-xs text-slate-500 mt-1">İhtiyacınız olan her şey en kaliteli markalarla</p>
+      </div>
+      <a href="/urunler" class="text-xs font-bold text-brand hover:text-brand-hover flex items-center gap-1">
+        Tümünü Gör →
+      </a>
+    </div>
+
+    <div id="categories-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+      <div class="shimmer h-36 rounded-3xl"></div>
+      <div class="shimmer h-36 rounded-3xl"></div>
+      <div class="shimmer h-36 rounded-3xl"></div>
+      <div class="shimmer h-36 rounded-3xl"></div>
+      <div class="shimmer h-36 rounded-3xl"></div>
+    </div>
+  </section>
+
+  <!-- 8. FEATURED PRODUCTS & TABS -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+      <div>
+        <h2 class="text-2xl font-extrabold text-slate-900">Haftanın Seçilen Ürünleri</h2>
+        <p class="text-xs text-slate-500 mt-1">Sizin için seçilen haftanın en çok ilgi gören ürünleri</p>
+      </div>
+      
+      <!-- Filter Tabs -->
+      <div class="flex items-center gap-2 overflow-x-auto pb-2 md:pb-0 text-xs">
+        <button onclick="loadFeaturedProducts('all')" class="tab-btn active px-4 py-2.5 rounded-xl font-extrabold bg-brand text-white transition shadow-sm flex items-center gap-1.5">
+          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>
+          <span>Tüm Ürünler</span>
+        </button>
+        <button onclick="loadFeaturedProducts('bestseller')" class="tab-btn px-4 py-2.5 rounded-xl font-bold bg-white text-slate-600 hover:bg-slate-100 border border-slate-200 transition flex items-center gap-1.5">
+          <svg class="w-3.5 h-3.5 fill-amber-400 text-amber-400" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <span>Çok Satanlar</span>
+        </button>
+        <button onclick="loadFeaturedProducts('firsat')" class="tab-btn px-4 py-2.5 rounded-xl font-bold bg-white text-slate-600 hover:bg-slate-100 border border-slate-200 transition flex items-center gap-1.5">
+          <svg class="w-3.5 h-3.5 fill-rose-500 text-rose-500" viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+          <span>Fırsat Ürünleri</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Products Grid -->
+    <div id="featured-products-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <div class="shimmer h-80 rounded-3xl"></div>
+      <div class="shimmer h-80 rounded-3xl"></div>
+      <div class="shimmer h-80 rounded-3xl"></div>
+      <div class="shimmer h-80 rounded-3xl"></div>
+    </div>
+  </section>
+
+  <!-- 9. PROMOTIONAL COUPON BANNER -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="rounded-3xl p-8 sm:p-12 bg-gradient-to-r from-orange-600 via-brand to-amber-500 text-white flex flex-col md:flex-row items-center justify-between gap-8 shadow-2xl relative overflow-hidden">
+      
+      <div class="space-y-3 text-center md:text-left relative z-10">
+        <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white/20 text-white font-extrabold text-[11px] uppercase tracking-wider">
+          <svg class="w-3.5 h-3.5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"/></svg>
+          Özel İndirim Kuponu
+        </span>
+        <h3 class="text-2xl sm:text-4xl font-extrabold">100 TL Hoş Geldin İndirimi!</h3>
+        <p class="text-white/90 text-xs sm:text-sm max-w-lg leading-relaxed">
+          İlk alışverişinizde <strong>PAZURKA100</strong> kupon kodunu kullanarak 1000 TL ve üzeri sepetlerinizde anında 100 TL indirim kazanın.
+        </p>
+      </div>
+
+      <div class="flex items-center gap-3 bg-white/15 backdrop-blur-md p-3 rounded-2xl border border-white/20 relative z-10 shadow-lg">
+        <div class="px-6 py-3.5 bg-white text-slate-900 font-mono font-extrabold text-lg sm:text-xl rounded-xl select-all shadow-sm">
+          PAZURKA100
+        </div>
+        <button onclick="navigator.clipboard.writeText('PAZURKA100'); Pazurka.toast('Kupon kodu kopyalandı!', 'success');" class="p-3.5 bg-brand-dark hover:bg-black text-white rounded-xl transition shadow-md flex items-center justify-center" title="Kodu Kopyala">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10. REVIEWS -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <div class="text-center max-w-xl mx-auto mb-10">
+      <h2 class="text-2xl font-extrabold text-slate-900">Müşterilerimiz Ne Diyor?</h2>
+      <p class="text-xs text-slate-500 mt-1">Pazurka üzerinden alışveriş yapan binlerce mutlu müşterimizin gerçek deneyimleri</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="p-6 bg-white rounded-3xl border border-slate-100 shadow-sm flex flex-col justify-between hover-elevate">
+        <div>
+          <div class="flex items-center gap-1 text-amber-400 mb-3">
+            <svg class="w-4 h-4 fill-amber-400" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 fill-amber-400" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 fill-amber-400" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 fill-amber-400" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 fill-amber-400" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <p class="text-xs text-slate-600 leading-relaxed font-medium">
+            "Pazurka Pro ANC kulaklığı sipariş verdim, ertesi sabah kapımdaydı. Ses kalitesi ve malzeme hissi olağanüstü. Hızlı kargo için tebrikler!"
+          </p>
+        </div>
+        <div class="mt-6 flex items-center gap-3 pt-4 border-t border-slate-100">
+          <div class="w-10 h-10 rounded-full bg-orange-100 text-brand font-bold flex items-center justify-center text-xs">BK</div>
+          <div>
+            <p class="text-xs font-bold text-slate-900">Barış Karahan</p>
+            <p class="text-[10px] text-emerald-600 font-bold flex items-center gap-1">
+              <svg class="w-3 h-3 text-emerald-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Doğrulanmış Alıcı
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-6 bg-white rounded-3xl border border-slate-100 shadow-sm flex flex-col justify-between hover-elevate">
+        <div>
+          <div class="flex items-center gap-1 text-amber-400 mb-3">
+            <svg class="w-4 h-4 fill-amber-400" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 fill-amber-400" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 fill-amber-400" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 fill-amber-400" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 fill-amber-400" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <p class="text-xs text-slate-600 leading-relaxed font-medium">
+            "Sitenin hızı şaka gibi! Sepete ekleme ve ödeme adımları 30 saniye sürdü. Paketleme çok özenliydi, faturası ve garanti belgesi kutudaydı."
+          </p>
+        </div>
+        <div class="mt-6 flex items-center gap-3 pt-4 border-t border-slate-100">
+          <div class="w-10 h-10 rounded-full bg-blue-100 text-blue-600 font-bold flex items-center justify-center text-xs">ST</div>
+          <div>
+            <p class="text-xs font-bold text-slate-900">Selin Temiz</p>
+            <p class="text-[10px] text-emerald-600 font-bold flex items-center gap-1">
+              <svg class="w-3 h-3 text-emerald-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Doğrulanmış Alıcı
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-6 bg-white rounded-3xl border border-slate-100 shadow-sm flex flex-col justify-between hover-elevate">
+        <div>
+          <div class="flex items-center gap-1 text-amber-400 mb-3">
+            <svg class="w-4 h-4 fill-amber-400" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 fill-amber-400" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 fill-amber-400" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 fill-amber-400" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 fill-amber-400" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <p class="text-xs text-slate-600 leading-relaxed font-medium">
+            "Barista kahve makinesini aldım, üçüncü nesil kahve dükkanlarını aratmıyor. Müşteri hizmetleri de her soruma anında yanıt verdi. 10/10 hizmet."
+          </p>
+        </div>
+        <div class="mt-6 flex items-center gap-3 pt-4 border-t border-slate-100">
+          <div class="w-10 h-10 rounded-full bg-purple-100 text-purple-600 font-bold flex items-center justify-center text-xs">CY</div>
+          <div>
+            <p class="text-xs font-bold text-slate-900">Canan Yıldız</p>
+            <p class="text-[10px] text-emerald-600 font-bold flex items-center gap-1">
+              <svg class="w-3 h-3 text-emerald-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Doğrulanmış Alıcı
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11. NEWSLETTER SUBSCRIPTION -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="p-8 sm:p-10 bg-white rounded-3xl border border-slate-100 shadow-sm flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="space-y-1 text-center md:text-left">
+        <h3 class="text-lg sm:text-xl font-extrabold text-slate-900">Pazurka Ailesine Katılın</h3>
+        <p class="text-xs text-slate-500">Yeni ürünler ve gizli indirim kodları ilk size gelsin.</p>
+      </div>
+      <form onsubmit="event.preventDefault(); Pazurka.toast('Tebrikler! Bülten kaydınız alındı, 50 TL indirim kodu: BULTEN50', 'success'); this.reset();" class="flex items-center gap-2 w-full md:w-auto">
+        <input type="email" required placeholder="E-posta adresiniz..." class="px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-xs w-full sm:w-72 focus:outline-none focus:border-brand">
+        <button type="submit" class="px-6 py-3 bg-brand hover:bg-brand-hover text-white text-xs font-extrabold rounded-2xl transition shadow-md btn-glow flex-shrink-0">
+          Abone Ol
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- 12. FOOTER -->
+  <footer class="mt-auto bg-brand-dark text-slate-400 border-t border-white/10 text-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+        
+        <div class="lg:col-span-2 space-y-4">
+          <img 
+            src="images/pazurkalogo.png" 
+            onerror="this.onerror=null; this.src='pazurkalogo.png';" 
+            alt="Pazurka Logo" 
+            class="h-10 w-auto object-contain brightness-0 invert"
+          >
+          <p class="text-slate-400 text-xs leading-relaxed max-w-sm">
+            Pazurka; yüksek hızlı Bun mimarisi ve SQLite altyapısıyla geliştirilmiş, müşteri memnuniyeti ve güvenli alışveriş odaklı yeni nesil e-ticaret platformudur.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="text-white font-extrabold text-sm mb-4">Hızlı Erişim</h4>
+          <ul class="space-y-2 text-slate-400">
+            <li><a href="/urunler" class="hover:text-white transition">Tüm Ürünler</a></li>
+            <li><a href="/urunler?badge=Fırsat" class="hover:text-white transition">Fırsat Ürünleri</a></li>
+            <li><a href="/urunler?sort=popular" class="hover:text-white transition">En Çok Satanlar</a></li>
+            <li><a href="/siparis-takip" class="hover:text-white transition">Sipariş Takibi</a></li>
+            <li><a href="/favoriler" class="hover:text-white transition">Favorilerim</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-white font-extrabold text-sm mb-4">Kurumsal</h4>
+          <ul class="space-y-2 text-slate-400">
+            <li><a href="/hakkimizda" class="hover:text-white transition">Hakkımızda</a></li>
+            <li><a href="/iletisim" class="hover:text-white transition">İletişim & Destek</a></li>
+            <li><a href="/siparis-takip" class="hover:text-white transition">Kargo ve Teslimat</a></li>
+            <li>
+              <a href="/admin" class="hover:text-orange-400 transition font-bold flex items-center gap-1.5">
+                <svg class="w-3.5 h-3.5 text-orange-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>
+                <span>Yönetici Paneli</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-white font-extrabold text-sm mb-4">Müşteri Destek</h4>
+          <div class="space-y-2.5 text-slate-400">
+            <p class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-orange-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              <strong>0850 555 72 98</strong>
+            </p>
+            <p class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-orange-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+              <strong>destek@pazurka.com</strong>
+            </p>
+            <p class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-orange-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+              <span>Teknoloji Vadisi No:42, İstanbul</span>
+            </p>
+            <div class="pt-2">
+              <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-white/5 rounded-xl text-emerald-400 font-bold text-[11px] border border-white/5">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+                Haftanın 7 Günü Canlı Destek
+              </span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="pt-8 mt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
+        <p>© 2026 Pazurka E-Ticaret A.Ş. Tüm hakları saklıdır. Bun Full-Stack Engine ile güçlendirilmiştir.</p>
+        <div class="flex items-center gap-3 text-slate-400 font-bold text-[11px]">
+          <span class="px-2.5 py-1 bg-white/5 rounded-lg border border-white/10 text-slate-300">VISA</span>
+          <span class="px-2.5 py-1 bg-white/5 rounded-lg border border-white/10 text-slate-300">MasterCard</span>
+          <span class="px-2.5 py-1 bg-white/5 rounded-lg border border-white/10 text-slate-300">TROY</span>
+          <span class="px-2.5 py-1 bg-white/5 rounded-lg border border-white/10 text-slate-300 flex items-center gap-1">
+            <svg class="w-3 h-3 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            256-Bit SSL
+          </span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- FLOATING WHATSAPP BUTTON -->
+  <a href="https://wa.me/908505557298" target="_blank" class="whatsapp-float w-14 h-14 bg-emerald-500 text-white rounded-full flex items-center justify-center transition shadow-2xl" title="WhatsApp Canlı Destek">
+    <svg class="w-8 h-8 fill-white" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.275.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.1.825z"/></svg>
+  </a>
+
+  <!-- SLIDE-OVER CART DRAWER -->
+  <div id="cart-drawer-overlay" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden opacity-0 transition-opacity" onclick="Pazurka.closeCartDrawer()"></div>
+  <div id="cart-drawer" class="fixed top-0 right-0 h-full w-full max-w-md bg-white z-50 shadow-2xl flex flex-col translate-x-full transition-transform">
+    <div class="p-4 border-b border-slate-100 flex items-center justify-between">
+      <div class="flex items-center gap-2.5">
+        <div class="w-9 h-9 rounded-xl bg-orange-50 text-brand border border-orange-200/60 flex items-center justify-center">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        </div>
+        <div>
+          <h3 class="font-extrabold text-slate-900 text-sm">Alışveriş Sepetim</h3>
+          <p class="text-[11px] text-slate-400">Pazurka Hızlı Teslimat</p>
+        </div>
+      </div>
+      <button onclick="Pazurka.closeCartDrawer()" class="p-2 rounded-xl hover:bg-slate-100 text-slate-400 hover:text-slate-700 transition">
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+      </button>
+    </div>
+
+    <div id="cart-shipping-progress" class="px-4 py-3 bg-slate-50 border-b border-slate-100"></div>
+    <div id="cart-drawer-items" class="flex-1 overflow-y-auto p-4 space-y-2"></div>
+
+    <div id="cart-drawer-empty" class="hidden flex-1 flex flex-col items-center justify-center p-8 text-center">
+      <div class="w-20 h-20 rounded-3xl bg-orange-50 text-brand border border-orange-100 flex items-center justify-center mb-4 shadow-inner">
+        <svg class="w-10 h-10 text-orange-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      </div>
+      <h4 class="font-extrabold text-slate-900 text-base mb-1">Sepetiniz Henüz Boş</h4>
+      <p class="text-xs text-slate-500 max-w-xs mb-6">Pazurka'nın avantajlı fiyatlarını ve fırsat ürünlerini keşfedin.</p>
+      <a href="/urunler" onclick="Pazurka.closeCartDrawer()" class="px-6 py-2.5 bg-brand hover:bg-brand-hover text-white font-bold rounded-xl text-xs transition shadow-md btn-glow flex items-center gap-1.5">
+        <span>Alışverişe Başla</span>
+        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+    </div>
+
+    <div id="cart-drawer-footer" class="p-4 border-t border-slate-100 bg-slate-50">
+      <div class="flex items-center justify-between mb-4">
+        <span class="text-xs text-slate-600 font-bold">Ara Toplam:</span>
+        <span id="cart-drawer-subtotal" class="text-xl font-extrabold text-slate-900">0,00 TL</span>
+      </div>
+      <div class="space-y-2">
+        <a href="/odeme" class="w-full py-3.5 bg-brand hover:bg-brand-hover text-white font-extrabold rounded-2xl flex items-center justify-center gap-2 transition shadow-md btn-glow text-xs uppercase tracking-wider">
+          <span>Siparişi Tamamla</span>
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+        <a href="/sepet" class="w-full py-2.5 bg-white hover:bg-slate-100 text-slate-700 font-bold rounded-2xl flex items-center justify-center text-xs border border-slate-200 transition">
+          Sepete Git ve Detayları Gör
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/store.js"></script>
+  <script>
+    // Live countdown timer in hero
+    function startCountdown() {
+      let seconds = 31339;
+      const el = document.getElementById("hero-countdown");
+      setInterval(() => {
+        seconds--;
+        if (seconds <= 0) seconds = 86400;
+        const h = Math.floor(seconds / 3600).toString().padStart(2, '0');
+        const m = Math.floor((seconds % 3600) / 60).toString().padStart(2, '0');
+        const s = (seconds % 60).toString().padStart(2, '0');
+        if (el) el.textContent = `${h}:${m}:${s}`;
+      }, 1000);
+    }
+
+    async function loadCategories() {
+      try {
+        const res = await fetch("/api/categories");
+        const data = await res.json();
+        if (data.success && data.categories) {
+          renderCategories(data.categories);
+          return;
+        }
+      } catch (err) {}
+      if (Pazurka.offlineData) renderCategories(Pazurka.offlineData.categories);
+    }
+
+    function renderCategories(categories) {
+      const grid = document.getElementById("categories-grid");
+      if (!grid) return;
+      grid.innerHTML = categories.map(cat => `
+        <a href="/urunler?category=${cat.slug}" class="group relative rounded-3xl overflow-hidden aspect-[4/3] bg-slate-900 border border-slate-100 hover-elevate">
+          <img src="${cat.image}" alt="${cat.name}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500 opacity-75 group-hover:opacity-60">
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent p-4 flex flex-col justify-end">
+            <h3 class="font-extrabold text-white text-sm sm:text-base group-hover:text-orange-400 transition">${cat.name}</h3>
+            <p class="text-[11px] text-slate-300 mt-0.5">${cat.product_count} Ürün</p>
+          </div>
+        </a>
+      `).join("");
+    }
+
+    async function loadFeaturedProducts(filter = 'all') {
+      const tabs = document.querySelectorAll(".tab-btn");
+      tabs.forEach(t => t.classList.remove("bg-brand", "text-white", "shadow-sm"));
+      tabs.forEach(t => t.classList.add("bg-white", "text-slate-600"));
+
+      let products = [];
+      try {
+        let url = "/api/products?limit=8";
+        if (filter === 'bestseller') url += "&bestseller=1";
+        else if (filter === 'firsat') url += "&badge=Fırsat";
+        else url += "&featured=1";
+
+        const res = await fetch(url);
+        const data = await res.json();
+        if (data.success && data.products) products = data.products;
+      } catch (err) {}
+
+      if (products.length === 0 && Pazurka.offlineData) {
+        let list = [...Pazurka.offlineData.products];
+        if (filter === 'bestseller') list = list.filter(p => p.is_bestseller);
+        else if (filter === 'firsat') list = list.filter(p => p.badge === 'Fırsat');
+        products = list;
+      }
+
+      const grid = document.getElementById("featured-products-grid");
+      if (!grid) return;
+      grid.innerHTML = products.map(p => renderProductCard(p)).join("");
+      Pazurka.refreshIcons(grid);
+    }
+
+    function renderProductCard(p) {
+      const firstImage = (p.images && p.images.length > 0) ? p.images[0] : 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600';
+      const isFav = Pazurka.isWishlisted(p.id);
+      
+      let badgeClass = "badge-firsat";
+      if (p.badge === "Çok Satan") badgeClass = "badge-coksatan";
+      if (p.badge === "Yeni") badgeClass = "badge-yeni";
+      if (p.badge === "Özel Tasarım") badgeClass = "badge-ozel";
+
+      return `
+        <div class="bg-white rounded-3xl border border-slate-100 shadow-sm hover-elevate overflow-hidden flex flex-col group p-3">
+          <div class="relative aspect-square bg-slate-50 rounded-2xl overflow-hidden">
+            <a href="/urun-detay?slug=${p.slug}">
+              <img src="${firstImage}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+            </a>
+            
+            ${p.badge ? `
+              <span class="absolute top-3 left-3 px-2.5 py-1 text-[10px] font-extrabold rounded-lg ${badgeClass} shadow-md uppercase tracking-wider">
+                ${p.badge}
+              </span>
+            ` : ''}
+
+            <!-- Wishlist Button -->
+            <button onclick="Pazurka.toggleWishlist(${JSON.stringify(p).replace(/"/g, '&quot;')}); this.querySelector('svg').classList.toggle('fill-rose-500'); this.querySelector('svg').classList.toggle('text-rose-500');" class="absolute top-3 right-3 p-2 bg-white/90 backdrop-blur-md rounded-full shadow-md text-slate-500 hover:text-rose-500 transition hover:scale-110">
+              <svg class="w-4 h-4 ${isFav ? 'fill-rose-500 text-rose-500' : ''}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+            </button>
+          </div>
+
+          <div class="pt-3 pb-1 px-1 flex-1 flex flex-col justify-between">
+            <div>
+              <p class="text-[10px] font-bold text-orange-600 uppercase tracking-wider mb-1">${p.category_name || 'Pazurka'}</p>
+              <a href="/urun-detay?slug=${p.slug}" class="font-extrabold text-slate-900 text-xs sm:text-sm hover:text-brand transition line-clamp-2 mb-2 leading-snug">
+                ${p.name}
+              </a>
+              
+              <div class="flex items-center gap-1.5 text-xs text-slate-500 mb-3">
+                <div class="flex items-center text-amber-400">
+                  <svg class="w-3.5 h-3.5 fill-amber-400" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                </div>
+                <span class="font-extrabold text-slate-800 text-xs">${p.rating || 5.0}</span>
+                <span class="text-slate-400 text-[11px]">(${p.review_count || 0})</span>
+                <span class="ml-auto text-[10px] text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded-full flex items-center gap-1">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                  Stokta
+                </span>
+              </div>
+            </div>
+
+            <div class="pt-3 border-t border-slate-100 flex items-center justify-between mt-auto">
+              <div>
+                ${p.compare_at_price ? `
+                  <p class="text-[11px] text-slate-400 line-through font-semibold">${Pazurka.formatPrice(p.compare_at_price)}</p>
+                ` : ''}
+                <p class="text-base sm:text-lg font-extrabold text-slate-900">${Pazurka.formatPrice(p.price)}</p>
+              </div>
+
+              <button onclick="Pazurka.addToCart(${JSON.stringify(p).replace(/"/g, '&quot;')}, 1)" class="px-3.5 py-2.5 bg-brand hover:bg-brand-hover text-white rounded-xl transition shadow-md font-bold text-xs flex items-center gap-1.5 btn-glow" title="Sepete Ekle">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                <span class="hidden sm:inline">Ekle</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      startCountdown();
+      loadCategories();
+      loadFeaturedProducts('all');
+    });
+  </script>
+</body>
+</html>
