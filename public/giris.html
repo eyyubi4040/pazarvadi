@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <base href="/">
-  <title>Giriş Yap & Kayıt Ol - Pazurka</title>
+  <title>Giriş Yap & Kayıt Ol - Pazarvadi</title>
   <link rel="icon" type="image/png" href="images/favicon.png?v=2">
   <link rel="apple-touch-icon" href="images/favicon.png?v=2">
   <link rel="shortcut icon" href="favicon.ico?v=2">
@@ -37,9 +37,9 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-20">
         <a href="/" class="flex-shrink-0 flex items-center">
-          <img src="images/pazurkalogo.png"
-            onerror="this.onerror=null; this.src='pazurkalogo.png'; if(!this.complete) this.src='/images/pazurkalogo.png';"
-            alt="Pazurka Logo" class="h-10 sm:h-12 w-auto object-contain">
+          <img src="images/pazarvadilogo.png"
+            onerror="this.onerror=null; this.src='pazarvadilogo.png'; if(!this.complete) this.src='/images/pazarvadilogo.png';"
+            alt="Pazarvadi Logo" class="h-10 sm:h-12 w-auto object-contain">
         </a>
         <a href="/" class="text-xs font-bold text-slate-500 hover:text-brand flex items-center gap-1">
           <i data-lucide="arrow-left" class="w-4 h-4"></i> Ana Sayfa
@@ -62,7 +62,7 @@
       <form id="login-form" onsubmit="handleLogin(event)" class="space-y-4">
         <div>
           <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">E-Posta Adresi</label>
-          <input type="email" id="login-email" required placeholder="demo@pazurka.com"
+          <input type="email" id="login-email" required placeholder="demo@pazarvadi.com"
             class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-brand">
         </div>
 
@@ -157,7 +157,7 @@
 
   <footer class="mt-auto bg-brand-dark text-slate-400 text-xs py-8 border-t border-white/10 text-center">
     <div class="max-w-7xl mx-auto px-4">
-      <p>© 2026 Pazurka E-Ticaret Platformu.</p>
+      <p>© 2026 Pazarvadi E-Ticaret Platformu.</p>
     </div>
   </footer>
 
@@ -180,13 +180,13 @@
     function fillDemo(type) {
       switchAuthTab('login');
       if (type === 'admin') {
-        document.getElementById("login-email").value = "admin@pazurka.com";
+        document.getElementById("login-email").value = "admin@pazarvadi.com";
         document.getElementById("login-pass").value = "admin123";
       } else {
-        document.getElementById("login-email").value = "demo@pazurka.com";
-        document.getElementById("login-pass").value = "pazurka123";
+        document.getElementById("login-email").value = "demo@pazarvadi.com";
+        document.getElementById("login-pass").value = "pazarvadi123";
       }
-      Pazurka.toast("Demo bilgileri dolduruldu! 'Giriş Yap' butonuna basabilirsiniz.", "info");
+      Pazarvadi.toast("Demo bilgileri dolduruldu! 'Giriş Yap' butonuna basabilirsiniz.", "info");
     }
 
     async function handleLogin(e) {
@@ -202,8 +202,8 @@
         });
         const data = await res.json();
         if (data.success && data.user) {
-          Pazurka.setUser(data.user, data.token);
-          Pazurka.toast(data.message || "Giriş yapıldı!", "success");
+          Pazarvadi.setUser(data.user, data.token);
+          Pazarvadi.toast(data.message || "Giriş yapıldı!", "success");
           setTimeout(() => {
             window.location.href = data.user.role === 'admin' ? "/admin" : "/hesabim";
           }, 600);
@@ -212,13 +212,13 @@
       } catch (err) { }
 
       // Fallback offline login simulation
-      if (email === "admin@pazurka.com") {
-        Pazurka.setUser({ id: 1, email, full_name: "Pazurka Yönetici", role: "admin" }, "token");
-        Pazurka.toast("Yönetici girişi başarılı!", "success");
+      if (email === "admin@pazarvadi.com") {
+        Pazarvadi.setUser({ id: 1, email, full_name: "Pazarvadi Yönetici", role: "admin" }, "token");
+        Pazarvadi.toast("Yönetici girişi başarılı!", "success");
         setTimeout(() => window.location.href = "/admin", 500);
       } else {
-        Pazurka.setUser({ id: 2, email, full_name: "Ahmet Yılmaz", role: "customer" }, "token");
-        Pazurka.toast("Müşteri girişi başarılı!", "success");
+        Pazarvadi.setUser({ id: 2, email, full_name: "Ahmet Yılmaz", role: "customer" }, "token");
+        Pazarvadi.toast("Müşteri girişi başarılı!", "success");
         setTimeout(() => window.location.href = "/hesabim", 500);
       }
     }
@@ -242,11 +242,11 @@
         const data = await res.json();
         if (data.success && data.user) {
           const userObj = { ...data.user, phone, city, district, address };
-          Pazurka.setUser(userObj, data.token);
+          Pazarvadi.setUser(userObj, data.token);
 
           // If address was provided, save it as default address
           if (address && city) {
-            await Pazurka.saveAddress({
+            await Pazarvadi.saveAddress({
               title: "Ev Adresim",
               recipient_name: full_name,
               phone: phone,
@@ -257,7 +257,7 @@
             });
           }
 
-          Pazurka.toast("Kaydınız başarıyla oluşturuldu!", "success");
+          Pazarvadi.toast("Kaydınız başarıyla oluşturuldu!", "success");
           setTimeout(() => window.location.href = "/hesabim", 600);
           return;
         }
@@ -265,9 +265,9 @@
 
       // Fallback offline simulation
       const userObj = { id: Date.now(), email, full_name, phone, city, district, address, role: "customer" };
-      Pazurka.setUser(userObj, "token");
+      Pazarvadi.setUser(userObj, "token");
       if (address && city) {
-        await Pazurka.saveAddress({
+        await Pazarvadi.saveAddress({
           title: "Ev Adresim",
           recipient_name: full_name,
           phone: phone,
@@ -277,12 +277,12 @@
           is_default: 1
         });
       }
-      Pazurka.toast("Hesabınız oluşturuldu!", "success");
+      Pazarvadi.toast("Hesabınız oluşturuldu!", "success");
       setTimeout(() => window.location.href = "/hesabim", 500);
     }
 
     document.addEventListener("DOMContentLoaded", () => {
-      Pazurka.populateCityDistrict("reg-city", "reg-district");
+      Pazarvadi.populateCityDistrict("reg-city", "reg-district");
     });
   </script>
 </body>

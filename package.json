@@ -1,7 +1,7 @@
 {
-  "name": "pazurka-ecommerce",
+  "name": "pazarvadi-ecommerce",
   "version": "1.0.0",
-  "description": "Pazurka - Bun & SQLite Tabanlı Son Sistem Yeni Nesil E-Ticaret Platformu",
+  "description": "Pazarvadi - Bun & SQLite Tabanlı Son Sistem Yeni Nesil E-Ticaret Platformu",
   "main": "server/index.ts",
   "type": "module",
   "scripts": {
@@ -19,7 +19,7 @@
     "typescript",
     "high-performance"
   ],
-  "author": "Pazurka",
+  "author": "Pazarvadi",
   "license": "MIT"
 }
 

@@ -1,9 +1,9 @@
-/**
- * PAZURKA E-COMMERCE CORE CLIENT ENGINE (V2 ENHANCED)
+﻿/**
+ * PAZARVADI E-COMMERCE CORE CLIENT ENGINE (V2 ENHANCED)
  * Rich animations, guaranteed icons, social proof toasts, full-featured cart & wishlist
  */
 
-const Pazurka = {
+const Pazarvadi = {
   // Built-in crisp SVG dictionary for 100% reliable icon rendering (even without external network)
   icons: {
     'star': '<svg class="{CLASS} fill-amber-400 text-amber-400" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>',
@@ -92,10 +92,10 @@ const Pazurka = {
         category_id: 1,
         category_name: "Elektronik & Teknoloji",
         category_slug: "elektronik-teknoloji",
-        name: "Pazurka Pro ANC Kablosuz Kulak Üstü Kulaklık",
-        slug: "pazurka-pro-anc-kablosuz-kulaklik",
+        name: "Pazarvadi Pro ANC Kablosuz Kulak Üstü Kulaklık",
+        slug: "pazarvadi-pro-anc-kablosuz-kulaklik",
         short_desc: "Aktif Gürültü Engelleme (ANC), 45 Saat Pil Ömrü, Hi-Res Audio ve Şeffaf Mod",
-        description: "Pazurka Pro ANC, müziği tüm ayrıntılarıyla hissetmeniz için tasarlandı. 40mm dinamik sürücüler, çift mikrofonlu hibrit gürültü engelleme sistemi ve ultra yumuşak protein deri kulak yastıkları ile gün boyu kesintisiz stüdyo kalitesinde konfor sunar.",
+        description: "Pazarvadi Pro ANC, müziği tüm ayrıntılarıyla hissetmeniz için tasarlandı. 40mm dinamik sürücüler, çift mikrofonlu hibrit gürültü engelleme sistemi ve ultra yumuşak protein deri kulak yastıkları ile gün boyu kesintisiz stüdyo kalitesinde konfor sunar.",
         price: 3499.00,
         compare_at_price: 4299.00,
         sku: "PZR-TECH-001",
@@ -109,15 +109,15 @@ const Pazurka = {
           "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&auto=format&fit=crop&q=80",
           "https://images.unsplash.com/photo-1484704849700-f032a568e944?w=800&auto=format&fit=crop&q=80"
         ],
-        specs: { "Bağlantı": "Bluetooth 5.3", "Pil Ömrü": "45 Saat", "Sürücü": "40mm Biyoselüloz Titanyum", "Garanti": "2 Yıl Pazurka Garantili" }
+        specs: { "Bağlantı": "Bluetooth 5.3", "Pil Ömrü": "45 Saat", "Sürücü": "40mm Biyoselüloz Titanyum", "Garanti": "2 Yıl Pazarvadi Garantili" }
       },
       {
         id: 2,
         category_id: 1,
         category_name: "Elektronik & Teknoloji",
         category_slug: "elektronik-teknoloji",
-        name: "Pazurka Chrono Ultra Akıllı Titanyum Saat",
-        slug: "pazurka-chrono-ultra-akilli-saat",
+        name: "Pazarvadi Chrono Ultra Akıllı Titanyum Saat",
+        slug: "pazarvadi-chrono-ultra-akilli-saat",
         short_desc: "1.43 inç AMOLED Ekran, Safir Cam, EKG + Kandaki Oksijen Sensörü, Titanyum Kasa",
         description: "Hem toplantı odasında hem doğa maceralarında yanınızda. Safir cam ve havacılık sınıfı titanyum kasa ile darbelere karşı dayanıklı.",
         price: 5890.00,
@@ -137,8 +137,8 @@ const Pazurka = {
         category_id: 1,
         category_name: "Elektronik & Teknoloji",
         category_slug: "elektronik-teknoloji",
-        name: "Pazurka Pods Pro True Wireless Kulaklık",
-        slug: "pazurka-pods-pro-kablosuz-kulaklik",
+        name: "Pazarvadi Pods Pro True Wireless Kulaklık",
+        slug: "pazarvadi-pods-pro-kablosuz-kulaklik",
         short_desc: "Uzamsal Ses, Kablosuz Şarj Kutusu, Kristal Netliğinde Mikrofon",
         description: "Cebinizdeki dev ses performansı. Ergonomik tasarımı kulağınıza tam oturur, IPX5 ter ve su sıçramalarına dayanıklıdır.",
         price: 1899.00,
@@ -158,8 +158,8 @@ const Pazurka = {
         category_id: 2,
         category_name: "Moda & Aksesuar",
         category_slug: "moda-aksesuar",
-        name: "Pazurka Heritage El Yapımı Hakiki Deri Sırt Çantası",
-        slug: "pazurka-heritage-hakiki-deri-sirt-cantasi",
+        name: "Pazarvadi Heritage El Yapımı Hakiki Deri Sırt Çantası",
+        slug: "pazarvadi-heritage-hakiki-deri-sirt-cantasi",
         short_desc: "16 Laptop Bölmeli, Vintage Tabaklanmış Dana Derisi, Su İtici Astar",
         description: "Zamanla güzelleşen el işçiliğiyle üretilmiş vejetal hakiki dana derisi sırt çantası.",
         price: 4750.00,
@@ -179,8 +179,8 @@ const Pazurka = {
         category_id: 2,
         category_name: "Moda & Aksesuar",
         category_slug: "moda-aksesuar",
-        name: "Pazurka Minimalist Polarize Güneş Gözlüğü (Mat Siyah)",
-        slug: "pazurka-minimalist-polarize-gunes-gozlugu",
+        name: "Pazarvadi Minimalist Polarize Güneş Gözlüğü (Mat Siyah)",
+        slug: "pazarvadi-minimalist-polarize-gunes-gozlugu",
         short_desc: "UV400 Koruma, Japon Titanyum Çerçeve, Çizilmeye Dayanıklı Polarize Cam",
         description: "Ultra hafif titanyum gövdesi burunda ağırlık yapmaz. Deri kılıf hediyelidir.",
         price: 1599.00,
@@ -200,8 +200,8 @@ const Pazurka = {
         category_id: 3,
         category_name: "Ev, Yaşam & Mutfak",
         category_slug: "ev-yasam-mutfak",
-        name: "Pazurka Barista Touch Otomatik Espresso & Kahve Makinesi",
-        slug: "pazurka-barista-touch-kahve-makinesi",
+        name: "Pazarvadi Barista Touch Otomatik Espresso & Kahve Makinesi",
+        slug: "pazarvadi-barista-touch-kahve-makinesi",
         short_desc: "19 Bar İtalyan Pompa, Dahili Konik Çelik Değirmen, Profesyonel Süt Köpürtücü",
         description: "Evinizi üçüncü nesil bir kahve dükkanına dönüştürün. Çekirdekten fincana taze öğütüm.",
         price: 14490.00,
@@ -221,8 +221,8 @@ const Pazurka = {
         category_id: 3,
         category_name: "Ev, Yaşam & Mutfak",
         category_slug: "ev-yasam-mutfak",
-        name: "Pazurka CleanBot X10 Lidar Lazer Robot Süpürge",
-        slug: "pazurka-cleanbot-x10-robot-supurge",
+        name: "Pazarvadi CleanBot X10 Lidar Lazer Robot Süpürge",
+        slug: "pazarvadi-cleanbot-x10-robot-supurge",
         short_desc: "6000 Pa Emiş Gücü, Sonic Titreşimli Mop, Otomatik Toz Boşaltma İstasyonu",
         description: "3D lazer navigasyon ve yapay zeka engel tanıma ile kablolara takılmaz.",
         price: 18990.00,
@@ -242,8 +242,8 @@ const Pazurka = {
         category_id: 4,
         category_name: "Spor & Outdoor",
         category_slug: "spor-outdoor",
-        name: "Pazurka Aero Vakumlu Çift Katman Çelik Termos (1000 ml)",
-        slug: "pazurka-aero-vakumlu-celik-termos-1000ml",
+        name: "Pazarvadi Aero Vakumlu Çift Katman Çelik Termos (1000 ml)",
+        slug: "pazarvadi-aero-vakumlu-celik-termos-1000ml",
         short_desc: "24 Saat Soğuk, 12 Saat Sıcak Tutar, 18/8 Gıda Sınıfı Çelik, Sızdırmaz Kapak",
         description: "Çift duvarlı vakum yalıtımı ile dış yüzeyi asla terleme yapmaz.",
         price: 849.00,
@@ -263,8 +263,8 @@ const Pazurka = {
         category_id: 5,
         category_name: "Kozmetik & Bakım",
         category_slug: "kozmetik-bakim",
-        name: "Pazurka Botanicals Yaşlanma Karşıtı C Vitamini Serum Seti",
-        slug: "pazurka-botanicals-c-vitamini-serum-seti",
+        name: "Pazarvadi Botanicals Yaşlanma Karşıtı C Vitamini Serum Seti",
+        slug: "pazarvadi-botanicals-c-vitamini-serum-seti",
         short_desc: "%15 Saf C Vitamini + Hyaluronik Asit + Ferulik Asit, Aydınlatıcı ve Sıkılaştırıcı",
         description: "Dermatolojik olarak test edilmiş, %100 vegan formülü ile cildinize ışıltı kazandırır.",
         price: 699.00,
@@ -849,13 +849,13 @@ const Pazurka = {
           <div class="text-sm font-extrabold text-orange-600 mt-1">${this.formatPrice(item.price)}</div>
         </div>
         <div class="flex flex-col items-end gap-2">
-          <button onclick="Pazurka.removeFromCart(${index})" class="text-slate-400 hover:text-rose-500 p-1 transition" title="Kaldır">
+          <button onclick="Pazarvadi.removeFromCart(${index})" class="text-slate-400 hover:text-rose-500 p-1 transition" title="Kaldır">
             <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
           </button>
           <div class="flex items-center border border-slate-200 rounded-xl overflow-hidden bg-slate-50">
-            <button onclick="Pazurka.updateCartQuantity(${index}, ${item.quantity - 1})" class="px-2.5 py-0.5 text-xs text-slate-600 hover:bg-slate-200 font-bold">-</button>
+            <button onclick="Pazarvadi.updateCartQuantity(${index}, ${item.quantity - 1})" class="px-2.5 py-0.5 text-xs text-slate-600 hover:bg-slate-200 font-bold">-</button>
             <span class="px-2 py-0.5 text-xs font-bold text-slate-900">${item.quantity}</span>
-            <button onclick="Pazurka.updateCartQuantity(${index}, ${item.quantity + 1})" class="px-2.5 py-0.5 text-xs text-slate-600 hover:bg-slate-200 font-bold">+</button>
+            <button onclick="Pazarvadi.updateCartQuantity(${index}, ${item.quantity + 1})" class="px-2.5 py-0.5 text-xs text-slate-600 hover:bg-slate-200 font-bold">+</button>
           </div>
         </div>
       </div>
@@ -919,7 +919,7 @@ const Pazurka = {
                   <span>Yönetici Paneli</span>
                 </a>
               ` : ''}
-              <button onclick="Pazurka.logout()" class="w-full text-left flex items-center gap-2.5 px-4 py-2 hover:bg-rose-50 text-rose-600 font-semibold">
+              <button onclick="Pazarvadi.logout()" class="w-full text-left flex items-center gap-2.5 px-4 py-2 hover:bg-rose-50 text-rose-600 font-semibold">
                 ${this.icon('log-out', 'w-4 h-4 text-rose-500')}
                 <span>Çıkış Yap</span>
               </button>
@@ -1118,6 +1118,9 @@ const Pazurka = {
   }
 };
 
+window.Pazarvadi = Pazarvadi;
+window.Pazurka = Pazarvadi;
+
 document.addEventListener("DOMContentLoaded", () => {
-  Pazurka.init();
+  Pazarvadi.init();
 });

@@ -1,8 +1,8 @@
 @echo off
-title Pazurka E-Ticaret (Dev Modu)
+title Pazarvadi E-Ticaret (Dev Modu)
 cd /d "%~dp0"
 echo ============================================================
-echo   PAZURKA E-TICARET (DEV MODU - OTOMATIK YENILEME)
+echo   PAZARVADI E-TICARET (DEV MODU - OTOMATIK YENILEME)
 echo ============================================================
 echo.
 echo Tarayicinizda: http://localhost:3000

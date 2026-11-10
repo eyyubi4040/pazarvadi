@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <base href="/">
-  <title>Pazurka - Yönetim Paneli</title>
+  <title>Pazarvadi - Yönetim Paneli</title>
   <link rel="icon" type="image/png" href="images/favicon.png?v=2">
   <link rel="apple-touch-icon" href="images/favicon.png?v=2">
   <link rel="shortcut icon" href="favicon.ico?v=2">
@@ -37,9 +37,9 @@
         <div class="flex items-center gap-4">
           <a href="/admin" class="flex items-center gap-2">
             <img 
-              src="images/pazurkalogo.png" 
-              onerror="this.onerror=null; this.src='pazurkalogo.png';" 
-              alt="Pazurka Logo" 
+              src="images/pazarvadilogo.png" 
+              onerror="this.onerror=null; this.src='pazarvadilogo.png';" 
+              alt="Pazarvadi Logo" 
               class="h-8 w-auto brightness-0 invert"
             >
             <span class="px-2 py-0.5 rounded-md bg-orange-500/20 text-orange-400 text-[10px] font-extrabold uppercase tracking-wider border border-orange-500/30">Admin Panel</span>
@@ -51,7 +51,7 @@
             <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
             <span>Mağazayı Gör</span>
           </a>
-          <button onclick="Pazurka.logout()" class="p-2 rounded-xl text-slate-400 hover:text-rose-400 transition" title="Çıkış Yap">
+          <button onclick="Pazarvadi.logout()" class="p-2 rounded-xl text-slate-400 hover:text-rose-400 transition" title="Çıkış Yap">
             <i data-lucide="log-out" class="w-4 h-4"></i>
           </button>
         </div>
@@ -258,7 +258,7 @@
       <form id="new-product-form" onsubmit="saveNewProduct(event)" class="space-y-4">
         <div>
           <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Ürün Adı *</label>
-          <input type="text" id="np-name" required placeholder="Örnek: Pazurka Pro Akıllı Bileklik" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-brand">
+          <input type="text" id="np-name" required placeholder="Örnek: Pazarvadi Pro Akıllı Bileklik" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-brand">
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
@@ -488,16 +488,16 @@
             <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
             Yüklendi (${data.url})
           `;
-          Pazurka.toast("Görsel başarıyla yüklendi!", "success");
+          Pazarvadi.toast("Görsel başarıyla yüklendi!", "success");
         } else {
           statusEl.className = "text-[11px] text-rose-600 font-semibold flex items-center gap-1 mt-0.5";
           statusEl.textContent = "Hata: " + (data.message || "Yüklenemedi");
-          Pazurka.toast(data.message || "Görsel yüklenemedi", "error");
+          Pazarvadi.toast(data.message || "Görsel yüklenemedi", "error");
         }
       } catch (err) {
         statusEl.className = "text-[11px] text-rose-600 font-semibold flex items-center gap-1 mt-0.5";
         statusEl.textContent = "Bağlantı hatası.";
-        Pazurka.toast("Görsel sunucuya aktarılamadı.", "error");
+        Pazarvadi.toast("Görsel sunucuya aktarılamadı.", "error");
       }
     }
 
@@ -565,7 +565,7 @@
         const res = await fetch("/api/admin/overview?admin=1");
         const data = await res.json();
         if (data.success && data.metrics) {
-          document.getElementById("stat-revenue").textContent = Pazurka.formatPrice(data.metrics.totalSales);
+          document.getElementById("stat-revenue").textContent = Pazarvadi.formatPrice(data.metrics.totalSales);
           document.getElementById("stat-orders").textContent = data.metrics.totalOrders;
           document.getElementById("stat-products").textContent = data.metrics.totalProducts;
           document.getElementById("stat-low-stock").textContent = data.metrics.lowStockCount;
@@ -582,7 +582,7 @@
                     <p class="font-bold text-slate-900">${o.customer_name}</p>
                     <p class="text-[10px] text-slate-400 font-medium">${o.customer_email || ''}</p>
                   </td>
-                  <td class="p-4 font-extrabold text-slate-900">${Pazurka.formatPrice(o.total)}</td>
+                  <td class="p-4 font-extrabold text-slate-900">${Pazarvadi.formatPrice(o.total)}</td>
                   <td class="p-4">${getStatusBadge(o.order_status)}</td>
                   <td class="p-4 text-slate-500 font-medium">${formatDate(o.created_at)}</td>
                 </tr>
@@ -627,7 +627,7 @@
                   <p class="text-[10px] text-slate-400 truncate max-w-xs" title="${o.shipping_address || ''}">${o.shipping_address || ''}</p>
                 </td>
                 <td class="p-4">
-                  <span class="font-extrabold text-slate-900 text-sm block">${Pazurka.formatPrice(o.total)}</span>
+                  <span class="font-extrabold text-slate-900 text-sm block">${Pazarvadi.formatPrice(o.total)}</span>
                   <span class="text-[10px] font-bold text-slate-500 bg-slate-100 px-2 py-0.5 rounded">${payText}</span>
                 </td>
                 <td class="p-4">
@@ -663,12 +663,12 @@
         });
         const data = await res.json();
         if (data.success) {
-          Pazurka.toast("Sipariş durumu güncellendi!", "success");
+          Pazarvadi.toast("Sipariş durumu güncellendi!", "success");
           loadAdminOverview();
           loadAdminOrders();
         }
       } catch {
-        Pazurka.toast("Durum güncellenemedi.", "error");
+        Pazarvadi.toast("Durum güncellenemedi.", "error");
       }
     }
 
@@ -680,10 +680,10 @@
       try {
         const res = await fetch("/api/admin/products?admin=1");
         const data = await res.json();
-        const products = (data.success && data.products) ? data.products : (Pazurka.offlineData?.products || []);
+        const products = (data.success && data.products) ? data.products : (Pazarvadi.offlineData?.products || []);
 
         tbody.innerHTML = products.map(p => {
-          let img = "images/pazurkalogo.png";
+          let img = "images/pazarvadilogo.png";
           if (Array.isArray(p.images) && p.images.length > 0) img = p.images[0];
           else if (p.image) img = p.image;
 
@@ -697,7 +697,7 @@
                 </div>
               </td>
               <td class="p-4 font-medium text-slate-600">${p.category_name || 'Genel'}</td>
-              <td class="p-4 font-extrabold text-slate-900">${Pazurka.formatPrice(p.price)}</td>
+              <td class="p-4 font-extrabold text-slate-900">${Pazarvadi.formatPrice(p.price)}</td>
               <td class="p-4">
                 <span class="font-bold ${p.stock <= 5 ? 'text-rose-600 bg-rose-50 px-2 py-0.5 rounded' : 'text-slate-800'}">${p.stock} Adet</span>
               </td>
@@ -717,7 +717,7 @@
       if (!confirm("Bu ürünü silmek istediğinize emin misiniz?")) return;
       try {
         await fetch(`/api/admin/products/${id}?admin=1`, { method: "DELETE" });
-        Pazurka.toast("Ürün silindi.", "info");
+        Pazarvadi.toast("Ürün silindi.", "info");
         loadAdminProducts();
         loadAdminOverview();
       } catch {}
@@ -736,8 +736,8 @@
             <tr class="hover:bg-slate-50 transition">
               <td class="p-4 font-mono font-bold text-brand text-sm">${c.code}</td>
               <td class="p-4 font-medium text-slate-700">${c.discount_type === 'percent' ? 'Yüzde (%)' : 'Sabit Tutar'}</td>
-              <td class="p-4 font-extrabold text-slate-900">${c.discount_type === 'percent' ? `%${c.discount_value}` : Pazurka.formatPrice(c.discount_value)}</td>
-              <td class="p-4 text-slate-600">${c.min_spend ? Pazurka.formatPrice(c.min_spend) : 'Limitsiz'}</td>
+              <td class="p-4 font-extrabold text-slate-900">${c.discount_type === 'percent' ? `%${c.discount_value}` : Pazarvadi.formatPrice(c.discount_value)}</td>
+              <td class="p-4 text-slate-600">${c.min_spend ? Pazarvadi.formatPrice(c.min_spend) : 'Limitsiz'}</td>
               <td class="p-4 font-bold text-slate-800">${c.usage_count || 0} Kez</td>
             </tr>
           `).join("");
@@ -765,7 +765,7 @@
         });
         const data = await res.json();
         if (data.success) {
-          Pazurka.toast("Yeni ürün başarıyla eklendi!", "success");
+          Pazarvadi.toast("Yeni ürün başarıyla eklendi!", "success");
           document.getElementById("product-modal").classList.add("hidden");
           clearProductImage();
           e.target.reset();
@@ -773,7 +773,7 @@
           loadAdminOverview();
         }
       } catch {
-        Pazurka.toast("Ürün eklenemedi.", "error");
+        Pazarvadi.toast("Ürün eklenemedi.", "error");
       }
     }
 
@@ -793,13 +793,13 @@
         });
         const data = await res.json();
         if (data.success) {
-          Pazurka.toast("Kupon başarıyla tanımlandı!", "success");
+          Pazarvadi.toast("Kupon başarıyla tanımlandı!", "success");
           document.getElementById("coupon-modal").classList.add("hidden");
           e.target.reset();
           loadAdminCoupons();
         }
       } catch {
-        Pazurka.toast("Kupon tanımlanamadı.", "error");
+        Pazarvadi.toast("Kupon tanımlanamadı.", "error");
       }
     }
 

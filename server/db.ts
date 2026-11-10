@@ -1,19 +1,32 @@
 import { Database } from "bun:sqlite";
 import { join } from "path";
-import { existsSync, mkdirSync } from "fs";
+import { existsSync, mkdirSync, copyFileSync } from "fs";
 
 const DATA_DIR = join(process.cwd(), "data");
 if (!existsSync(DATA_DIR)) {
   mkdirSync(DATA_DIR, { recursive: true });
 }
 
-const DB_PATH = join(DATA_DIR, "pazurka.sqlite");
+const OLD_DB = join(DATA_DIR, "pazurka.sqlite");
+const NEW_DB = join(DATA_DIR, "pazarvadi.sqlite");
+if (existsSync(OLD_DB) && !existsSync(NEW_DB)) {
+  try { copyFileSync(OLD_DB, NEW_DB); } catch {}
+}
+
+const DB_PATH = existsSync(NEW_DB) ? NEW_DB : (existsSync(OLD_DB) ? OLD_DB : NEW_DB);
 export const db = new Database(DB_PATH, { create: true });
 
 // Enable Write-Ahead Logging for high concurrency performance
 db.exec("PRAGMA journal_mode = WAL;");
 db.exec("PRAGMA foreign_keys = ON;");
 db.exec("PRAGMA synchronous = NORMAL;");
+
+// Update existing branding to Pazarvadi
+try {
+  db.exec("UPDATE products SET name = REPLACE(name, 'Pazurka', 'Pazarvadi'), slug = REPLACE(slug, 'pazurka', 'pazarvadi') WHERE name LIKE '%Pazurka%';");
+  db.exec("UPDATE users SET email = REPLACE(email, 'pazurka.com', 'pazarvadi.com') WHERE email LIKE '%pazurka.com%';");
+  db.exec("UPDATE coupons SET code = REPLACE(code, 'PAZURKA', 'PAZARVADI') WHERE code LIKE '%PAZURKA%';");
+} catch {}
 
 export function initDatabase() {
   db.exec(`

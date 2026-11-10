@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <base href="/">
-  <title>Alışveriş Sepeti - Pazurka</title>
+  <title>Alışveriş Sepeti - Pazarvadi</title>
   <link rel="icon" type="image/png" href="images/favicon.png?v=2">
   <link rel="apple-touch-icon" href="images/favicon.png?v=2">
   <link rel="shortcut icon" href="favicon.ico?v=2">
@@ -35,9 +35,9 @@
       <div class="flex items-center justify-between h-20">
         <a href="/" class="flex-shrink-0 flex items-center">
           <img 
-            src="images/pazurkalogo.png" 
-            onerror="this.onerror=null; this.src='pazurkalogo.png'; if(!this.complete) this.src='/images/pazurkalogo.png';" 
-            alt="Pazurka Logo" 
+            src="images/pazarvadilogo.png" 
+            onerror="this.onerror=null; this.src='pazarvadilogo.png'; if(!this.complete) this.src='/images/pazarvadilogo.png';" 
+            alt="Pazarvadi Logo" 
             class="h-10 sm:h-12 w-auto object-contain"
           >
         </a>
@@ -78,7 +78,7 @@
           <a href="/urunler" class="text-xs font-bold text-slate-600 hover:text-brand flex items-center gap-1 transition">
             <i data-lucide="arrow-left" class="w-4 h-4"></i> Alışverişe Devam Et
           </a>
-          <button onclick="Pazurka.clearCart(); renderFullCart();" class="text-xs font-semibold text-rose-500 hover:underline">
+          <button onclick="Pazarvadi.clearCart(); renderFullCart();" class="text-xs font-semibold text-rose-500 hover:underline">
             Sepeti Temizle
           </button>
         </div>
@@ -115,7 +115,7 @@
           <div class="pt-2">
             <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">İndirim Kuponu:</label>
             <div class="flex items-center gap-2">
-              <input type="text" id="coupon-input" placeholder="PAZURKA100" class="flex-1 px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs uppercase font-mono focus:outline-none focus:border-brand">
+              <input type="text" id="coupon-input" placeholder="PAZARVADI100" class="flex-1 px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs uppercase font-mono focus:outline-none focus:border-brand">
               <button onclick="applyCoupon()" class="px-4 py-2 bg-slate-800 hover:bg-black text-white text-xs font-bold rounded-xl transition">
                 Uygula
               </button>
@@ -146,7 +146,7 @@
         <i data-lucide="shopping-cart" class="w-10 h-10"></i>
       </div>
       <h3 class="text-xl font-bold text-slate-900 mb-2">Sepetinizde Ürün Bulunmuyor</h3>
-      <p class="text-sm text-slate-500 mb-6">Pazurka'nın avantajlı fiyatlarıyla alışverişe hemen başlayabilirsiniz.</p>
+      <p class="text-sm text-slate-500 mb-6">Pazarvadi'nın avantajlı fiyatlarıyla alışverişe hemen başlayabilirsiniz.</p>
       <a href="/urunler" class="px-8 py-3.5 bg-brand hover:bg-brand-hover text-white font-bold rounded-2xl transition shadow-md btn-glow inline-flex items-center gap-2 text-sm">
         <span>Ürünleri Keşfet</span>
         <i data-lucide="arrow-right" class="w-4 h-4"></i>
@@ -155,7 +155,7 @@
   </main>
 
   <footer class="mt-auto bg-brand-dark text-slate-400 text-xs py-8 border-t border-white/10 text-center">
-    <div class="max-w-7xl mx-auto px-4"><p>© 2026 Pazurka E-Ticaret Platformu.</p></div>
+    <div class="max-w-7xl mx-auto px-4"><p>© 2026 Pazarvadi E-Ticaret Platformu.</p></div>
   </footer>
 
   <script src="js/store.js"></script>
@@ -163,7 +163,7 @@
     let appliedCoupon = null;
 
     function renderFullCart() {
-      const cart = Pazurka.getCart();
+      const cart = Pazarvadi.getCart();
       const content = document.getElementById("cart-content");
       const emptyView = document.getElementById("empty-cart-view");
       const container = document.getElementById("cart-items-container");
@@ -181,7 +181,7 @@
       content.classList.remove("hidden");
       emptyView.classList.add("hidden");
 
-      const subtotal = Pazurka.getCartSubtotal();
+      const subtotal = Pazarvadi.getCartSubtotal();
       const freeShippingLimit = 750;
       const baseShipping = 59.90;
       const shippingCost = subtotal >= freeShippingLimit ? 0 : baseShipping;
@@ -191,7 +191,7 @@
       shippingBar.innerHTML = `
         <div class="flex items-center justify-between text-xs font-semibold mb-2">
           ${remaining > 0 
-            ? `<span>Kargo Bedava için sepetinize <strong class="text-brand">${Pazurka.formatPrice(remaining)}</strong> daha ekleyin!</span>` 
+            ? `<span>Kargo Bedava için sepetinize <strong class="text-brand">${Pazarvadi.formatPrice(remaining)}</strong> daha ekleyin!</span>` 
             : `<span class="text-emerald-600 font-bold flex items-center gap-1"><i data-lucide="check" class="w-4 h-4"></i> Harika! Bu siparişinizde kargo tamamen ücretsiz!</span>`}
           <span class="text-slate-400">%${percent}</span>
         </div>
@@ -207,46 +207,46 @@
             <div>
               <a href="/urun-detay?slug=${item.slug}" class="font-bold text-slate-900 text-sm hover:text-brand transition">${item.name}</a>
               ${item.variant ? `<p class="text-xs text-slate-400 mt-0.5">${item.variant}</p>` : ''}
-              <button onclick="Pazurka.removeFromCart(${index}); renderFullCart();" class="text-xs text-rose-500 hover:underline flex items-center gap-1 mt-2">
+              <button onclick="Pazarvadi.removeFromCart(${index}); renderFullCart();" class="text-xs text-rose-500 hover:underline flex items-center gap-1 mt-2">
                 <i data-lucide="trash-2" class="w-3.5 h-3.5"></i> Kaldır
               </button>
             </div>
           </div>
           
           <div class="sm:col-span-2 text-left sm:text-center text-sm font-semibold text-slate-700">
-            ${Pazurka.formatPrice(item.price)}
+            ${Pazarvadi.formatPrice(item.price)}
           </div>
 
           <div class="sm:col-span-2 flex items-center justify-start sm:justify-center">
             <div class="flex items-center border border-slate-200 rounded-xl overflow-hidden bg-slate-50">
-              <button onclick="Pazurka.updateCartQuantity(${index}, ${item.quantity - 1}); renderFullCart();" class="px-2.5 py-1 text-slate-600 hover:bg-slate-200 font-bold">-</button>
+              <button onclick="Pazarvadi.updateCartQuantity(${index}, ${item.quantity - 1}); renderFullCart();" class="px-2.5 py-1 text-slate-600 hover:bg-slate-200 font-bold">-</button>
               <span class="px-3 py-1 text-xs font-bold text-slate-900">${item.quantity}</span>
-              <button onclick="Pazurka.updateCartQuantity(${index}, ${item.quantity + 1}); renderFullCart();" class="px-2.5 py-1 text-slate-600 hover:bg-slate-200 font-bold">+</button>
+              <button onclick="Pazarvadi.updateCartQuantity(${index}, ${item.quantity + 1}); renderFullCart();" class="px-2.5 py-1 text-slate-600 hover:bg-slate-200 font-bold">+</button>
             </div>
           </div>
 
           <div class="sm:col-span-2 text-left sm:text-right font-extrabold text-slate-900 text-base">
-            ${Pazurka.formatPrice(item.price * item.quantity)}
+            ${Pazarvadi.formatPrice(item.price * item.quantity)}
           </div>
         </div>
       `).join("");
 
-      subtotalEl.textContent = Pazurka.formatPrice(subtotal);
-      shippingEl.textContent = shippingCost === 0 ? "Bedava" : Pazurka.formatPrice(shippingCost);
+      subtotalEl.textContent = Pazarvadi.formatPrice(subtotal);
+      shippingEl.textContent = shippingCost === 0 ? "Bedava" : Pazarvadi.formatPrice(shippingCost);
 
       let discount = 0;
       if (appliedCoupon) {
         discount = appliedCoupon.discount_amount;
         document.getElementById("summary-discount-row").classList.remove("hidden");
-        document.getElementById("summary-discount").textContent = `-${Pazurka.formatPrice(discount)}`;
+        document.getElementById("summary-discount").textContent = `-${Pazarvadi.formatPrice(discount)}`;
       } else {
         document.getElementById("summary-discount-row").classList.add("hidden");
       }
 
       const total = Math.max(0, subtotal + shippingCost - discount);
-      totalEl.textContent = Pazurka.formatPrice(total);
+      totalEl.textContent = Pazarvadi.formatPrice(total);
 
-      Pazurka.refreshIcons();
+      Pazarvadi.refreshIcons();
     }
 
     async function applyCoupon() {
@@ -254,7 +254,7 @@
       const msgEl = document.getElementById("coupon-msg");
       if (!code) return;
 
-      const subtotal = Pazurka.getCartSubtotal();
+      const subtotal = Pazarvadi.getCartSubtotal();
 
       // Check if online API works or use offline coupon check
       try {
@@ -268,7 +268,7 @@
           appliedCoupon = data.coupon;
           localStorage.setItem("pazurka_applied_coupon", JSON.stringify(data.coupon));
           msgEl.className = "text-xs mt-1.5 text-emerald-600 font-semibold";
-          msgEl.textContent = `Tebrikler! ${data.message} (-${Pazurka.formatPrice(data.coupon.discount_amount)})`;
+          msgEl.textContent = `Tebrikler! ${data.message} (-${Pazarvadi.formatPrice(data.coupon.discount_amount)})`;
           msgEl.classList.remove("hidden");
           renderFullCart();
           return;
@@ -276,8 +276,8 @@
       } catch (err) {}
 
       // Fallback offline coupon logic
-      if (code === "PAZURKA100" && subtotal >= 1000) {
-        appliedCoupon = { code: "PAZURKA100", discount_amount: 100 };
+      if (code === "PAZARVADI100" && subtotal >= 1000) {
+        appliedCoupon = { code: "PAZARVADI100", discount_amount: 100 };
       } else if (code === "HOSGELDIN20" && subtotal >= 500) {
         appliedCoupon = { code: "HOSGELDIN20", discount_amount: Math.round(subtotal * 0.20) };
       } else if (code === "FIRSAT10" && subtotal >= 250) {
@@ -293,7 +293,7 @@
 
       localStorage.setItem("pazurka_applied_coupon", JSON.stringify(appliedCoupon));
       msgEl.className = "text-xs mt-1.5 text-emerald-600 font-semibold";
-      msgEl.textContent = `Tebrikler! Kupon uygulandı (-${Pazurka.formatPrice(appliedCoupon.discount_amount)})`;
+      msgEl.textContent = `Tebrikler! Kupon uygulandı (-${Pazarvadi.formatPrice(appliedCoupon.discount_amount)})`;
       msgEl.classList.remove("hidden");
       renderFullCart();
     }

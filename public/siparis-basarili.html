@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <base href="/">
-  <title>Siparişiniz Alındı - Pazurka</title>
+  <title>Siparişiniz Alındı - Pazarvadi</title>
   <link rel="icon" type="image/png" href="images/favicon.png?v=2">
   <link rel="apple-touch-icon" href="images/favicon.png?v=2">
   <link rel="shortcut icon" href="favicon.ico?v=2">
@@ -35,9 +35,9 @@
       <div class="flex items-center justify-between h-20">
         <a href="/" class="flex-shrink-0 flex items-center">
           <img 
-            src="images/pazurkalogo.png" 
-            onerror="this.onerror=null; this.src='pazurkalogo.png'; if(!this.complete) this.src='/images/pazurkalogo.png';" 
-            alt="Pazurka Logo" 
+            src="images/pazarvadilogo.png" 
+            onerror="this.onerror=null; this.src='pazarvadilogo.png'; if(!this.complete) this.src='/images/pazarvadilogo.png';" 
+            alt="Pazarvadi Logo" 
             class="h-10 sm:h-12 w-auto object-contain"
           >
         </a>
@@ -118,7 +118,7 @@
   </main>
 
   <footer class="mt-auto bg-brand-dark text-slate-400 text-xs py-8 border-t border-white/10 text-center">
-    <div class="max-w-7xl mx-auto px-4"><p>© 2026 Pazurka E-Ticaret Platformu.</p></div>
+    <div class="max-w-7xl mx-auto px-4"><p>© 2026 Pazarvadi E-Ticaret Platformu.</p></div>
   </footer>
 
   <script src="js/store.js"></script>
@@ -142,7 +142,7 @@
       if (lastOrder) {
         document.getElementById("receipt-customer-name").textContent = lastOrder.customer_name || "Müşteri";
         document.getElementById("receipt-customer-email").textContent = lastOrder.customer_email || "";
-        document.getElementById("receipt-total").textContent = Pazurka.formatPrice(lastOrder.total);
+        document.getElementById("receipt-total").textContent = Pazarvadi.formatPrice(lastOrder.total);
       }
 
       document.getElementById("order-date-display").textContent = new Date().toLocaleDateString("tr-TR", {

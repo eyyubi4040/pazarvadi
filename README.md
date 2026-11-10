@@ -1,8 +1,8 @@
-# Pazurka - Yeni Nesil Full-Stack E-Ticaret Platformu ⚡
+# Pazarvadi - Yeni Nesil Full-Stack E-Ticaret Platformu ⚡
 
-> **Pazurka**, **Bun** çalışma zamanı motoru ve yerleşik **SQLite** veritabanı altyapısıyla sıfır harici hantal bağımlılık olmaksızın geliştirilmiş, son derece hızlı, modern ve kurumsal bir e-ticaret platformudur.
+> **Pazarvadi**, **Bun** çalışma zamanı motoru ve yerleşik **SQLite** veritabanı altyapısıyla sıfır harici hantal bağımlılık olmaksızın geliştirilmiş, son derece hızlı, modern ve kurumsal bir e-ticaret platformudur.
 
-![Pazurka Logo](public/images/pazurkalogo.png)
+![Pazarvadi Logo](public/images/pazarvadilogo.png)
 
 ---
 
@@ -13,7 +13,7 @@
 - **Zengin Ürün Kataloğu (`/urunler`):** Anlık arama, çoklu kategori filtresi, fiyat aralığı filtreleme, stok durumu, öne çıkanlar ve çok satanlar sıralaması.
 - **Detaylı Ürün Sayfası (`/urun/:slug`):** Yüksek çözünürlüklü görsel galerisi, küçük resim seçici, stok sayacı, teknik özellik tablosu, iade/kargo bilgisi, doğrulanmış müşteri yorumları ve yıldızlı değerlendirme yapma formu.
 - **Hızlı Yan Sepet (Slide-over Cart Drawer):** Her sayfadan tek tıkla açılan sepet çekmecesi, anlık adet güncelleme ve dinamik ücretsiz kargo ilerleme çubuğu.
-- **Sepet ve Kupon Motoru (`/sepet`):** Aktif indirim kuponları doğrulaması (`PAZURKA100`, `HOSGELDIN20`, `FIRSAT10`), otomatik kargo bedeli hesaplama ve sepet tutarı dökümü.
+- **Sepet ve Kupon Motoru (`/sepet`):** Aktif indirim kuponları doğrulaması (`PAZARVADI100`, `HOSGELDIN20`, `FIRSAT10`), otomatik kargo bedeli hesaplama ve sepet tutarı dökümü.
 - **Tek Sayfada Güvenli Ödeme (`/odeme`):**
   - Teslimat ve iletişim bilgileri formu
   - Anlaşmalı kargo seçimi (Yurtiçi Kargo, Aras Kargo, MNG)
@@ -65,14 +65,14 @@ Tarayıcınızda şu adrese gidin:
 
 ### Giriş Hesapları
 - **Yönetici (Admin):**
-  - E-Posta: `admin@pazurka.com`
+  - E-Posta: `admin@pazarvadi.com`
   - Şifre: `admin123`
 - **Müşteri:**
-  - E-Posta: `demo@pazurka.com`
-  - Şifre: `pazurka123`
+  - E-Posta: `demo@pazarvadi.com`
+  - Şifre: `pazarvadi123`
 
 ### Aktif İndirim Kuponları
-- `PAZURKA100` : 1000 TL üzeri alışverişlerde 100 TL indirim
+- `PAZARVADI100` : 1000 TL üzeri alışverişlerde 100 TL indirim
 - `HOSGELDIN20` : 500 TL üzeri alışverişlerde %20 indirim
 - `FIRSAT10` : 250 TL üzeri alışverişlerde %10 indirim
 
@@ -85,8 +85,8 @@ E:\projeler\pazurka\
 ├── data\
 │   └── pazurka.sqlite        # SQLite veritabanı dosyası
 ├── public\
-│   ├── css\main.css          # Pazurka özel stil ve animasyonları
-│   ├── images\pazurkalogo.png# Pazurka resmi logosu
+│   ├── css\main.css          # Pazarvadi özel stil ve animasyonları
+│   ├── images\pazarvadilogo.png# Pazarvadi resmi logosu
 │   ├── js\store.js           # Sepet, favori ve API istemci motoru
 │   ├── uploads\              # Yüklenen ürün görselleri
 │   ├── index.html            # Ana Sayfa

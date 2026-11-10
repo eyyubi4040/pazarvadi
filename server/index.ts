@@ -121,7 +121,7 @@ async function handleRequest(req: Request): Promise<Response> {
     });
   }
 
-  return new Response("404 Sayfa Bulunamadı - Pazurka", {
+  return new Response("404 Sayfa Bulunamadı - Pazarvadi", {
     status: 404,
     headers: { "Content-Type": "text/plain; charset=utf-8" }
   });
@@ -145,13 +145,13 @@ if (PORT !== 80) {
 }
 
 console.log("\n============================================================");
-console.log("🚀 PAZURKA E-TİCARET PLATFORMU ÇALIŞIYOR (BUN NATIVE)");
+console.log("🚀 PAZARVADI E-TİCARET PLATFORMU ÇALIŞIYOR (BUN NATIVE)");
 console.log("============================================================");
-console.log("🌐 Alan Adı:       http://pazurka/  (veya http://pazurka:3000/)");
+console.log("🌐 Alan Adı:       http://pazarvadi/  (veya http://pazarvadi:3000/)");
 console.log(`🌐 Localhost:      http://localhost:${PORT}/  (ve http://localhost/)`);
-console.log(`🛍️  Ürün Kataloğu:  http://pazurka/urunler`);
-console.log(`🛒 Sepet:          http://pazurka/sepet`);
-console.log(`📦 Sipariş Takip:  http://pazurka/siparis-takip`);
-console.log(`⚙️  Yönetim Paneli: http://pazurka/admin`);
+console.log(`🛍️  Ürün Kataloğu:  http://pazarvadi/urunler`);
+console.log(`🛒 Sepet:          http://pazarvadi/sepet`);
+console.log(`📦 Sipariş Takip:  http://pazarvadi/siparis-takip`);
+console.log(`⚙️  Yönetim Paneli: http://pazarvadi/admin`);
 console.log("============================================================\n");
 

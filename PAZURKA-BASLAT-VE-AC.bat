@@ -1,9 +1,9 @@
 @echo off
 chcp 65001 >nul
-title Pazurka E-Ticaret Sunucusu
+title Pazarvadi E-Ticaret Sunucusu
 
 echo ============================================================
-echo   PAZURKA E-TICARET SUNUCUSU BASLATILIYOR
+echo   PAZARVADI E-TICARET SUNUCUSU BASLATILIYOR
 echo ============================================================
 echo.
 

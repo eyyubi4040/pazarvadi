@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <base href="/">
-  <title>Hesabım & Adreslerim - Pazurka</title>
-  <meta name="description" content="Pazurka Müşteri Paneli: Teslimat adreslerinizi yönetin, profilinizi güncelleyin ve siparişlerinizi takip edin.">
+  <title>Hesabım & Adreslerim - Pazarvadi</title>
+  <meta name="description" content="Pazarvadi Müşteri Paneli: Teslimat adreslerinizi yönetin, profilinizi güncelleyin ve siparişlerinizi takip edin.">
   <link rel="icon" type="image/png" href="images/favicon.png?v=2">
   <link rel="apple-touch-icon" href="images/favicon.png?v=2">
   <link rel="shortcut icon" href="favicon.ico?v=2">
@@ -36,9 +36,9 @@
       <div class="flex items-center justify-between h-20">
         <a href="/" class="flex-shrink-0 flex items-center gap-3">
           <img 
-            src="images/pazurkalogo.png" 
-            onerror="this.onerror=null; this.src='pazurkalogo.png'; if(!this.complete) this.src='/images/pazurkalogo.png';" 
-            alt="Pazurka Logo" 
+            src="images/pazarvadilogo.png" 
+            onerror="this.onerror=null; this.src='pazarvadilogo.png'; if(!this.complete) this.src='/images/pazarvadilogo.png';" 
+            alt="Pazarvadi Logo" 
             class="h-10 sm:h-12 w-auto object-contain"
           >
         </a>
@@ -47,7 +47,7 @@
             <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
             <span class="hidden sm:inline">Alışverişe Devam Et</span>
           </a>
-          <button onclick="Pazurka.logout()" class="px-4 py-2 bg-slate-100 hover:bg-rose-50 text-slate-700 hover:text-rose-600 text-xs font-bold rounded-xl transition flex items-center gap-1.5">
+          <button onclick="Pazarvadi.logout()" class="px-4 py-2 bg-slate-100 hover:bg-rose-50 text-slate-700 hover:text-rose-600 text-xs font-bold rounded-xl transition flex items-center gap-1.5">
             <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
             <span>Çıkış Yap</span>
           </button>
@@ -76,7 +76,7 @@
           </div>
           <div class="min-w-0 flex-1">
             <h2 id="sidebar-name" class="font-extrabold text-slate-900 text-base truncate">Yükleniyor...</h2>
-            <p id="sidebar-email" class="text-xs text-slate-400 truncate">müşteri@pazurka.com</p>
+            <p id="sidebar-email" class="text-xs text-slate-400 truncate">müşteri@pazarvadi.com</p>
             <span class="inline-flex items-center gap-1 mt-1.5 px-2.5 py-0.5 bg-emerald-50 text-emerald-600 text-[10px] font-bold rounded-full">
               <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
               Aktif Üye
@@ -360,7 +360,7 @@
   </div>
 
   <footer class="mt-auto bg-brand-dark text-slate-400 text-xs py-8 border-t border-white/10 text-center">
-    <div class="max-w-7xl mx-auto px-4"><p>© 2026 Pazurka E-Ticaret Platformu. Tüm hakları saklıdır.</p></div>
+    <div class="max-w-7xl mx-auto px-4"><p>© 2026 Pazarvadi E-Ticaret Platformu. Tüm hakları saklıdır.</p></div>
   </footer>
 
   <script src="js/store.js"></script>
@@ -396,17 +396,17 @@
         document.getElementById("addr-phone").value = addressToEdit.phone || "";
         document.getElementById("addr-line").value = addressToEdit.address_line || "";
         document.getElementById("addr-default").checked = Boolean(addressToEdit.is_default);
-        Pazurka.populateCityDistrict("addr-city", "addr-district", addressToEdit.city || "", addressToEdit.district || "");
+        Pazarvadi.populateCityDistrict("addr-city", "addr-district", addressToEdit.city || "", addressToEdit.district || "");
       } else {
         title.textContent = "Yeni Adres Ekle";
         document.getElementById("addr-id").value = "";
         document.getElementById("addr-title").value = "";
-        const u = Pazurka.getUser();
+        const u = Pazarvadi.getUser();
         document.getElementById("addr-name").value = u?.full_name || "";
         document.getElementById("addr-phone").value = u?.phone || "";
         document.getElementById("addr-line").value = "";
         document.getElementById("addr-default").checked = currentAddresses.length === 0;
-        Pazurka.populateCityDistrict("addr-city", "addr-district", u?.city || "", u?.district || "");
+        Pazarvadi.populateCityDistrict("addr-city", "addr-district", u?.city || "", u?.district || "");
       }
 
       modal.classList.remove("hidden");
@@ -437,19 +437,19 @@
         is_default: document.getElementById("addr-default").checked ? 1 : 0
       };
 
-      currentAddresses = await Pazurka.saveAddress(payload);
+      currentAddresses = await Pazarvadi.saveAddress(payload);
       closeAddressModal();
       renderAddressCards(currentAddresses);
     }
 
     async function deleteAddressItem(id) {
       if (!confirm("Bu adresi silmek istediğinize emin misiniz?")) return;
-      currentAddresses = await Pazurka.deleteAddress(id);
+      currentAddresses = await Pazarvadi.deleteAddress(id);
       renderAddressCards(currentAddresses);
     }
 
     async function makeDefaultAddressItem(id) {
-      currentAddresses = await Pazurka.setDefaultAddress(id);
+      currentAddresses = await Pazarvadi.setDefaultAddress(id);
       renderAddressCards(currentAddresses);
     }
 
@@ -528,25 +528,25 @@
         address: document.getElementById("form-address").value.trim()
       };
 
-      const updated = await Pazurka.updateProfile(payload);
+      const updated = await Pazarvadi.updateProfile(payload);
       document.getElementById("sidebar-name").textContent = updated.full_name;
     }
 
     async function initAccountPage() {
-      let user = Pazurka.getUser();
+      let user = Pazarvadi.getUser();
 
       // If user not in localstorage, fallback to default demo user or fetch from /api/auth/me
       if (!user) {
         user = {
           id: 2,
           full_name: "Ahmet Yılmaz",
-          email: "demo@pazurka.com",
+          email: "demo@pazarvadi.com",
           phone: "0532 100 20 30",
           city: "Ankara",
           district: "Çankaya",
           role: "customer"
         };
-        Pazurka.setUser(user);
+        Pazarvadi.setUser(user);
       }
 
       // Populate sidebar
@@ -563,10 +563,10 @@
       document.getElementById("form-email").value = user.email || "";
       document.getElementById("form-phone").value = user.phone || "";
       document.getElementById("form-address").value = user.address || "";
-      Pazurka.populateCityDistrict("form-city", "form-district", user.city || "", user.district || "");
+      Pazarvadi.populateCityDistrict("form-city", "form-district", user.city || "", user.district || "");
 
       // Load Addresses
-      currentAddresses = await Pazurka.getAddresses();
+      currentAddresses = await Pazarvadi.getAddresses();
       renderAddressCards(currentAddresses);
 
       // Load Orders
@@ -580,7 +580,7 @@
     }
 
     async function loadOrders() {
-      const orders = await Pazurka.getOrders();
+      const orders = await Pazarvadi.getOrders();
 
       const orderCountEl = document.getElementById("tab-order-count");
       if (orderCountEl) orderCountEl.textContent = orders.length;
@@ -631,7 +631,7 @@
                       <p class="text-[11px] text-slate-400">Adet: ${item.quantity} ${item.variant_info ? `• ${item.variant_info}` : ''}</p>
                     </div>
                   </div>
-                  <span class="font-bold text-slate-900 flex-shrink-0 ml-3">${Pazurka.formatPrice(item.total || (item.price * item.quantity))}</span>
+                  <span class="font-bold text-slate-900 flex-shrink-0 ml-3">${Pazarvadi.formatPrice(item.total || (item.price * item.quantity))}</span>
                 </div>
               `).join('')}
             </div>
@@ -654,7 +654,7 @@
               </div>
 
               <div class="flex sm:flex-col items-center sm:items-end justify-between gap-2 border-t sm:border-t-0 pt-2 sm:pt-0 border-slate-200">
-                <span class="font-extrabold text-slate-900 text-base">${Pazurka.formatPrice(o.total)}</span>
+                <span class="font-extrabold text-slate-900 text-base">${Pazarvadi.formatPrice(o.total)}</span>
                 <a href="/siparis-takip?order=${o.order_number}" class="text-xs font-bold text-brand hover:text-brand-hover bg-orange-50 hover:bg-orange-100 px-3 py-1.5 rounded-xl transition inline-flex items-center gap-1.5">
                   <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-5.28a2 2 0 0 0-.8-1.6l-3.2-2.4a2 2 0 0 0-1.2-.42H14"/><circle cx="17" cy="18.5" r="2.5"/><circle cx="7" cy="18.5" r="2.5"/></svg>
                   <span>Kargo Takibi</span>

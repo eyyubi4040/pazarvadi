@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <base href="/">
-  <title>Güvenli Ödeme - Pazurka</title>
+  <title>Güvenli Ödeme - Pazarvadi</title>
   <link rel="icon" type="image/png" href="images/favicon.png?v=2">
   <link rel="apple-touch-icon" href="images/favicon.png?v=2">
   <link rel="shortcut icon" href="favicon.ico?v=2">
@@ -35,9 +35,9 @@
       <div class="flex items-center justify-between h-20">
         <a href="/" class="flex-shrink-0 flex items-center">
           <img 
-            src="images/pazurkalogo.png" 
-            onerror="this.onerror=null; this.src='pazurkalogo.png'; if(!this.complete) this.src='/images/pazurkalogo.png';" 
-            alt="Pazurka Logo" 
+            src="images/pazarvadilogo.png" 
+            onerror="this.onerror=null; this.src='pazarvadilogo.png'; if(!this.complete) this.src='/images/pazarvadilogo.png';" 
+            alt="Pazarvadi Logo" 
             class="h-10 sm:h-12 w-auto object-contain"
           >
         </a>
@@ -215,9 +215,9 @@
 
           <!-- EFT Box -->
           <div id="payment-eft-box" class="hidden p-5 bg-slate-50 rounded-2xl border border-slate-200 space-y-3 text-xs text-slate-700">
-            <p class="font-bold text-slate-900">Pazurka E-Ticaret Banka Hesap Bilgileri:</p>
+            <p class="font-bold text-slate-900">Pazarvadi E-Ticaret Banka Hesap Bilgileri:</p>
             <p><strong>Banka:</strong> Garanti BBVA</p>
-            <p><strong>Alıcı:</strong> Pazurka E-Ticaret Anonim Şirketi</p>
+            <p><strong>Alıcı:</strong> Pazarvadi E-Ticaret Anonim Şirketi</p>
             <p class="font-mono bg-white p-2.5 rounded-xl border border-slate-200">IBAN: TR42 0006 2000 0001 2345 6789 01</p>
           </div>
 
@@ -276,7 +276,7 @@
       </div>
 
       <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 text-xs text-slate-600 space-y-1">
-        <p><strong>İşyeri:</strong> PAZURKA E-TICARET</p>
+        <p><strong>İşyeri:</strong> PAZARVADI E-TICARET</p>
         <p><strong>Tutar:</strong> <span id="modal-amount" class="font-bold text-slate-900">0,00 TL</span></p>
       </div>
 
@@ -293,7 +293,7 @@
   </div>
 
   <footer class="mt-auto bg-brand-dark text-slate-400 text-xs py-8 border-t border-white/10 text-center">
-    <div class="max-w-7xl mx-auto px-4"><p>© 2026 Pazurka E-Ticaret Platformu.</p></div>
+    <div class="max-w-7xl mx-auto px-4"><p>© 2026 Pazarvadi E-Ticaret Platformu.</p></div>
   </footer>
 
   <script src="js/store.js"></script>
@@ -317,19 +317,19 @@
     }
 
     function renderCheckoutPreview() {
-      const cart = Pazurka.getCart();
+      const cart = Pazarvadi.getCart();
       if (cart.length === 0) {
         window.location.href = "/sepet";
         return;
       }
 
-      const user = Pazurka.getUser();
+      const user = Pazarvadi.getUser();
       if (user) {
         if (user.full_name) document.getElementById("cust-name").value = user.full_name;
         if (user.email) document.getElementById("cust-email").value = user.email;
         if (user.phone) document.getElementById("cust-phone").value = user.phone;
         if (user.address) document.getElementById("ship-address").value = user.address;
-        Pazurka.populateCityDistrict("ship-city", "ship-district", user.city || "", user.district || "");
+        Pazarvadi.populateCityDistrict("ship-city", "ship-district", user.city || "", user.district || "");
       }
 
       const itemsContainer = document.getElementById("order-preview-items");
@@ -338,13 +338,13 @@
           <img src="${item.image}" class="w-12 h-12 object-cover rounded-xl bg-slate-50 flex-shrink-0 border border-slate-100">
           <div class="flex-1 min-w-0">
             <h4 class="text-xs font-bold text-slate-900 truncate">${item.name}</h4>
-            <p class="text-[11px] text-slate-400">${item.quantity} Adet x ${Pazurka.formatPrice(item.price)}</p>
+            <p class="text-[11px] text-slate-400">${item.quantity} Adet x ${Pazarvadi.formatPrice(item.price)}</p>
           </div>
-          <span class="text-xs font-bold text-slate-900">${Pazurka.formatPrice(item.price * item.quantity)}</span>
+          <span class="text-xs font-bold text-slate-900">${Pazarvadi.formatPrice(item.price * item.quantity)}</span>
         </div>
       `).join("");
 
-      const subtotal = Pazurka.getCartSubtotal();
+      const subtotal = Pazarvadi.getCartSubtotal();
       const freeShip = 750;
       const shippingCost = subtotal >= freeShip ? 0 : 59.90;
       
@@ -357,23 +357,23 @@
 
       const total = Math.max(0, subtotal + shippingCost - discount);
 
-      document.getElementById("checkout-subtotal").textContent = Pazurka.formatPrice(subtotal);
-      document.getElementById("checkout-shipping").textContent = shippingCost === 0 ? "Bedava" : Pazurka.formatPrice(shippingCost);
+      document.getElementById("checkout-subtotal").textContent = Pazarvadi.formatPrice(subtotal);
+      document.getElementById("checkout-shipping").textContent = shippingCost === 0 ? "Bedava" : Pazarvadi.formatPrice(shippingCost);
 
       if (discount > 0) {
         document.getElementById("checkout-discount-row").classList.remove("hidden");
-        document.getElementById("checkout-discount").textContent = `-${Pazurka.formatPrice(discount)}`;
+        document.getElementById("checkout-discount").textContent = `-${Pazarvadi.formatPrice(discount)}`;
       }
 
-      document.getElementById("checkout-total").textContent = Pazurka.formatPrice(total);
-      document.getElementById("modal-amount").textContent = Pazurka.formatPrice(total);
+      document.getElementById("checkout-total").textContent = Pazarvadi.formatPrice(total);
+      document.getElementById("modal-amount").textContent = Pazarvadi.formatPrice(total);
 
-      Pazurka.refreshIcons();
+      Pazarvadi.refreshIcons();
     }
 
     async function handleCheckout(e) {
       e.preventDefault();
-      const cart = Pazurka.getCart();
+      const cart = Pazarvadi.getCart();
       if (cart.length === 0) return;
 
       const cargo = document.querySelector('input[name="cargo_company"]:checked')?.value || "Yurtiçi Kargo";
@@ -383,7 +383,7 @@
         if (c) couponCode = c.code;
       } catch {}
 
-      const loggedUser = Pazurka.getUser();
+      const loggedUser = Pazarvadi.getUser();
       pendingOrderPayload = {
         items: cart,
         user_id: loggedUser ? loggedUser.id : undefined,
@@ -431,7 +431,7 @@
       try {
         const res = await fetch("/api/orders", {
           method: "POST",
-          headers: Pazurka.getAuthHeaders(),
+          headers: Pazarvadi.getAuthHeaders(),
           body: JSON.stringify(pendingOrderPayload)
         });
         const data = await res.json();
@@ -447,26 +447,26 @@
           tracking_number: trackNum,
           customer_name: pendingOrderPayload.customer.name,
           customer_email: pendingOrderPayload.customer.email,
-          total: Pazurka.getCartSubtotal(),
+          total: Pazarvadi.getCartSubtotal(),
           order_status: "processing",
           shipping_company: pendingOrderPayload.shipping.cargoCompany,
           created_at: new Date().toISOString()
         };
       }
 
-      Pazurka.saveOrderLocal(orderObj);
-      Pazurka.clearCart();
+      Pazarvadi.saveOrderLocal(orderObj);
+      Pazarvadi.clearCart();
       localStorage.removeItem("pazurka_applied_coupon");
       window.location.href = `/siparis-basarili?order=${orderObj.order_number}`;
     }
 
     async function initSavedAddresses() {
-      Pazurka.populateCityDistrict("ship-city", "ship-district");
+      Pazarvadi.populateCityDistrict("ship-city", "ship-district");
 
-      const addresses = await Pazurka.getAddresses();
+      const addresses = await Pazarvadi.getAddresses();
       const container = document.getElementById("saved-addresses-box");
       const listEl = document.getElementById("saved-addresses-list");
-      const user = Pazurka.getUser();
+      const user = Pazarvadi.getUser();
 
       if (user && user.email) {
         document.getElementById("cust-email").value = user.email;
@@ -497,7 +497,7 @@
     }
 
     async function selectSavedAddress(index) {
-      const addresses = await Pazurka.getAddresses();
+      const addresses = await Pazarvadi.getAddresses();
       const addr = addresses[index];
       if (!addr) return;
 
@@ -512,7 +512,7 @@
       document.getElementById("cust-name").value = addr.recipient_name || "";
       document.getElementById("cust-phone").value = addr.phone || "";
       document.getElementById("ship-address").value = addr.address_line || "";
-      Pazurka.populateCityDistrict("ship-city", "ship-district", addr.city || "", addr.district || "");
+      Pazarvadi.populateCityDistrict("ship-city", "ship-district", addr.city || "", addr.district || "");
     }
 
     document.addEventListener("DOMContentLoaded", () => {

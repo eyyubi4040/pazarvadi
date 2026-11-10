@@ -23,7 +23,7 @@ export function seedData() {
     return;
   }
 
-  console.log(" Pazurka veritabanı örnek verilerle dolduruluyor...");
+  console.log(" Pazarvadi veritabanı örnek verilerle dolduruluyor...");
 
   // Default Admin User
   // Note: For simplicity and portability without external bcrypt, we store sha256
@@ -32,16 +32,16 @@ export function seedData() {
   const adminPassHash = hasher.digest("hex");
 
   const custHasher = new Bun.CryptoHasher("sha256");
-  custHasher.update("pazurka123");
+  custHasher.update("pazarvadi123");
   const custPassHash = custHasher.digest("hex");
 
   db.prepare(`
     INSERT INTO users (email, password_hash, full_name, phone, address, city, district, role)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?)
   `).run(
-    "admin@pazurka.com",
+    "admin@pazarvadi.com",
     adminPassHash,
-    "Pazurka Yönetici",
+    "Pazarvadi Yönetici",
     "0850 555 00 00",
     "Merkez Mah. Teknoloji Cad. No:42",
     "İstanbul",
@@ -53,7 +53,7 @@ export function seedData() {
     INSERT INTO users (email, password_hash, full_name, phone, address, city, district, role)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?)
   `).run(
-    "demo@pazurka.com",
+    "demo@pazarvadi.com",
     custPassHash,
     "Ahmet Yılmaz",
     "0532 100 20 30",
@@ -96,10 +96,10 @@ export function seedData() {
 
   // Settings
   const settings = [
-    ["site_title", "Pazurka - Yeni Nesil E-Ticaret Deneyimi"],
+    ["site_title", "Pazarvadi - Yeni Nesil E-Ticaret Deneyimi"],
     ["site_slogan", "Kaliteli Ürünler, Hızlı Teslimat, Güvenli Alışveriş"],
     ["support_phone", "0850 555 72 98"],
-    ["support_email", "destek@pazurka.com"],
+    ["support_email", "destek@pazarvadi.com"],
     ["free_shipping_threshold", "750"],
     ["shipping_fee", "59.90"],
     ["tax_rate", "20"],
@@ -170,10 +170,10 @@ export function seedData() {
     // Elektronik
     {
       category_id: 1,
-      name: "Pazurka Pro ANC Kablosuz Kulak Üstü Kulaklık",
+      name: "Pazarvadi Pro ANC Kablosuz Kulak Üstü Kulaklık",
       slug: "pazurka-pro-anc-kablosuz-kulaklik",
       short_desc: "Aktif Gürültü Engelleme (ANC), 45 Saat Pil Ömrü, Hi-Res Audio ve Şeffaf Mod",
-      description: "Pazurka Pro ANC, müziği tüm ayrıntılarıyla hissetmeniz için tasarlandı. 40mm dinamik sürücüler, çift mikrofonlu hibrit gürültü engelleme sistemi ve ultra yumuşak protein deri kulak yastıkları ile gün boyu kesintisiz stüdyo kalitesinde konfor sunar.",
+      description: "Pazarvadi Pro ANC, müziği tüm ayrıntılarıyla hissetmeniz için tasarlandı. 40mm dinamik sürücüler, çift mikrofonlu hibrit gürültü engelleme sistemi ve ultra yumuşak protein deri kulak yastıkları ile gün boyu kesintisiz stüdyo kalitesinde konfor sunar.",
       price: 3499.00,
       compare_at_price: 4299.00,
       sku: "PZR-TECH-001",
@@ -195,12 +195,12 @@ export function seedData() {
         "Şarj Süresi": "10 dk şarjla 4 saat kullanım",
         "Sürücü Çapı": "40mm Biyoselüloz Titanyum",
         "Ağırlık": "245 gram",
-        "Garanti": "2 Yıl Pazurka Türkiye Garantili"
+        "Garanti": "2 Yıl Pazarvadi Türkiye Garantili"
       })
     },
     {
       category_id: 1,
-      name: "Pazurka Chrono Ultra Akıllı Titanyum Saat",
+      name: "Pazarvadi Chrono Ultra Akıllı Titanyum Saat",
       slug: "pazurka-chrono-ultra-akilli-saat",
       short_desc: "1.43 inç AMOLED Ekran, Safir Cam, EKG + Kandaki Oksijen Sensörü, Titanyum Kasa",
       description: "Hem toplantı odasında hem doğa maceralarında yanınızda. Safir cam ve havacılık sınıfı titanyum kasa ile darbelere karşı dayanıklı. 100+ spor modu, Bluetooth üzerinden telefon görüşmesi ve 14 güne varan pil ömrü.",
@@ -228,7 +228,7 @@ export function seedData() {
     },
     {
       category_id: 1,
-      name: "Pazurka Pods Pro True Wireless Kulaklık",
+      name: "Pazarvadi Pods Pro True Wireless Kulaklık",
       slug: "pazurka-pods-pro-kablosuz-kulaklik",
       short_desc: "Uzamsal Ses, Kablosuz Şarj Kutusu, Kristal Netliğinde Mikrofon",
       description: "Cebinizdeki dev ses performansı. Ergonomik tasarımı kulağınıza tam oturur, IPX5 ter ve su sıçramalarına dayanıklıdır. Çift mikrofonlu ENC teknolojisi rüzgarlı havalarda bile sesinizi pürüzsüz iletir.",
@@ -257,7 +257,7 @@ export function seedData() {
     // Moda & Aksesuar
     {
       category_id: 2,
-      name: "Pazurka Heritage El Yapımı Hakiki Deri Sırt Çantası",
+      name: "Pazarvadi Heritage El Yapımı Hakiki Deri Sırt Çantası",
       slug: "pazurka-heritage-hakiki-deri-sirt-cantasi",
       short_desc: "16\" Laptop Bölmeli, Vintage Tabaklanmış Dana Derisi, Su İtici Astar",
       description: "Zamanla güzelleşen, nesilden nesile aktarılacak bir zanaat harikası. %100 birinci sınıf vejetal tabaklanmış hakiki dana derisinden el işçiliğiyle üretilmiştir. Darbe emici süngerli 16 inç MacBook / laptop yuvası.",
@@ -284,7 +284,7 @@ export function seedData() {
     },
     {
       category_id: 2,
-      name: "Pazurka Minimalist Polarize Güneş Gözlüğü (Mat Siyah)",
+      name: "Pazarvadi Minimalist Polarize Güneş Gözlüğü (Mat Siyah)",
       slug: "pazurka-minimalist-polarize-gunes-gozlugu",
       short_desc: "UV400 Koruma, Japon Titanyum Çerçeve, Çizilmeye Dayanıklı Polarize Cam",
       description: "Gözlerinizi güneşin zararlı UV ışınlarından korurken şıklığınızdan ödün vermeyin. Ultra hafif titanyum gövdesi burunda ağırlık yapmaz. Deri seyahat kılıfı ve mikrofiber temizleme bezi hediyeli.",
@@ -313,7 +313,7 @@ export function seedData() {
     // Ev & Mutfak
     {
       category_id: 3,
-      name: "Pazurka Barista Touch Otomatik Espresso & Kahve Makinesi",
+      name: "Pazarvadi Barista Touch Otomatik Espresso & Kahve Makinesi",
       slug: "pazurka-barista-touch-kahve-makinesi",
       short_desc: "19 Bar İtalyan Pompa, Dahili Konik Çelik Değirmen, Profesyonel Süt Köpürtücü",
       description: "Evinizi üçüncü nesil bir kahve dükkanına dönüştürün. Çekirdekten fincana taze öğütüm. Dokunmatik ekranı ile tek tuşla Espresso, Americano, Cappuccino ve Latte hazırlama imkanı.",
@@ -340,7 +340,7 @@ export function seedData() {
     },
     {
       category_id: 3,
-      name: "Pazurka CleanBot X10 Lidar Lazer Robot Süpürge",
+      name: "Pazarvadi CleanBot X10 Lidar Lazer Robot Süpürge",
       slug: "pazurka-cleanbot-x10-robot-supurge",
       short_desc: "6000 Pa Emiş Gücü, Sonic Titreşimli Mop, Otomatik Toz Boşaltma İstasyonu",
       description: "Temizliği ona bırakın, zamanınız size kalsın. 3D lazer navigasyon ve yapay zeka engel tanıma ile kablolara ve terliklere takılmaz. Halı tespit edince mopunu 12mm yukarı kaldırır ve emiş gücünü maksimuma çıkarır.",
@@ -369,7 +369,7 @@ export function seedData() {
     // Spor & Outdoor
     {
       category_id: 4,
-      name: "Pazurka Aero Vakumlu Çift Katman Çelik Termos (1000 ml)",
+      name: "Pazarvadi Aero Vakumlu Çift Katman Çelik Termos (1000 ml)",
       slug: "pazurka-aero-vakumlu-celik-termos-1000ml",
       short_desc: "24 Saat Soğuk, 12 Saat Sıcak Tutar, 18/8 Gıda Sınıfı Çelik, Sızdırmaz Kapak",
       description: "Dağ yürüyüşlerinde, kampta veya spor salonunda suyunuz hep istediğiniz sıcaklıkta. Çift duvarlı vakum yalıtımı ile dış yüzeyi asla terleme yapmaz veya elinizi yakmaz.",
@@ -398,7 +398,7 @@ export function seedData() {
     // Kozmetik & Bakım
     {
       category_id: 5,
-      name: "Pazurka Botanicals Yaşlanma Karşıtı C Vitamini Serum Seti",
+      name: "Pazarvadi Botanicals Yaşlanma Karşıtı C Vitamini Serum Seti",
       slug: "pazurka-botanicals-c-vitamini-serum-seti",
       short_desc: "%15 Saf C Vitamini + Hyaluronik Asit + Ferulik Asit, Aydınlatıcı ve Sıkılaştırıcı",
       description: "Cildinize gençlik ışıltısını geri kazandırın. Dermatolojik olarak test edilmiş, hayvanlar üzerinde test edilmemiş vegan formülü ile koyu leke görünümünü azaltır ve kolajen üretimini destekler.",
@@ -443,7 +443,7 @@ export function seedData() {
 
   // Active Discount Coupons
   const coupons = [
-    { code: "PAZURKA100", discount_type: "fixed", discount_value: 100, min_spend: 1000 },
+    { code: "PAZARVADI100", discount_type: "fixed", discount_value: 100, min_spend: 1000 },
     { code: "HOSGELDIN20", discount_type: "percent", discount_value: 20, min_spend: 500 },
     { code: "FIRSAT10", discount_type: "percent", discount_value: 10, min_spend: 250 }
   ];
@@ -486,7 +486,7 @@ export function seedData() {
   `).run(
     "PZR-" + Math.floor(100000 + Math.random() * 900000),
     "Ahmet Yılmaz",
-    "demo@pazurka.com",
+    "demo@pazarvadi.com",
     "0532 100 20 30",
     "Atatürk Bulvarı No:15 Daire:4",
     "Ankara",
@@ -507,10 +507,10 @@ export function seedData() {
   const orderId = orderRes.lastInsertRowid;
   db.prepare(`
     INSERT INTO order_items (order_id, product_id, product_name, price, quantity, total, image)
-    VALUES (?, 1, 'Pazurka Pro ANC Kablosuz Kulak Üstü Kulaklık', 3499.00, 1, 3499.00, 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&auto=format&fit=crop&q=80')
+    VALUES (?, 1, 'Pazarvadi Pro ANC Kablosuz Kulak Üstü Kulaklık', 3499.00, 1, 3499.00, 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&auto=format&fit=crop&q=80')
   `).run(orderId);
 
-  console.log(" Pazurka veritabanı başarıyla dolduruldu!");
+  console.log(" Pazarvadi veritabanı başarıyla dolduruldu!");
 }
 
 // Allow direct run via: bun run server/seed.ts
