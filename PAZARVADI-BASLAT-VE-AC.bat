@@ -18,3 +18,4 @@ echo [2/2] Sunucu calisiyor... (Kapatmak icin bu pencereyi kapatabilirsiniz)
 bun run start
 
 pause
+

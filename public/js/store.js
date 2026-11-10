@@ -1,4 +1,4 @@
-﻿/**
+/**
  * PAZARVADI E-COMMERCE CORE CLIENT ENGINE (V2 ENHANCED)
  * Rich animations, guaranteed icons, social proof toasts, full-featured cart & wishlist
  */
