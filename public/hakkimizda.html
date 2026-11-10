@@ -29,13 +29,13 @@
 <body class="bg-slate-50 text-slate-900 flex flex-col min-h-screen">
 
   <!-- TOP BANNER -->
-  <div class="bg-gradient-to-r from-neutral-950 via-slate-900 to-neutral-950 text-white text-[11px] sm:text-xs py-2 px-4 border-b border-white/5">
+  <div class="bg-gradient-to-r from-neutral-950 via-slate-900 to-neutral-950 text-white text-[11px] sm:text-xs py-2 px-4 border-b border-white/5 overflow-hidden">
     <div class="max-w-7xl mx-auto flex items-center justify-between">
-      <div class="flex items-center gap-2">
-        <span class="inline-flex items-center justify-center w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-        <span class="font-medium text-slate-300">Pazurka • Geleceğin Yeni Nesil Alışveriş Deneyimi</span>
+      <div class="flex items-center gap-2 truncate">
+        <span class="inline-flex items-center justify-center w-2 h-2 rounded-full bg-emerald-400 animate-pulse flex-shrink-0"></span>
+        <span class="font-medium text-slate-300 truncate">Pazurka • Geleceğin Yeni Nesil Alışveriş Deneyimi</span>
       </div>
-      <div class="flex items-center gap-5 text-slate-400">
+      <div class="hidden sm:flex items-center gap-5 text-slate-400 flex-shrink-0">
         <a href="/siparis-takip" class="hover:text-white transition flex items-center gap-1.5 font-medium">
           <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
           <span>Kargo Takibi</span>
